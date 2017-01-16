@@ -1,0 +1,22 @@
+{
+  "name": "venga_project",
+  "version": "1.0.0",
+  "description": "vengaaaaaa",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arpadvas/venga_project.git"
+  },
+  "author": "Arpad Vas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arpadvas/venga_project/issues"
+  },
+  "homepage": "https://github.com/arpadvas/venga_project#readme",
+  "dependencies": {
+    "express": "4.14.0"
+  }
+}
