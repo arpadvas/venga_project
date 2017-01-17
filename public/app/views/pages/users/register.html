@@ -1,0 +1,25 @@
+<div class="jumbotron">
+  <h1 class="display-4 m-b-2">User registration</h1>
+  <div class="alert alert-info" role="alert" ng-show='loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+  <div class="alert alert-success" role="alert" ng-show='success_message'><p>{{success_message}}</p></div>
+  <div class="alert alert-danger" role="alert" ng-show='error_message'><p>{{error_message}}</p></div>
+  <form ng-submit="register.regUser(regData)">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input id="name" type="text" ng-model="register.regData.name" placeholder="first and last" name="name" class="form-control input-custom"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="email" ng-model="register.regData.email" placeholder="name@email.com" name="email" class="form-control input-custom"/>
+    </div>
+    <div class="form-group">
+      <label for="pw">Password:</label>
+      <input id="pw" type="password" ng-model="register.regData.password" name="password" class="form-control input-custom"/>
+    </div>
+    <!-- <div class="form-group">
+      <label for="pw2">Confirm Password:</label>
+      <input id="pw2" type="password" name="confirmPassword" class="form-control input-custom"/>
+    </div> -->
+    <button type="submit" class="btn btn-primary">Sign up</button>
+  </form>
+</div>
