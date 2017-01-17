@@ -1,8 +1,8 @@
 <div class="jumbotron">
   <h1 class="display-4 m-b-2">User registration</h1>
-  <div class="alert alert-info" role="alert" ng-show='loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
-  <div class="alert alert-success" role="alert" ng-show='success_message'><p>{{success_message}}</p></div>
-  <div class="alert alert-danger" role="alert" ng-show='error_message'><p>{{error_message}}</p></div>
+  <div class="alert alert-info" role="alert" ng-show='register.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+  <div class="alert alert-success" role="alert" ng-show='register.successMsg'><p>{{register.successMsg}}</p></div>
+  <div class="alert alert-danger" role="alert" ng-show='register.errorMsg'><p>{{register.errorMsg}}</p></div>
   <form ng-submit="register.regUser(regData)">
     <div class="form-group">
       <label for="name">Name:</label>
