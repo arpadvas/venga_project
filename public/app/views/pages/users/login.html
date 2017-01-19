@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <h1 class="display-4 m-b-2">Log In</h1>
+  <div class="alert alert-info" role="alert" ng-show='main.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+  <div class="alert alert-success" role="alert" ng-show='main.successMsg'><p>{{main.successMsg}}</p></div>
+  <div class="alert alert-danger" role="alert" ng-show='main.errorMsg'><p>{{main.errorMsg}}</p></div>
+  <form ng-submit="main.doLogin(loginData)">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" ng-model="main.loginData.email" placeholder="email" name="email" class="form-control input-custom"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" ng-model="main.loginData.password" placeholder="password" name="password" class="form-control input-custom"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Log in</button>
+  </form>
+</div>

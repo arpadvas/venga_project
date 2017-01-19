@@ -1,13 +1,14 @@
-angular.module('userControllers', [])
+angular.module('userControllers', ['userServices'])
 
-.controller('regCtrl', function($http, $location, $timeout) {
+.controller('regCtrl', function($http, $location, $timeout, User) {
 
 	var app = this;
 	
 	this.regUser = function(regData) {
 		app.loading = true;
 		app.errorMsg = false;
-		$http.post('/api/users', this.regData).then(function(data) {
+
+		User.create(app.regData).then(function(data) {
 			console.log(data.data.success);
 			console.log(data.data.message);
 			if(data.data.success) {
