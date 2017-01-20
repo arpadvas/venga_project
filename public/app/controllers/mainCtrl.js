@@ -4,6 +4,7 @@ angular.module('mainController', ['authServices'])
 	
 	var app = this;
 
+	app.loadme = false;
 	$rootScope.$on('$routeChangeStart', function() {
 		if (Auth.isLoggedIn()) {
 			console.log('Succes: User is logged in.');
@@ -12,11 +13,13 @@ angular.module('mainController', ['authServices'])
 				console.log(data.data.name);
 				app.name = data.data.name;
 				app.email = data.data.email;
+				app.loadme = true;
 		});
 		} else {
 			console.log('Succes: User is not logged in.');
 			app.isLoggedIn = false;
 			app.name = '';
+			app.loadme = true;
 		}
   	});
 	
