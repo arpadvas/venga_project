@@ -56,8 +56,10 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Main menu<span class="sr-only">(current)</span></a></li>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/myAscents"> My ascents</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
+            <li><a href="/profile" ng-show="main.isLoggedIn">Profile</a></li>
+            <li><a href="/myAscents" ng-show="main.isLoggedIn"> My ascents</a></li>
           </ul>
         </div> <!-- end of sidebar -->
 

@@ -19,7 +19,23 @@ module.exports = function(router) {
 		} else {
 			user.save(function(err) {
 			if(err) {
-				res.json({success: false, message: 'Email alredy exist!'});
+				if (err.errors != null) {
+					if(err.errors.name) {
+						res.json({success: false, message: err.errors.name.message});
+					} else if (err.errors.email) {
+						res.json({success: false, message: err.errors.email.message});
+					} else if (err.errors.password) {
+						res.json({success: false, message: err.errors.password.message});
+					} else {
+						res.json({success: false, message: err});
+					}
+				} else if (err) {
+					if (err.code === 11000) {
+						res.json({success: false, message: 'Email already exist! '});
+					} else {
+						res.json({success: false, message: err});
+					}
+				}  
 			} else {
 				res.json({success: true, message: 'User created!'});
 			}
