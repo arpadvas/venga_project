@@ -43,6 +43,20 @@ module.exports = function(router) {
 		}
 	});
 
+	router.post('/checkemail', function(req, res) {
+		User.findOne({ email: req.body.email }).select('email').exec(function(err, user) {
+			if (err) throw err;
+
+			if (user) {
+				res.json({ success: false, message: 'That email is already taken!' });
+			} else {
+				res.json({ success: true, message: 'Valid email address.' });
+			}
+
+			
+		});
+	});
+
 	router.post('/authenticate', function(req, res) {
 		User.findOne({ email: req.body.email }).select('name email password').exec(function(err, user) {
 			if (err) throw err;

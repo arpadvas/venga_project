@@ -7,5 +7,9 @@ angular.module('userServices', [])
 		return $http.post('/api/users', regData);
 	}
 
+	userFactory.checkEmail = function(regData) {
+		return $http.post('/api/checkemail', regData);
+	}
+
 	return userFactory;
 });

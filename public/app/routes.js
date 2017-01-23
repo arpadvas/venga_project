@@ -5,8 +5,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	$routeProvider
 
 	.when('/', {
-		templateUrl: 'app/views/pages/home.html',
-		authenticated: false
+		templateUrl: 'app/views/pages/home.html'
 	})
 
 	.when('/register', {
