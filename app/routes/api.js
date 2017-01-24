@@ -1,14 +1,26 @@
 var User = require('../models/user');
 var jwt = require('jsonwebtoken');
 var secret = 'cora';
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(router) {
+
+	var options = {
+	  auth: {
+	    api_user: 'avas81',
+	    api_key: 'Jennifer1981'
+	  }
+	}
+
+	var client = nodemailer.createTransport(sgTransport(options));
 
 	router.post('/users', function(req, res) {
 		var user = new User();
 		user.name = req.body.name;
 		user.email = req.body.email;
 		user.password = req.body.password;
+		user.temporarytoken = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
 		if(req.body.name === null ||
 			req.body.name === '' ||
 			req.body.email === null ||
@@ -37,7 +49,23 @@ module.exports = function(router) {
 					}
 				}  
 			} else {
-				res.json({success: true, message: 'User created!'});
+				var email = {
+				  from: 'Localhost',
+				  to: user.email,
+				  subject: 'Activation Link',
+				  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/activate/' + user.temporarytoken,
+				  html: 'Hello' + user.name + ', Please click on the following link: <a href="http://localhost:3000/activate/' + user.temporarytoken + '">link</a>'
+				};
+
+				client.sendMail(email, function(err, info){
+				    if (err ){
+				      console.log(err);
+				    }
+				    else {
+				      console.log('Message sent: ' + info.response);
+				    }
+				});
+				res.json({success: true, message: 'Account registered! Please check your e-mails for activation link.'});
 			}
 			});
 		}
@@ -76,6 +104,51 @@ module.exports = function(router) {
 					res.json({ success: true, message: 'User authenticated!', token: token });
 				}
 			}
+		});
+	});
+
+	router.put('/activate/:token', function(req, res) {
+		User.findOne({ temporarytoken: req.params.token }, function(err, user) {
+			if (err) throw err;
+			var token = req.params.token;
+
+			jwt.verify(token, secret, function(err, decoded) {
+				if(err) {
+					res.json({success: false, message: 'Activation link has expired.'});
+				} else if (!user) {
+					res.json({success: false, message: 'Activation link has expired.'});
+				} else {
+					user.temporarytoken = false;
+					user.active = true;
+					user.save(function(err) {
+						if (err) {
+							console.log(err);
+						} else {
+
+
+							var email = {
+							  from: 'Localhost',
+							  to: user.email,
+							  subject: 'Activation Activated',
+							  text: 'Hello world' + user.name + ', Your account has been activated.',
+							  html: 'Hello world' + user.name + ', Your account has been activated.'
+							};
+
+							client.sendMail(email, function(err, info){
+							    if (err ){
+							      console.log(err);
+							    }
+							    else {
+							      console.log('Message sent: ' + info.response);
+							    }
+							});
+
+							res.json({ success: true, message: 'Account activated.'});
+						}
+					});					
+				}
+			});
+
 		});
 	});
 

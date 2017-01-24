@@ -60,12 +60,25 @@ var userSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
-		validate: passwordValidator
+		validate: passwordValidator,
+		select: false
+	},
+	active: {
+		type: Boolean,
+		required: true,
+		default: false
+	},
+	temporarytoken: {
+		type: String,
+		required: true
 	}
 });
 
 userSchema.pre('save', function(next) {
 	var user = this;
+
+	if (!user.isModified('password')) return next();
+
 	bcrypt.hash(user.password, null, null, function(err, hash) {
 		if(err) {
 			return next(err);
