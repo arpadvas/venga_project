@@ -3,7 +3,7 @@
   <div class="alert alert-info" role="alert" ng-show='register.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
   <div class="alert alert-success" role="alert" ng-show='register.successMsg'><p>{{register.successMsg}}</p></div>
   <div class="alert alert-danger" role="alert" ng-show='register.errorMsg'><p>{{register.errorMsg}}</p></div>
-  <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid)" novalidate>
+  <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid, confirmed)" novalidate>
 
 
     <!-- Name -->
