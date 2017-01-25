@@ -23,6 +23,7 @@ angular.module('mainController', ['authServices'])
 	this.doLogin = function(loginData) {
 		app.loading = true;
 		app.errorMsg = false;
+		app.expired = false;
 
 		Auth.login(app.loginData).then(function(data) {
 			if(data.data.success) {
@@ -34,8 +35,14 @@ angular.module('mainController', ['authServices'])
 					app.successMsg = false;
 				}, 2000);
 			} else {
-				app.loading = false;
-				app.errorMsg = data.data.message;
+				if (data.data.expired) {
+					app.expired = true;
+					app.loading = false;
+					app.errorMsg = data.data.message;
+				} else {
+					app.loading = false;
+					app.errorMsg = data.data.message;
+				}
 			}
 		});
 	};

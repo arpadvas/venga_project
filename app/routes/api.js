@@ -86,7 +86,7 @@ module.exports = function(router) {
 	});
 
 	router.post('/authenticate', function(req, res) {
-		User.findOne({ email: req.body.email }).select('name email password').exec(function(err, user) {
+		User.findOne({ email: req.body.email }).select('name email password active').exec(function(err, user) {
 			if (err) throw err;
 
 			if (!user) {
@@ -99,11 +99,67 @@ module.exports = function(router) {
 				}
 				if (!validPassword) {
 					res.json({ success: false, message: 'Could not authenticate password!' });
+				} else if (!user.active) {
+					res.json({ success: false, message: 'Account is not yet activated!', expired: true });
 				} else {
 					var token = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
 					res.json({ success: true, message: 'User authenticated!', token: token });
 				}
 			}
+		});
+	});
+
+	router.post('/resend', function(req, res) {
+		User.findOne({ email: req.body.email }).select('name email password active').exec(function(err, user) {
+			if (err) throw err;
+
+			if (!user) {
+				res.json({ success: false, message: 'Could not authenticate user!' });
+			} else if (user) {
+				if (req.body.password) {
+					var validPassword = user.comparePassword(req.body.password);
+				} else {
+					return res.json({ success: false, message: 'No password provided!' });
+				}
+				if (!validPassword) {
+					res.json({ success: false, message: 'Could not authenticate password!' });
+				} else if (user.active) {
+					res.json({ success: false, message: 'Account is already activated.'});
+				} else {
+					res.json({ success: true, user: user });
+				}
+			}
+		});
+	});
+
+	router.put('/resend', function(req, res) {
+		User.findOne({ email: req.body.email }).select('name email temporarytoken').exec(function(err, user) {
+			if (err) throw err;
+
+			user.temporarytoken = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
+			user.save(function(err) {
+				if (err) {
+					console.log(err);
+				} else {
+					var email = {
+					  from: 'Localhost',
+					  to: user.email,
+					  subject: 'Activation Link Request',
+					  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/activate/' + user.temporarytoken,
+					  html: 'Hello' + user.name + ', Please click on the following link: <a href="http://localhost:3000/activate/' + user.temporarytoken + '">link</a>'
+					};
+
+					client.sendMail(email, function(err, info){
+					    if (err ){
+					      console.log(err);
+					    }
+					    else {
+					      console.log('Message sent: ' + info.response);
+					    }
+					});
+					res.json({ success: true, message: 'Link has been sent!'});
+				}
+			});
 		});
 	});
 

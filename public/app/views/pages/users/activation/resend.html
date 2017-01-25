@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <h1 class="display-4 m-b-2">Resend activation link</h1>
+  <div class="alert alert-info" role="alert" ng-show='resend.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+  <div class="alert alert-success" role="alert" ng-show='resend.successMsg'><p>{{resend.successMsg}}</p></div>
+  <div class="alert alert-danger" role="alert" ng-show='resend.errorMsg'><p>{{resend.errorMsg}}</p></div>
+  <form ng-submit="resend.checkCredentials(loginData)">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" ng-model="resend.loginData.email" placeholder="email" name="email" class="form-control input-custom"/>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" ng-model="resend.loginData.password" placeholder="password" name="password" class="form-control input-custom"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

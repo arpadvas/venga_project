@@ -41,6 +41,12 @@ var app = angular.module('appRoutes', ['ngRoute'])
         controllerAs: 'email'
     })
 
+    .when('/resend', {
+        templateUrl: 'app/views/pages/users/activation/resend.html',
+        controller: 'resendCtrl',
+        controllerAs: 'resend'
+    })
+
 	.otherwise( {redirectTo: '/'} );
 
 	$locationProvider.html5Mode({
