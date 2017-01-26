@@ -44,4 +44,15 @@ angular.module('emailController', ['userServices'])
 		});
 	};
 
+})
+
+.controller('passwordCtrl', function() {
+
 });
+
+
+
+
+
+
+

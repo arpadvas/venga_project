@@ -1,8 +1,8 @@
-<div class="jumbotron">
+<div class="jumbotron panel">
   <h1 class="display-4 m-b-2">User registration</h1>
-  <div class="alert alert-info" role="alert" ng-show='register.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
-  <div class="alert alert-success" role="alert" ng-show='register.successMsg'><p>{{register.successMsg}}</p></div>
-  <div class="alert alert-danger" role="alert" ng-show='register.errorMsg'><p>{{register.errorMsg}}</p></div>
+  <div class="alert alert-info alert-custom" role="alert" ng-show='register.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+  <div class="alert alert-success alert-custom" role="alert" ng-show='register.successMsg'><p>{{register.successMsg}}</p></div>
+  <div class="alert alert-danger alert-custom" role="alert" ng-show='register.errorMsg'><p>{{register.errorMsg}}</p></div>
   <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid, confirmed)" novalidate>
 
 

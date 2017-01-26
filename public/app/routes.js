@@ -21,8 +21,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	})
 
 	.when('/logout', {
-		templateUrl: 'app/views/pages/users/logout.html',
-		authenticated: true
+		templateUrl: 'app/views/pages/users/logout.html'
+		// authenticated: true
 	})
 
 	.when('/profile', {
@@ -45,6 +45,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
         templateUrl: 'app/views/pages/users/activation/resend.html',
         controller: 'resendCtrl',
         controllerAs: 'resend'
+    })
+
+    .when('/resetpassword', {
+        templateUrl: 'app/views/pages/users/reset/password.html',
+        controller: 'passwordCtrl',
+        controllerAs: 'password',
+        authenticated: false
     })
 
 	.otherwise( {redirectTo: '/'} );

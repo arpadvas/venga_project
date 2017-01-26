@@ -157,7 +157,7 @@ module.exports = function(router) {
 					      console.log('Message sent: ' + info.response);
 					    }
 					});
-					res.json({ success: true, message: 'Link has been sent!'});
+					res.json({ success: true, message: 'Link has been sent! Please check your mailbox.'});
 				}
 			});
 		});
@@ -206,6 +206,44 @@ module.exports = function(router) {
 			});
 
 		});
+	});
+
+	router.put('/resetpassword', function(req, res) {
+		User.findOne({ email: req.body.email }).select('name email resettoken active').exec(function(err, user) {
+
+			if (err) throw err;
+
+			if (!user) {
+				res.json({ success: false, message: 'User was not found with email provided!' });
+			} else if (!user.active) {
+					res.json({ success: false, message: 'Account is not yet activated!'});
+			} else {
+				user.resettoken = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
+				user.save(function(err) {
+					if (err) {
+						res.json({ success: false, message: err });
+					} else {
+						var email = {
+						  from: 'Localhost',
+						  to: user.email,
+						  subject: 'Password Reset Link',
+						  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/newpassword/' + user.resettoken,
+						  html: 'Hello' + user.name + ', Please click on the following link: <a href="http://localhost:3000/newpassword/' + user.resettoken + '">link</a>'
+						};
+
+						client.sendMail(email, function(err, info){
+						    if (err ){
+						      console.log(err);
+						    }
+						    else {
+						      console.log('Message sent: ' + info.response);
+						    }
+						});
+						res.json({ success: true, message: 'Please check you mailbox for password reset link.' });
+					}
+				});
+			}
+		});	
 	});
 
 	router.use(function(req, res, next) {
