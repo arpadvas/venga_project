@@ -7,6 +7,7 @@ angular.module('userControllers', ['userServices'])
 	this.regUser = function(regData, valid, confirmed) {
 		app.loading = true;
 		app.errorMsg = false;
+		app.disabled = true;
 
 		if (valid && confirmed) {
 			User.create(app.regData).then(function(data) {
@@ -18,11 +19,13 @@ angular.module('userControllers', ['userServices'])
 					}, 2000);
 				} else {
 					app.loading = false;
+					app.disabled = false;
 					app.errorMsg = data.data.message;
 				}
 			});
 		} else {
 			app.loading = false;
+			app.disabled = false;
 			app.errorMsg = 'Please make sure the form is filled out properly!';
 		}
 

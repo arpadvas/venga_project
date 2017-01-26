@@ -24,6 +24,7 @@ angular.module('mainController', ['authServices'])
 		app.loading = true;
 		app.errorMsg = false;
 		app.expired = false;
+		app.disabled = true;
 
 		Auth.login(app.loginData).then(function(data) {
 			if(data.data.success) {
@@ -41,6 +42,7 @@ angular.module('mainController', ['authServices'])
 					app.errorMsg = data.data.message;
 				} else {
 					app.loading = false;
+					app.disabled = false;
 					app.errorMsg = data.data.message;
 				}
 			}
