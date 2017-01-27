@@ -227,8 +227,8 @@ module.exports = function(router) {
 						  from: 'Localhost',
 						  to: user.email,
 						  subject: 'Password Reset Link',
-						  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/newpassword/' + user.resettoken,
-						  html: 'Hello' + user.name + ', Please click on the following link: <a href="http://localhost:3000/newpassword/' + user.resettoken + '">link</a>'
+						  text: 'Hello' + user.name + ', Please click on the following link to reset your password: http://localhost:3000/reset/' + user.resettoken,
+						  html: 'Hello' + user.name + ', Please click on the following link to reset your password: <a href="http://localhost:3000/reset/' + user.resettoken + '">link</a>'
 						};
 
 						client.sendMail(email, function(err, info){
@@ -244,6 +244,69 @@ module.exports = function(router) {
 				});
 			}
 		});	
+	});
+
+	router.get('/resetpassword/:token', function(req, res) {
+
+		User.findOne({ resettoken: req.params.token }).select().exec(function(err, user) {
+
+			if (err) throw err;
+
+			var token = req.params.token;
+			jwt.verify(token, secret, function(err, decoded) {
+			if(err) {
+				res.json({success: false, message: 'Password link has expired!'});
+			} else {
+				if (!user) {
+					res.json({success: false, message: 'Password link has expired!'});
+				} else {
+					res.json({success: true, user: user});
+				}
+			}
+		});
+
+		});
+
+	});
+
+	router.put('/savepassword', function(req, res) {
+
+		User.findOne({ email: req.body.email }).select('name email password resettoken').exec(function(err, user) {
+
+			if (err) throw err;
+
+			if (req.body.password == null || req.body.password == '') {
+				res.json({ success: false, message: 'Password has not been provided!' });
+			} else {
+				user.password = req.body.password;
+				user.resettoken = false;
+				user.save(function(err) {
+					if (err) {
+						res.json({ success: false, message: err });
+					} else {
+						var email = {
+						  from: 'Localhost',
+						  to: user.email,
+						  subject: 'Success password reset',
+						  text: 'Hello world' + user.name + ', Your password has been succeccfully reset.',
+						  html: 'Hello world' + user.name + ', Your password has been succeccfully reset.'
+						};
+
+						client.sendMail(email, function(err, info){
+						    if (err ){
+						      console.log(err);
+						    }
+						    else {
+						      console.log('Message sent: ' + info.response);
+						    }
+						});
+						res.json({ success: true, message: 'Password has been reset.' });
+					}
+				});
+			}
+
+		});
+
 	});
 
 	router.use(function(req, res, next) {

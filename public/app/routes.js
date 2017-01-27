@@ -38,19 +38,28 @@ var app = angular.module('appRoutes', ['ngRoute'])
 	.when('/activate/:token', {
         templateUrl: 'app/views/pages/users/activation/activate.html',
         controller: 'emailCtrl',
-        controllerAs: 'email'
+        controllerAs: 'email',
+        authenticated: false
     })
 
     .when('/resend', {
         templateUrl: 'app/views/pages/users/activation/resend.html',
         controller: 'resendCtrl',
-        controllerAs: 'resend'
+        controllerAs: 'resend',
+        authenticated: false
     })
 
     .when('/resetpassword', {
         templateUrl: 'app/views/pages/users/reset/password.html',
         controller: 'passwordCtrl',
         controllerAs: 'password',
+        authenticated: false
+    })
+
+    .when('/reset/:token', {
+        templateUrl: 'app/views/pages/users/reset/newpassword.html',
+        controller: 'resetCtrl',
+        controllerAs: 'reset',
         authenticated: false
     })
 
