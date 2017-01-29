@@ -1,11 +1,40 @@
 angular.module('mainController', ['authServices'])
 
-.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope) {
+.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $interval, $window) {
 	
 	var app = this;
 
 	app.loadme = false;
+
+	app.checkSession = function() {
+  		if (Auth.isLoggedIn()) {
+  			app.checkingSession = true;
+  			var interval = $interval(function() {
+  				var token = $window.localStorage.getItem('token');
+  				if (token === null) {
+  					$interval.cancel(interval);
+  				} else {
+  					self.parseJwt = function(token) {
+  						var base64Url = token.split('.')[1];
+  						var base64 = base64Url.replace('-','+').replace('_','/');
+  						return JSON.parse($window.atob(base64));
+  					}
+  					var expireTime = self.parseJwt(token);
+  					var timeStamp = Math.floor(Date.now() / 1000);
+  					console.log(expireTime.exp);
+  					console.log(timeStamp)
+  					var timeCheck = expireTime.exp - timeStamp;
+  					console.log(timeCheck);
+  				}
+  			}, 2000);
+  		}
+  	};
+
+  	app.checkSession();
+
 	$rootScope.$on('$routeChangeStart', function() {
+		if (!app.checkingSession) app.checkSession();
+
 		if (Auth.isLoggedIn()) {
 			app.isLoggedIn = true;
 			Auth.getUser().then(function(data) {
@@ -19,6 +48,7 @@ angular.module('mainController', ['authServices'])
 			app.loadme = true;
 		}
   	});
+
 	
 	this.doLogin = function(loginData) {
 		app.loading = true;
@@ -34,6 +64,7 @@ angular.module('mainController', ['authServices'])
 					$location.path('/');
 					app.loginData = '';
 					app.successMsg = false;
+					app.checkSession();
 				}, 2000);
 			} else {
 				if (data.data.expired) {
