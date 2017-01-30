@@ -1,0 +1,25 @@
+<div class="jumbotron panel">
+  <h1 class="display-4 m-b-2">User management</h1>
+  <div class="alert alert-info alert-custom" role="alert" ng-show='management.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p> Loading...</p></div>
+  <div class="alert alert-success alert-custom" role="alert" ng-show='management.successMsg'><p>{{management.successMsg}}</p></div>
+  <div class="alert alert-danger alert-custom" role="alert" ng-show='management.errorMsg'><p>{{management.errorMsg}}</p></div>
+  <div class="table-responsive">
+	  <table class="table table-hover">
+	   	<tr>
+	  		<th>Name</th>
+	  		<th>Email</th>
+	  		<th>Password</th>	
+	  		<th>Action</th>
+	    	</tr>
+	    	<tr>
+	    		<td>{{main.name}}</td>
+	  		<td>{{main.email}}</td>
+	  		<td>***********</td>
+	  		<td>
+	  			<a class="btn btn-primary" href="#" role="button">Edit</a>
+	  			<a class="btn btn-danger" href="#" role="button">Delete</a>
+	  		</td>	
+	  	</tr>
+	  </table>
+	</div>
+</div>

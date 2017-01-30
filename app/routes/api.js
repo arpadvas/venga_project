@@ -323,11 +323,36 @@ module.exports = function(router) {
 	} else {
 		res.json({success: false, message: 'No token provided!'});
 	}
-});
+	});
 
 	router.post('/me', function(req, res) {
 	res.send(req.decoded);
-});
+	});
+
+	router.get('/renewToken/:email', function(req, res) {
+
+		User.findOne({ email: req.params.email }).select('email').exec(function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				var newToken = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
+				res.json({ success: true, token: newToken });
+			}
+		});
+
+	});
+
+	router.get('/permission', function(req, res) {
+		User.findOne({ email: req.decoded.email }, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				res.json({ success: true, permission: user.permission });
+			}
+		});
+	});
 
 	return router;
 }

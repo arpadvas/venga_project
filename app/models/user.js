@@ -76,6 +76,11 @@ var userSchema = new mongoose.Schema({
 	resettoken: {
 		type: String,
 		required: false
+	},
+	permission: {
+		type: String,
+		required: true,
+		default: 'admin'
 	}
 });
 
