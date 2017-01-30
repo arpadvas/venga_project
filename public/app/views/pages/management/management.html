@@ -11,13 +11,13 @@
 	  		<th>Password</th>	
 	  		<th>Action</th>
 	    	</tr>
-	    	<tr>
-	    		<td>{{main.name}}</td>
-	  		<td>{{main.email}}</td>
+	    	<tr ng-repeat="person in management.users">
+	    		<td>{{person.name}}</td>
+	  		<td>{{person.email}}</td>
 	  		<td>***********</td>
 	  		<td>
-	  			<a class="btn btn-primary" href="#" role="button">Edit</a>
-	  			<a class="btn btn-danger" href="#" role="button">Delete</a>
+	  			<a ng-show="management.editAccess" class="btn btn-primary" href="#" role="button">Edit</a>
+	  			<a ng-show="management.deleteAccess" class="btn btn-danger" href="#" role="button">Delete</a>
 	  		</td>	
 	  	</tr>
 	  </table>
