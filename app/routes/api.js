@@ -434,15 +434,16 @@ module.exports = function(router) {
 							if (err) throw err;
 							if (!user) {
 							res.json({success: false, message: 'No user was found!'});
-						} else {
-							user.name = newName;
-							user.save(function(err) {
-								if (err) {
-									console.log(err);
-								} else {
-									res.json({ success: true, message: 'Name has been updated.' });
-								}
-							});
+							} else {
+								user.name = newName;
+								user.save(function(err) {
+									if (err) {
+										console.log(err);
+									} else {
+										res.json({ success: true, message: 'Name has been updated.' });
+									}
+								});
+							}
 						});
 					} else {
 						res.json({success: false, message: 'Insufficient permissions!'});
@@ -454,15 +455,93 @@ module.exports = function(router) {
 							if (err) throw err;
 							if (!user) {
 							res.json({success: false, message: 'No user was found!'});
-						} else {
-							user.email = newEmail;
-							user.save(function(err) {
-								if (err) {
-									console.log(err);
-								} else {
-									res.json({ success: true, message: 'Email has been updated.' });
+							} else {
+								user.email = newEmail;
+								user.save(function(err) {
+									if (err) {
+										console.log(err);
+									} else {
+										res.json({ success: true, message: 'Email has been updated.' });
+									}
+								});
+							}
+						});
+					} else {
+						res.json({success: false, message: 'Insufficient permissions!'});
+					}
+				}
+				if (newPermission) {
+					if (mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
+						User.findOne({ email: editUser}, function(err, user) {
+							if (err) throw err;
+							if (!user) {
+							res.json({success: false, message: 'No user was found!'});
+							} else {
+								if (newPermission === 'user') {
+									if (user.permission === 'admin') {
+										if (mainUser.permission !== 'admin') {
+											res.json({success: false, message: 'Insufficient permissions!'});
+										} else {
+											user.permission = newPermission;
+											user.save(function(err) {
+												if (err) {
+													console.log(err);
+												} else {
+													res.json({ success: true, message: 'Permission has been updated.' });
+												}
+											});
+										}
+									} else {
+										user.permission = newPermission;
+										user.save(function(err) {
+											if (err) {
+												console.log(err);
+											} else {
+												res.json({ success: true, message: 'Permission has been updated.' });
+											}
+										});
+									}
 								}
-							});
+								if (newPermission === 'moderator') {
+									if (user.permission === 'admin') {
+										if (mainUser.permission !== 'admin') {
+											res.json({success: false, message: 'Insufficient permissions!'});
+										} else {
+											user.permission = newPermission;
+											user.save(function(err) {
+												if (err) {
+													console.log(err);
+												} else {
+													res.json({ success: true, message: 'Permission has been updated.' });
+												}
+											});
+										}
+									} else {
+										user.permission = newPermission;
+										user.save(function(err) {
+											if (err) {
+												console.log(err);
+											} else {
+												res.json({ success: true, message: 'Permission has been updated.' });
+											}
+										});
+									}
+								}
+								if (newPermission === 'admin') {
+									if (mainUser.permission === 'admin') {
+										user.permission = newPermission;
+										user.save(function(err) {
+											if (err) {
+												console.log(err);
+											} else {
+												res.json({ success: true, message: 'Permission has been updated.' });
+											}
+										});
+									} else {
+										res.json({success: false, message: 'Insufficient permissions!'});
+									}
+								}
+							}
 						});
 					} else {
 						res.json({success: false, message: 'Insufficient permissions!'});

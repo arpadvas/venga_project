@@ -55,5 +55,9 @@ angular.module('userServices', [])
 		return $http.delete('/api/management/' + email);
 	}
 
+	userFactory.editUser = function(email) {
+		return $http.put('/api/edit/' + email);
+	}
+
 	return userFactory;
 });
