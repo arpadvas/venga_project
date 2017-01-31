@@ -1,0 +1,29 @@
+<div class="jumbotron panel">
+  <h1 class="display-4 m-b-2">Edit user</h1>
+  <ul class="nav nav-tabs">
+	  <li role="presentation" ng-click="edituser.namePhase();" ng-class="nameTab"><a href="#">Name</a></li>
+	  <li role="presentation" ng-click="edituser.emailPhase();" ng-class="emailTab"><a href="#">E-mail</a></li>
+	  <li role="presentation" ng-click="edituser.permissionPhase();" ng-class="permissionTab"><a href="#">Permission</a></li>
+</ul>
+
+<!-- Name Phase -->
+  <form name="edituser.nameForm" ng-show="edituser.phase1" ng-submit="edituser.updateName(newName, edituser.nameForm.name.$valid)" novalidate>
+    <div class="form-group">
+      <div ng-class="{'has-success':(edituser.nameForm.name.$valid && !edituser.nameForm.name.$pristine), 'has-error': (!edituser.nameForm.name.$valid && !edituser.nameForm.name.$pristine) || (!edituser.nameForm.name.$valid && edituser.nameForm.$submitted)}">
+        <label for="name">Name:</label>
+        <input id="name" type="text" ng-disabled="edituser.disabled" ng-model="newName" placeholder="first and last" name="name" class="form-control input-custom" ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minLength="3" ng-maxLength="20" required>
+        <p class="help-block" ng-show="(!edituser.nameForm.name.$pristine && edituser.nameForm.name.$error.required) || (edituser.nameForm.$submitted && edituser.nameForm.name.$error.required)">This field is required.</p>
+        <ul class="help-block" ng-show="(!edituser.nameForm.name.$pristine && edituser.nameForm.name.$error.pattern) || (!edituser.nameForm.name.$pristine && edituser.nameForm.name.$error.minlength) || (!edituser.nameForm.name.$pristine && edituser.nameForm.name.$error.maxlength)">
+          <li>Must contain space between first and last name.</li>
+          <li>Must not contain numbers and special characters.</li>
+          <li>Must be between 3 and 20 characters.</li>
+        </ul>
+      </div>
+    </div>
+    <button ng-disabled="edituser.disabled" type="submit" class="btn btn-primary">Update</button>
+  </form>
+
+
+
+
+</div>
