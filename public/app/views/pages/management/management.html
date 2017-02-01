@@ -17,12 +17,16 @@
 	</form>
 	<form class="form-inline filter">
 	  <div class="form-group">
-	    <input type="text" class="form-control" id="exampleInputName2" placeholder="Search...">
+	    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
 	  </div>
-	  <button type="submit" class="btn btn-default">Quick Search</button>
-	  <button type="submit" class="btn btn-default">Clear</button>
-	  <button type="submit" class="btn btn-default">Advanced Search</button>
+	  <button type="submit" class="btn btn-info" ng-click="management.search(searchKeyword, number);">Quick Search</button>
+	  <button type="submit" class="btn btn-info" ng-click="management.clear();">Clear</button>
+	  <button type="submit" class="btn btn-info">Advanced Search</button>
 	</form>
+	<div ng-show="searchFilter !== undefined">
+		<p>Total results: {{(management.users | filter: searchFilter).length}}</p>
+		<p>Showing: {{(management.users | filter: searchFilter | limitTo: management.limit).length}}</p>
+	</div>
   <div class="table-responsive">
 	  <table class="table table-hover">
 	   	<tr>
@@ -31,7 +35,7 @@
 	  		<th>Permission</th>	
 	  		<th>Action</th>
 	    	</tr>
-	    	<tr ng-repeat="person in management.users | limitTo: management.limit">
+	    	<tr ng-repeat="person in management.users | filter: searchFilter | limitTo: management.limit">
 	    		<td>{{person.name}}</td>
 	  		<td>{{person.email}}</td>
 	  		<td>{{person.permission}}</td>

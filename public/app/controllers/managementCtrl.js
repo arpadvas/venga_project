@@ -60,6 +60,30 @@ angular.module('managementController', [])
 		});
 	};
 
+	app.search = function(searchKeyword, number) {
+		if (searchKeyword) {
+			if (searchKeyword.length > 0) {
+				app.limit = 0;
+				$scope.searchFilter = searchKeyword;
+				app.limit = number;
+			} else {
+				$scope.searchFilter = undefined;
+				app.limit = 0;
+			}
+		} else {
+			$scope.searchFilter = undefined;
+			app.limit = 0;
+		}
+	};
+
+	app.clear = function() {
+		$scope.number = undefined;
+		app.limit = 5;
+		$scope.searchFilter = undefined;
+		$scope.searchKeyword = undefined;
+		app.errorMsg = false;
+	};
+
 })
 
 .controller('editUserCtrl', function($scope, $routeParams, User, $timeout) {
@@ -220,4 +244,5 @@ angular.module('managementController', [])
             }
         });
 	};
+
 });
