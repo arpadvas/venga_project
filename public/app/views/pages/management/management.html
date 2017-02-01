@@ -1,5 +1,7 @@
 <div class="jumbotron panel">
-  <h1 class="display-4 m-b-2">User management</h1>
+  <div class="page-header">
+  	<h1>User management</h1>
+  </div>
   <div class="alert alert-info alert-custom" role="alert" ng-show='management.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p> Loading...</p></div>
   <div class="alert alert-success alert-custom" role="alert" ng-show='management.successMsg'><p>{{management.successMsg}}</p></div>
   <div class="alert alert-danger alert-custom" role="alert" ng-show='management.errorMsg'><p>{{management.errorMsg}}</p></div>
@@ -13,18 +15,26 @@
 	  <button type="button" class="btn btn-success" ng-click="management.showMore(number);">Apply Filter</button>
   	  <button type="button" class="btn btn-success" ng-click="management.showAll();">Show All</button>
 	</form>
+	<form class="form-inline filter">
+	  <div class="form-group">
+	    <input type="text" class="form-control" id="exampleInputName2" placeholder="Search...">
+	  </div>
+	  <button type="submit" class="btn btn-default">Quick Search</button>
+	  <button type="submit" class="btn btn-default">Clear</button>
+	  <button type="submit" class="btn btn-default">Advanced Search</button>
+	</form>
   <div class="table-responsive">
 	  <table class="table table-hover">
 	   	<tr>
 	  		<th>Name</th>
 	  		<th>Email</th>
-	  		<th>Password</th>	
+	  		<th>Permission</th>	
 	  		<th>Action</th>
 	    	</tr>
 	    	<tr ng-repeat="person in management.users | limitTo: management.limit">
 	    		<td>{{person.name}}</td>
 	  		<td>{{person.email}}</td>
-	  		<td>***********</td>
+	  		<td>{{person.permission}}</td>
 	  		<td>
 	  			<a ng-show="management.editAccess" class="btn btn-primary" href="/edituser/{{person._id}}" role="button">Edit</a>
 	  			<a ng-show="management.deleteAccess" class="btn btn-danger" href="#" role="button" ng-click="management.deleteUser(person.email);">Delete</a>

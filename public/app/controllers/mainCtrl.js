@@ -1,10 +1,11 @@
 angular.module('mainController', ['authServices', 'userServices'])
 
-.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $interval, $window, $route, User, AuthToken) {
+.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $interval, $window, $route, User, AuthToken, $scope) {
 	
 	var app = this;
 
 	app.loadme = false;
+
 
 	app.checkSession = function() {
   		if (Auth.isLoggedIn()) {
@@ -40,6 +41,7 @@ angular.module('mainController', ['authServices', 'userServices'])
   		app.modalHeader = undefined;
 	  	app.modalBody = undefined;
 	  	app.hideButton = false;
+
 
   		if (option === 1) {
   			app.modalHeader = 'Timeout warning';
@@ -85,6 +87,52 @@ angular.module('mainController', ['authServices', 'userServices'])
 
 	$rootScope.$on('$routeChangeStart', function() {
 		if (!app.checkingSession) app.checkSession();
+
+    app.location = $location.path();
+    if (app.location === '/login') {
+      $scope.loginMenu = 'active';
+      $scope.registerMenu = 'default';
+      $scope.homeMenu = 'default';
+      $scope.profileMenu = 'default';
+      $scope.myascentsMenu = 'default';
+      $scope.managementMenu = 'default';
+    } else if (app.location === '/register') {
+      $scope.registerMenu = 'active';
+      $scope.loginMenu = 'default';
+      $scope.homeMenu = 'default';
+      $scope.profileMenu = 'default';
+      $scope.myascentsMenu = 'default';
+      $scope.managementMenu = 'default';
+    } else if (app.location === '/') {
+      $scope.registerMenu = 'default';
+      $scope.loginMenu = 'default';
+      $scope.homeMenu = 'active';
+      $scope.profileMenu = 'default';
+      $scope.myascentsMenu = 'default';
+      $scope.managementMenu = 'default';
+    } else if (app.location === '/profile') {
+      $scope.registerMenu = 'default';
+      $scope.loginMenu = 'default';
+      $scope.homeMenu = 'default';
+      $scope.profileMenu = 'active';
+      $scope.myascentsMenu = 'default';
+      $scope.managementMenu = 'default';
+    } else if (app.location === '/myAscents') {
+      $scope.registerMenu = 'default';
+      $scope.loginMenu = 'default';
+      $scope.homeMenu = 'default';
+      $scope.profileMenu = 'default';
+      $scope.myascentsMenu = 'active';
+      $scope.managementMenu = 'default';
+    } else if (app.location === '/management') {
+      $scope.registerMenu = 'default';
+      $scope.loginMenu = 'default';
+      $scope.homeMenu = 'default';
+      $scope.profileMenu = 'default';
+      $scope.myascentsMenu = 'default';
+      $scope.managementMenu = 'active';
+    }
+
 
 		if (Auth.isLoggedIn()) {
 			app.isLoggedIn = true;

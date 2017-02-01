@@ -419,7 +419,7 @@ module.exports = function(router) {
 	});
 
 	router.put('/edituser', function(req, res) {
-		var editUser = req.params.email;
+		var editUser = req.body._id;
 		if (req.body.name) var newName = req.body.name;
 		if (req.body.email) var newEmail = req.body.email;
 		if (req.body.permission) var newPermission = req.body.permission;
@@ -430,10 +430,10 @@ module.exports = function(router) {
 			} else {
 				if (newName) {
 					if (mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
-						User.findOne({ email: editUser}, function(err, user) {
+						User.findOne({ _id: editUser}, function(err, user) {
 							if (err) throw err;
 							if (!user) {
-							res.json({success: false, message: 'No user was found!'});
+							res.json({success: false, message: 'No user was found!!!'});
 							} else {
 								user.name = newName;
 								user.save(function(err) {
@@ -451,7 +451,7 @@ module.exports = function(router) {
 				}
 				if (newEmail) {
 					if (mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
-						User.findOne({ email: editUser}, function(err, user) {
+						User.findOne({ _id: editUser}, function(err, user) {
 							if (err) throw err;
 							if (!user) {
 							res.json({success: false, message: 'No user was found!'});
@@ -472,7 +472,7 @@ module.exports = function(router) {
 				}
 				if (newPermission) {
 					if (mainUser.permission === 'admin' || mainUser.permission === 'moderator') {
-						User.findOne({ email: editUser}, function(err, user) {
+						User.findOne({ _id: editUser}, function(err, user) {
 							if (err) throw err;
 							if (!user) {
 							res.json({success: false, message: 'No user was found!'});
