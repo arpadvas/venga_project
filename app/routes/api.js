@@ -1,19 +1,30 @@
 var User = require('../models/user');
+var Ascent = require('../models/ascent');
 var jwt = require('jsonwebtoken');
 var secret = 'cora';
 var nodemailer = require('nodemailer');
-var sgTransport = require('nodemailer-sendgrid-transport');
+//var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(router) {
 
-	var options = {
-	  auth: {
-	    api_user: 'avas81',
-	    api_key: 'Jennifer1981'
-	  }
-	}
+	var client = nodemailer.createTransport({
+	    host: 'smtp.zoho.com',
+	    port: 465,
+	    secure: true, // use SSL
+	    auth: {
+	        user: 'venga.project@zoho.com',
+	        pass: 'A5sG8!wt'
+	    }
+	});
 
-	var client = nodemailer.createTransport(sgTransport(options));
+	// var options = {
+	//   auth: {
+	//     api_user: 'avas81',
+	//     api_key: 'Jennifer1981'
+	//   }
+	// }
+
+	// var client = nodemailer.createTransport(sgTransport(options));
 
 	router.post('/users', function(req, res) {
 		var user = new User();
@@ -50,7 +61,7 @@ module.exports = function(router) {
 				}  
 			} else {
 				var email = {
-				  from: 'Localhost',
+				  from: 'venga.project@zoho.com',
 				  to: user.email,
 				  subject: 'Activation Link',
 				  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/activate/' + user.temporarytoken,
@@ -142,7 +153,7 @@ module.exports = function(router) {
 					console.log(err);
 				} else {
 					var email = {
-					  from: 'Localhost',
+					  from: 'venga.project@zoho.com',
 					  to: user.email,
 					  subject: 'Activation Link Request',
 					  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/activate/' + user.temporarytoken,
@@ -170,7 +181,7 @@ module.exports = function(router) {
 
 			jwt.verify(token, secret, function(err, decoded) {
 				if(err) {
-					res.json({success: false, message: 'Activation link has expired.'});
+					res.json({success: false, message: 'Activation link has expired!'});
 				} else if (!user) {
 					res.json({success: false, message: 'Activation link has expired.'});
 				} else {
@@ -183,7 +194,7 @@ module.exports = function(router) {
 
 
 							var email = {
-							  from: 'Localhost',
+							  from: 'venga.project@zoho.com',
 							  to: user.email,
 							  subject: 'Activation Activated',
 							  text: 'Hello world' + user.name + ', Your account has been activated.',
@@ -224,7 +235,7 @@ module.exports = function(router) {
 						res.json({ success: false, message: err });
 					} else {
 						var email = {
-						  from: 'Localhost',
+						  from: 'venga.project@zoho.com',
 						  to: user.email,
 						  subject: 'Password Reset Link',
 						  text: 'Hello' + user.name + ', Please click on the following link to reset your password: http://localhost:3000/reset/' + user.resettoken,
@@ -285,7 +296,7 @@ module.exports = function(router) {
 						res.json({ success: false, message: err });
 					} else {
 						var email = {
-						  from: 'Localhost',
+						  from: 'venga.project@zoho.com',
 						  to: user.email,
 						  subject: 'Success password reset',
 						  text: 'Hello world' + user.name + ', Your password has been succeccfully reset.',
@@ -307,6 +318,29 @@ module.exports = function(router) {
 
 		});
 
+	});
+
+	router.post('/myascents', function(req, res) {
+		var ascent = new Ascent();
+		ascent.name = req.body.name;
+		ascent.type = req.body.type;
+		ascent.grade = req.body.grade;
+		if (req.body.name === null ||
+			req.body.name === '' ||
+			req.body.type === null ||
+			req.body.type === '' ||
+			req.body.grade === null ||
+			req.body.grade === '') {
+			res.send('Please make sure the fields are filled out properly!');
+		} else {
+			ascent.save(function(err) {
+				if (err) {
+					res.send('An error occured. Please try again later!');
+				} else {
+					res.send('ascent created');
+				}
+			});
+		}
 	});
 
 	router.use(function(req, res, next) {

@@ -32,6 +32,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/myAscents', {
 		templateUrl: 'app/views/pages/ascents/my_ascents.html',
+		controller: 'ascentCtrl',
+        controllerAs: 'ascent',
 		authenticated: true
 	})
 
