@@ -320,29 +320,6 @@ module.exports = function(router) {
 
 	});
 
-	router.post('/myascents', function(req, res) {
-		var ascent = new Ascent();
-		ascent.name = req.body.name;
-		ascent.type = req.body.type;
-		ascent.grade = req.body.grade;
-		if (req.body.name === null ||
-			req.body.name === '' ||
-			req.body.type === null ||
-			req.body.type === '' ||
-			req.body.grade === null ||
-			req.body.grade === '') {
-			res.send('Please make sure the fields are filled out properly!');
-		} else {
-			ascent.save(function(err) {
-				if (err) {
-					res.send('An error occured. Please try again later!');
-				} else {
-					res.send('ascent created');
-				}
-			});
-		}
-	});
-
 	router.use(function(req, res, next) {
 	var token = req.body.token || req.body.query || req.headers['x-access-token'];
 	if(token) {
@@ -409,6 +386,7 @@ module.exports = function(router) {
 			});
 		});
 	});
+
 
 	router.delete('/management/:email', function(req, res) {
 		var deletedUser = req.params.email;
@@ -584,6 +562,68 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+	router.get('/myascents', function(req, res) {
+		User.findOne({ email: req.decoded.email }, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				Ascent.find({ sentBy: user.email }, function(err, ascents) {
+					if (!ascents) {
+						res.json({success: false, message: 'No ascent was found!'});
+					} else {
+						res.json({ success: true, ascents: ascents });
+					}
+				});
+			}
+		});
+	});
+
+
+	router.post('/myascents', function(req, res) {	
+			
+		User.findOne({ email: req.decoded.email }, function(err, mainUser) {
+			if (err) throw err;
+			if (!mainUser) {
+			res.json({success: false, message: 'No user was found!'});
+		} else {
+			var ascent = new Ascent();
+			ascent.name = req.body.name;
+			ascent.type = req.body.type;
+			ascent.grade = req.body.grade;
+			ascent.sentBy = mainUser.email;
+			if (req.body.name == null || req.body.name == '' || req.body.type == null || req.body.type == '' || req.body.grade == null || req.body.grade == '') {
+				res.json({success: false, message: 'Please make sure the fields are filled out properly!'});
+			} else {
+				ascent.save(function(err) {
+					if (err) {
+						res.json({success: false, message: 'An error occured. Please try again later!'});
+					} else {
+						res.json({success: true, message: 'Ascent created.'});
+					}
+				});
+			}
+		}
+		});
+		
+	});
+
+	router.delete('/myascents/:id', function(req, res) {
+		var deletedAscent = req.params.id;
+		User.findOne({ email: req.decoded.email }, function(err, mainUser) {
+			if (err) throw err;
+			if (!mainUser) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				Ascent.findOneAndRemove({ _id: deletedAscent}, function(err, ascent) {
+					if (err) throw err;
+					res.json({ success: true });
+				});
+			}
+		});
+	});
+
 
 	return router;
 }

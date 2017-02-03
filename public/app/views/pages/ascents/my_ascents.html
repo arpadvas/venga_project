@@ -20,5 +20,29 @@
 	
 	  <button type="submit" class="btn btn-default">Add Ascent</button>
 	</form>
+	<br>
+	<div class="alert alert-info alert-custom" role="alert" ng-show='ascent.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
+  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
   </div>
+  <br>
+  <div class="table-responsive">
+	  <table class="table table-hover">
+	   	<tr>
+	  		<th>Name</th>
+	  		<th>Type</th>
+	  		<th>Grade</th>	
+	  		<th>Action</th>
+	    	</tr>
+	    	<tr ng-repeat="climb in ascent.ascents">
+	    		<td>{{climb.name}}</td>
+	  		<td>{{climb.type}}</td>
+	  		<td>{{climb.grade}}</td>
+	  		<td>
+	  			<a class="btn btn-primary" href="#" role="button">Edit</a>
+	  			<a class="btn btn-danger" href="#" role="button" ng-click="ascent.deleteAscent(climb._id);">Delete</a>
+	  		</td>	
+	  	</tr>
+	  </table>
+	</div>
 </div>

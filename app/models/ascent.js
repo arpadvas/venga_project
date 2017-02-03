@@ -11,6 +11,9 @@ var ascentSchema = new mongoose.Schema({
 	},
 	grade: {
 		type: String
+	},
+	sentBy: {
+		type: String
 	}
 });
 
