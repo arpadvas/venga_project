@@ -4,16 +4,20 @@ var mongoose = require('mongoose');
 
 var ascentSchema = new mongoose.Schema({
 	name: {
-		type: String
+		type: String, 
+		required: true
 	},
-	type: {
-		type: String
+	style: {
+		type: String, 
+		required: true
 	},
 	grade: {
-		type: String
+		type: String, 
+		required: true
 	},
 	sentBy: {
-		type: String
+		type: String, 
+		required: true
 	}
 });
 

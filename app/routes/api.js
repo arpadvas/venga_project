@@ -590,10 +590,10 @@ module.exports = function(router) {
 		} else {
 			var ascent = new Ascent();
 			ascent.name = req.body.name;
-			ascent.type = req.body.type;
+			ascent.style = req.body.style;
 			ascent.grade = req.body.grade;
 			ascent.sentBy = mainUser.email;
-			if (req.body.name == null || req.body.name == '' || req.body.type == null || req.body.type == '' || req.body.grade == null || req.body.grade == '') {
+			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '') {
 				res.json({success: false, message: 'Please make sure the fields are filled out properly!'});
 			} else {
 				ascent.save(function(err) {
@@ -624,6 +624,57 @@ module.exports = function(router) {
 		});
 	});
 
+	router.put('/myascents', function(req, res) {
+		var editedAscent = req.body._id;
+		var newName = req.body.name;
+		var newStyle = req.body.style;
+		var newGrade = req.body.grade;
+		User.findOne({ email: req.decoded.email }, function(err, mainUser) {
+			if (err) throw err;
+			if (!mainUser) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				Ascent.findOne({ _id: editedAscent}, function(err, ascent) {
+					if (err) throw err;
+					if (!ascent) {
+						res.json({success: false, message: 'No ascent was found!!!'});
+					} else {
+						ascent.name = newName;
+						ascent.style = newStyle;
+						ascent.grade = newGrade;
+						ascent.save(function(err) {
+							if (err) {
+								console.log(err);
+							} else {
+								res.json({ success: true, message: 'Ascent has been updated.' });
+							}
+						});
+					}
+				});
+			}
+		});
+	});
+
+	router.get('/myascents/:id', function(req, res) {
+		var editedAscent = req.params.id;
+		User.findOne({ email: req.decoded.email }, function(err, mainUser) {
+			if (err) throw err;
+			if (!mainUser) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				Ascent.findOne({ _id: editedAscent}, function(err, ascent) {
+					if (err) throw err;
+					if (!ascent) {
+						res.json({success: false, message: 'No ascent was found!'});
+					} else {
+						res.json({ success: true, ascent: ascent });
+					}
+				});
+			}
+		});
+	});
+
 
 	return router;
 }
+
