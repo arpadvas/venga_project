@@ -136,6 +136,10 @@ body {
   margin-bottom: 20px;
 }
 
+.datepicker {
+  z-index: 9999 !important;
+}
+
 /*Spinner*/
 
 .sk-fading-circle {

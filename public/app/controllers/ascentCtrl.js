@@ -27,6 +27,8 @@ angular.module('ascentController', ['ascentServices'])
 	app.addAscent = function(ascentData) {
 		app.loading = true;
 		app.errorMsg = false;
+		app.myDate = new Date();
+  		app.isOpen = false;
 
 		Ascent.addAscent(app.ascentData).then(function(data) {
 			if (data.data.success) {
