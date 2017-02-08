@@ -593,7 +593,8 @@ module.exports = function(router) {
 			ascent.style = req.body.style;
 			ascent.grade = req.body.grade;
 			ascent.sentBy = mainUser.email;
-			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '') {
+			ascent.date = req.body.date;
+			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '' || req.body.date == null || req.body.date == '') {
 				res.json({success: false, message: 'Please make sure the fields are filled out properly!'});
 			} else {
 				ascent.save(function(err) {
@@ -629,6 +630,7 @@ module.exports = function(router) {
 		var newName = req.body.name;
 		var newStyle = req.body.style;
 		var newGrade = req.body.grade;
+		var newDate = req.body.date;
 		User.findOne({ email: req.decoded.email }, function(err, mainUser) {
 			if (err) throw err;
 			if (!mainUser) {
@@ -642,6 +644,7 @@ module.exports = function(router) {
 						ascent.name = newName;
 						ascent.style = newStyle;
 						ascent.grade = newGrade;
+						ascent.date = newDate;
 						ascent.save(function(err) {
 							if (err) {
 								console.log(err);

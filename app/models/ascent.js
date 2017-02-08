@@ -18,6 +18,10 @@ var ascentSchema = new mongoose.Schema({
 	sentBy: {
 		type: String, 
 		required: true
+	},
+	date: {
+		type: Date, 
+		required: true,
 	}
 });
 

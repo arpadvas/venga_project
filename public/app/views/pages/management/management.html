@@ -1,49 +1,62 @@
-<div class="jumbotron panel">
-  <div class="page-header">
-  	<h1>User management</h1>
-  </div>
-  <div class="alert alert-info alert-custom" role="alert" ng-show='management.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p> Loading...</p></div>
-  <div class="alert alert-success alert-custom" role="alert" ng-show='management.successMsg'><p>{{management.successMsg}}</p></div>
-  <div class="alert alert-danger alert-custom" role="alert" ng-show='management.errorMsg'><p>{{management.errorMsg}}</p></div>
-  <form class="form-inline filter">
-	  <div class="form-group">
-	    <div class="input-group">
-	      <div class="input-group-addon">Results to display:</div>
-	      <input type="text" class="form-control" id="filter" ng-model="number">
-	    </div>
-	  </div>
-	  <button type="button" class="btn btn-success" ng-click="management.showMore(number);">Apply Filter</button>
-  	  <button type="button" class="btn btn-success" ng-click="management.showAll();">Show All</button>
-	</form>
-	<form class="form-inline filter">
-	  <div class="form-group">
-	    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
-	  </div>
-	  <button type="submit" class="btn btn-info" ng-click="management.search(searchKeyword, number);">Quick Search</button>
-	  <button type="submit" class="btn btn-info" ng-click="management.clear();">Clear</button>
-	  <button type="submit" class="btn btn-info">Advanced Search</button>
-	</form>
-	<div ng-show="searchFilter !== undefined">
-		<p>Total results: {{(management.users | filter: searchFilter).length}}</p>
-		<p>Showing: {{(management.users | filter: searchFilter | limitTo: management.limit).length}}</p>
+<h1 class="h-no-top-margin grey-header">User management</h1>
+
+<div class="alert alert-info alert-custom" role="alert" ng-show='management.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p> Loading...</p></div>
+<div class="alert alert-success alert-custom" role="alert" ng-show='management.successMsg'><p>{{management.successMsg}}</p></div>
+<div class="alert alert-danger alert-custom" role="alert" ng-show='management.errorMsg'><p>{{management.errorMsg}}</p></div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Search</h3>
 	</div>
-  <div class="table-responsive">
-	  <table class="table table-hover">
-	   	<tr>
-	  		<th>Name</th>
-	  		<th>Email</th>
-	  		<th>Permission</th>	
-	  		<th>Action</th>
-	    	</tr>
-	    	<tr ng-repeat="person in management.users | filter: searchFilter | limitTo: management.limit">
-	    		<td>{{person.name}}</td>
-	  		<td>{{person.email}}</td>
-	  		<td>{{person.permission}}</td>
-	  		<td>
-	  			<a ng-show="management.editAccess" class="btn btn-primary" href="/edituser/{{person._id}}" role="button">Edit</a>
-	  			<a ng-show="management.deleteAccess" class="btn btn-danger" href="#" role="button" ng-click="management.deleteUser(person.email);">Delete</a>
-	  		</td>	
-	  	</tr>
-	  </table>
+	<div class="panel-body">
+		<form class="form-inline filter">
+		  <div class="form-group">
+		    <div class="input-group">
+		      <div class="input-group-addon">Results to display:</div>
+		      <input type="text" class="form-control" id="filter" ng-model="number">
+		    </div>
+		  </div>
+		  <button type="button" class="btn btn-success" ng-click="management.showMore(number);">Apply Filter</button>
+			  <button type="button" class="btn btn-success" ng-click="management.showAll();">Show All</button>
+		</form>
+		<form class="form-inline filter">
+		  <div class="form-group">
+		    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
+		  </div>
+		  <button type="submit" class="btn btn-info" ng-click="management.search(searchKeyword, number);">Quick Search</button>
+		  <button type="submit" class="btn btn-info" ng-click="management.clear();">Clear</button>
+		  <button type="submit" class="btn btn-info">Advanced Search</button>
+		</form>
+		<div ng-show="searchFilter !== undefined">
+			<p>Total results: {{(management.users | filter: searchFilter).length}}</p>
+			<p>Showing: {{(management.users | filter: searchFilter | limitTo: management.limit).length}}</p>
+		</div>
 	</div>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Users</h3>
+	</div>
+		<div class="panel-body no-padding">
+			<div class="table-responsive">
+				<table class="table table-hover">
+					<tr>
+						<th>Name</th>
+						<th>Email</th>
+						<th>Permission</th>	
+						<th>Action</th>
+					</tr>
+					<tr ng-repeat="person in management.users | filter: searchFilter | limitTo: management.limit">
+						<td>{{person.name}}</td>
+						<td>{{person.email}}</td>
+						<td>{{person.permission}}</td>
+						<td>
+							<a ng-show="management.editAccess" class="btn btn-primary" href="/edituser/{{person._id}}" role="button">Edit</a>
+							<a ng-show="management.deleteAccess" class="btn btn-danger" href="#" role="button" ng-click="management.deleteUser(person.email);">Delete</a>
+						</td>	
+					</tr>
+				</table>
+			</div>
+		</div>
 </div>

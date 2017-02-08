@@ -27,8 +27,9 @@ angular.module('ascentController', ['ascentServices'])
 	app.addAscent = function(ascentData) {
 		app.loading = true;
 		app.errorMsg = false;
-		app.myDate = new Date();
-  		app.isOpen = false;
+		if (app.ascentData) {
+			app.ascentData.date = $scope.dt;
+		}
 
 		Ascent.addAscent(app.ascentData).then(function(data) {
 			if (data.data.success) {
@@ -39,6 +40,7 @@ angular.module('ascentController', ['ascentServices'])
 					$("#ascentModal").modal('hide');
 					app.ascentData = undefined;
 					getMyAscents();
+					$scope.today();
 				}, 1000);
 			} else {
 				app.loading = false;
@@ -66,6 +68,7 @@ angular.module('ascentController', ['ascentServices'])
 		$("#ascentModal").modal('hide');
 		app.ascentData = undefined;
 		app.errorMsg = false;
+		$scope.today();
 
 	};
 
@@ -77,6 +80,7 @@ angular.module('ascentController', ['ascentServices'])
 				$scope.newName = data.data.ascent.name;
 				$scope.newStyle = data.data.ascent.style;
 				$scope.newGrade = data.data.ascent.grade;
+				$scope.dt = data.data.ascent.date;
 				app.currentAscent = data.data.ascent._id;
 			} else {
 				app.errorMsg = data.data.message;
@@ -88,6 +92,7 @@ angular.module('ascentController', ['ascentServices'])
 	app.cancelEditAscentModal = function() {
 		$("#editAscentModal").modal('hide');
 		app.errorMsg = false;
+		$scope.today();
 
 	};
 
@@ -97,6 +102,7 @@ angular.module('ascentController', ['ascentServices'])
 		ascentObject.name = $scope.newName;
 		ascentObject.style = $scope.newStyle;
 		ascentObject.grade = $scope.newGrade;
+		ascentObject.date = $scope.dt;
 		app.loading = true;
 		app.errorMsg = false;
 
@@ -108,6 +114,7 @@ angular.module('ascentController', ['ascentServices'])
 					app.successMsg = false;
 					$("#editAscentModal").modal('hide');
 					getMyAscents();
+					$scope.today();
 				}, 1000);
 			} else {
 				app.loading = false;
@@ -117,35 +124,67 @@ angular.module('ascentController', ['ascentServices'])
 	};
 
 
+	// datepicker https://angular-ui.github.io/bootstrap/#!#datepicker
+	$scope.today = function() {
+    	$scope.dt = new Date();
+    };
+  	$scope.today();
+
+  	$scope.clear = function() {
+    	$scope.dt = null;
+  	};
+
+  	$scope.options = {
+    	customClass: getDayClass,
+    	minDate: new Date(),
+    	showWeeks: true
+  	};
+
+
+  	$scope.toggleMin = function() {
+    	$scope.options.minDate = $scope.options.minDate ? null : new Date();
+  	};
+
+  	$scope.toggleMin();
+
+  	$scope.setDate = function(year, month, day) {
+    	$scope.dt = new Date(year, month, day);
+  	};
+
+  	var tomorrow = new Date();
+  	tomorrow.setDate(tomorrow.getDate() + 1);
+  	var afterTomorrow = new Date(tomorrow);
+  	afterTomorrow.setDate(tomorrow.getDate() + 1);
+  	$scope.events = [
+	    {
+	      date: tomorrow,
+	      status: 'full'
+	    },
+	    {
+	      date: afterTomorrow,
+	      status: 'partially'
+	    }
+  	];
+
+ 	function getDayClass(data) {
+    	var date = data.date,
+     	mode = data.mode;
+    	if (mode === 'day') {
+      		var dayToCheck = new Date(date).setHours(0,0,0,0);
+
+      		for (var i = 0; i < $scope.events.length; i++) {
+        		var currentDay = new Date($scope.events[i].date).setHours(0,0,0,0);
+
+        		if (dayToCheck === currentDay) {
+          			return $scope.events[i].status;
+        		}
+      		}
+    	}
+
+    return '';
+  	}
+  	// end of date-picker
+
 });
 
-app.updateName = function(newName, valid) {
-		app.errorMsg = false;
-		app.disabled = true;
-		var ascentObject = {};
-		ascentObject._id = app.currentAscent;
-		ascentObject.name = $scope.newName;
-
-		if (valid) {
-			userObject._id = app.currentUser;
-			userObject.name = $scope.newName;
-			User.editUser(userObject).then(function(data) {
-				if (data.data.success) {
-					app.successMsg = data.data.message;
-					$timeout(function() {
-						app.nameForm.name.$setPristine();
-						app.nameForm.name.$setUntouched();
-						app.successMsg = false;
-						app.disabled = false;
-					}, 2000);
-				} else {
-					app.errorMsg = data.data.message;
-					app.disabled = false;
-				}
-			});
-		} else {
-				app.errorMsg = 'Please make sure the form is filled out properly!';
-				app.disabled = false;
-		}
-	};
 
