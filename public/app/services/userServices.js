@@ -59,5 +59,9 @@ angular.module('userServices', [])
 		return $http.put('/api/edituser', id);
 	}
 
+	userFactory.getProfile = function(email) {
+		return $http.get('/api/profile/' + email);
+	}
+
 	return userFactory;
 });

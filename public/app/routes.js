@@ -27,7 +27,9 @@ var app = angular.module('appRoutes', ['ngRoute'])
 
 	.when('/profile', {
 		templateUrl: 'app/views/pages/users/profile.html',
-		authenticated: true
+		authenticated: true,
+		controller: 'profileCtrl',
+        controllerAs: 'profile'
 	})
 
 	.when('/myAscents', {

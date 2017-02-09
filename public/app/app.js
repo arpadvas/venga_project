@@ -1,7 +1,7 @@
-angular.module('userApp', ['appRoutes', 'ngAnimate', 'ngTouch', 'ui.bootstrap' , 'DateController', 'userControllers', 'userServices', 'mainController', 'authServices', 'emailController', 'managementController', 'ascentController', 'ascentServices'])
+angular.module('userApp', ['appRoutes', 'ngAnimate', 'ngTouch', 'ui.bootstrap' , 'angular-filepicker', 'userControllers', 'userServices', 'mainController', 'authServices', 'emailController', 'managementController', 'ascentController', 'ascentServices', 'profileController'])
 
-.config(function($httpProvider) {
+.config(function($httpProvider, filepickerProvider) {
 	$httpProvider.interceptors.push('AuthInterceptors');
+	filepickerProvider.setKey('Ay5j7d8n6SjWjkhUeHOHxz');
 });
 
-// 'ngMaterial', 'ngMessages',

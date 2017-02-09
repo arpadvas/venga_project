@@ -81,6 +81,9 @@ var userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		default: 'admin'
+	},
+	picture: {
+		type: mongoose.Schema.Types.Mixed
 	}
 });
 

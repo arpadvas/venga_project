@@ -677,6 +677,17 @@ module.exports = function(router) {
 		});
 	});
 
+	router.get('/profile/:email', function(req, res) {
+		User.findOne({ email: req.params.email}, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				res.json({ success: true, user: user });
+			}
+		});
+	});
+
 
 	return router;
 }

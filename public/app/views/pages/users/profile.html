@@ -13,11 +13,25 @@
             <th>Password</th> 
             </tr>
             <tr>
-              <td>{{main.name}}</td>
-            <td>{{main.email}}</td>
+              <td>{{profile.name}}</td>
+            <td>{{profile.email}}</td>
             <td>***********</td>  
           </tr>
         </table>
       </div>
     </div>
+</div>
+
+<div class="form-group">
+  <label for="picture">Main picture</label>
+  <div class="text-center">
+    <button type="button" class="btn btn-default" ng-click="profile.upload()">
+      Upload <span class="caret"></span>
+    </button>
+    <div style="margin-top:10px;">
+      <a href="{{profile.currentUser.picture.url}}" class="thumbnail" ng-if="profile.currentUser.picture">
+      <img ng-src="{{profile.currentUser.picture.url}}">
+      </a>
+    </div>          
+  </div>
 </div>
