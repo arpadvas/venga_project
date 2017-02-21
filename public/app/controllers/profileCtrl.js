@@ -1,33 +1,41 @@
 angular.module('profileController', ['angular-filepicker', 'userServices'])
 
-.controller('profileCtrl', function(Auth, filepickerService, User) {
+.controller('profileCtrl', function(filepickerService, User, $scope, $timeout) {
 
 	app = this;
 
-	Auth.getUser().then(function(data) {
-				app.name = data.data.name;
-				app.email = data.data.email;
-				User.getProfile(app.email).then(function(data) {
-					app.currentUser = data.data.user;
-					console.log(app.currentUser);
-				});
-			});
+    User.getProfile().then(function(data) {
+        $scope.currentUser = data.data.user;
+    });
 
 
-    app.upload = function(){
-        filepickerService.pick(
+    app.upload = function(){ filepickerService.pick(
             {
                 mimetype: 'image/*',
                 language: 'en',
                 services: ['COMPUTER','DROPBOX','GOOGLE_DRIVE','IMAGE_SEARCH', 'FACEBOOK', 'INSTAGRAM'],
-                openTo: 'IMAGE_SEARCH'
-            },
-            function(Blob){
-                console.log(JSON.stringify(Blob));
-                app.currentUser.picture = Blob;
-                console.log(app.currentUser);
+                openTo: 'COMPUTER'
+            }, function(Blob){
+                $scope.currentUser.picture = Blob;
+                $scope.$apply();
+            });
+    };
+
+    app.savePicture = function() {
+        app.loading = true;
+        app.errorMsg = false;
+        User.editProfile($scope.currentUser).then(function(data) {
+            if (data.data.success) {
+                app.loading = false;
+                app.successMsg = data.data.message;
+                $timeout(function() {
+                    app.successMsg = false;
+                }, 1000);
+            } else {
+                app.loading = false;
+                app.errorMsg = data.data.message;
             }
-        );
+        });
     };
 
 });

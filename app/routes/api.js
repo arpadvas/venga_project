@@ -3,28 +3,21 @@ var Ascent = require('../models/ascent');
 var jwt = require('jsonwebtoken');
 var secret = 'cora';
 var nodemailer = require('nodemailer');
-//var sgTransport = require('nodemailer-sendgrid-transport');
 
 module.exports = function(router) {
 
 	var client = nodemailer.createTransport({
 	    host: 'smtp.zoho.com',
 	    port: 465,
-	    secure: true, // use SSL
+	    secure: true,
 	    auth: {
 	        user: 'venga.project@zoho.com',
-	        pass: 'A5sG8!wt'
+	        pass: 'xxxxxxxx'
+	    },
+	    tls: {
+	        rejectUnauthorized: false
 	    }
 	});
-
-	// var options = {
-	//   auth: {
-	//     api_user: 'avas81',
-	//     api_key: 'Jennifer1981'
-	//   }
-	// }
-
-	// var client = nodemailer.createTransport(sgTransport(options));
 
 	router.post('/users', function(req, res) {
 		var user = new User();
@@ -97,7 +90,7 @@ module.exports = function(router) {
 	});
 
 	router.post('/authenticate', function(req, res) {
-		User.findOne({ email: req.body.email }).select('name email password active').exec(function(err, user) {
+		User.findOne({ email: req.body.email }).select('name email password active picture').exec(function(err, user) {
 			if (err) throw err;
 
 			if (!user) {
@@ -113,7 +106,7 @@ module.exports = function(router) {
 				} else if (!user.active) {
 					res.json({ success: false, message: 'Account is not yet activated!', expired: true });
 				} else {
-					var token = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
+					var token = jwt.sign({ name: user.name, email: user.email, picture: user.picture}, secret, {expiresIn: '24h'});
 					res.json({ success: true, message: 'User authenticated!', token: token });
 				}
 			}
@@ -320,6 +313,7 @@ module.exports = function(router) {
 
 	});
 
+
 	router.use(function(req, res, next) {
 	var token = req.body.token || req.body.query || req.headers['x-access-token'];
 	if(token) {
@@ -342,12 +336,12 @@ module.exports = function(router) {
 
 	router.get('/renewToken/:email', function(req, res) {
 
-		User.findOne({ email: req.params.email }).select('email').exec(function(err, user) {
+		User.findOne({ email: req.params.email }).select('email name picture active').exec(function(err, user) {
 			if (err) throw err;
 			if (!user) {
 				res.json({success: false, message: 'No user was found!'});
 			} else {
-				var newToken = jwt.sign({ name: user.name, email: user.email}, secret, {expiresIn: '24h'});
+				var newToken = jwt.sign({ name: user.name, email: user.email, picture: user.picture}, secret, {expiresIn: '24h'});
 				res.json({ success: true, token: newToken });
 			}
 		});
@@ -361,6 +355,17 @@ module.exports = function(router) {
 				res.json({success: false, message: 'No user was found!'});
 			} else {
 				res.json({ success: true, permission: user.permission });
+			}
+		});
+	});
+
+	router.get('/profilePic', function(req, res) {
+		User.findOne({ email: req.decoded.email }, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				res.json({ success: true, picture: user.picture, name: user.name });
 			}
 		});
 	});
@@ -677,13 +682,33 @@ module.exports = function(router) {
 		});
 	});
 
-	router.get('/profile/:email', function(req, res) {
-		User.findOne({ email: req.params.email}, function(err, user) {
+	router.get('/profile', function(req, res) {
+		User.findOne({ email: req.decoded.email}, function(err, user) {
 			if (err) throw err;
 			if (!user) {
 				res.json({success: false, message: 'No user was found!'});
 			} else {
 				res.json({ success: true, user: user });
+			}
+		});
+	});
+
+	router.put('/profile', function(req, res) {
+		var picture = req.body.picture;
+		var editedUser = req.body.email;
+		User.findOne({ email: editedUser}, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				user.picture = picture;
+				user.save(function(err) {
+					if (err) {
+						console.log(err);
+					} else {
+						res.json({ success: true, message: 'Account has been updated.'});
+					}
+				});
 			}
 		});
 	});

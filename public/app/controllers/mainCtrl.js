@@ -23,13 +23,13 @@ angular.module('mainController', ['authServices', 'userServices'])
   					var expireTime = self.parseJwt(token);
   					var timeStamp = Math.floor(Date.now() / 1000);
   					var timeCheck = expireTime.exp - timeStamp;
-  					if (timeCheck <= 30000) {
-  						console.log('Token has expired.');
+            //console.log(timeCheck);
+  					if (timeCheck <= 1800) {
   						showModal(1);
   						$interval.cancel(interval);
   					}
   				}
-  			}, 60000);
+  			}, 30000);
   		}
   	};
 
@@ -58,6 +58,14 @@ angular.module('mainController', ['authServices', 'userServices'])
 	  			$route.reload();
 	  		}, 2000);
   		}
+      $timeout(function() {
+        if (!app.choiceMade) {
+          Auth.logout();
+          $location.path('/');
+          hideModal();
+          $route.reload();
+        }
+      }, 100000);
   	};
 
   	var hideModal = function() {
@@ -139,6 +147,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 			Auth.getUser().then(function(data) {
 				app.name = data.data.name;
 				app.email = data.data.email;
+        app.profilePic = data.data.picture;
         User.getPermission().then(function(data) {
           if (data.data.permission === 'admin' || data.data.permission === 'moderator') {
               app.authorized = true;
@@ -189,6 +198,8 @@ angular.module('mainController', ['authServices', 'userServices'])
 	app.logout = function() {
 		showModal(2);
 	};
+
+
 
 });
 

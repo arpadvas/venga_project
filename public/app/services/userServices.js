@@ -43,6 +43,10 @@ angular.module('userServices', [])
 		return $http.get('/api/permission');
 	}
 
+	userFactory.getProfilePic = function() {
+		return $http.get('/api/profilePic');
+	}
+
 	userFactory.getUsers = function() {
 		return $http.get('/api/management');
 	}
@@ -59,8 +63,12 @@ angular.module('userServices', [])
 		return $http.put('/api/edituser', id);
 	}
 
-	userFactory.getProfile = function(email) {
-		return $http.get('/api/profile/' + email);
+	userFactory.getProfile = function() {
+		return $http.get('/api/profile');
+	}
+
+	userFactory.editProfile = function(currentUser) {
+		return $http.put('/api/profile', currentUser);
 	}
 
 	return userFactory;

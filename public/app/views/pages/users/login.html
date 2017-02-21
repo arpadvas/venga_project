@@ -1,18 +1,39 @@
-<div class="jumbotron panel">
-  <h1 class="display-4 m-b-2">Log In</h1>
-  <div class="alert alert-info alert-custom" role="alert" ng-show='main.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p> Loading...</p></div>
-  <div class="alert alert-success alert-custom" role="alert" ng-show='main.successMsg'><p>{{main.successMsg}}</p></div>
-  <div class="alert alert-danger alert-custom" role="alert" ng-show='main.errorMsg'><p>{{main.errorMsg}}</p><a ng-show="main.expired" href="/resend"><p class="text-primary"> Resend activation link</p></a></div>
-  <form ng-submit="main.doLogin(loginData)">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" id="email" ng-disabled="main.disabled" ng-model="main.loginData.email" placeholder="email" name="email" class="form-control input-custom"/>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" ng-disabled="main.disabled" ng-model="main.loginData.password" placeholder="password" name="password" class="form-control input-custom"/>
-    </div>
-    <button ng-disabled="main.disabled" type="submit" class="btn btn-primary">Log in</button>
-    <a href="/resetpassword"><button ng-disabled="main.disabled" type="button" class="btn btn-info">Forgot Password</button></a>
-  </form>
+<h1 class="h-no-top-margin grey-header">Log In</h1>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Account details</h3>
+  </div>
+  <div class="panel-body">
+    <div class="content">
+      <form ng-submit="main.doLogin(loginData)">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" ng-disabled="main.disabled" ng-model="main.loginData.email" placeholder="email" name="email" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" ng-disabled="main.disabled" ng-model="main.loginData.password" placeholder="password" name="password" class="form-control"/>
+      </div>
+      <button ng-disabled="main.disabled" type="submit" class="btn btn-primary">Log in</button>
+      <a href="/resetpassword"><button ng-disabled="main.disabled" type="button" class="btn btn-info">Forgot Password</button></a>
+      </form>
+      <div class="sk-fading-circle" ng-show="main.loading">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+      </div>
+      <div class="alert alert-success show-hide-message alert-custom" role="alert" ng-show='main.successMsg'><p>{{main.successMsg}}</p></div>
+      <div class="alert alert-danger show-hide-message alert-custom" role="alert" ng-show='main.errorMsg'><p>{{main.errorMsg}}</p><a ng-show="main.expired" href="/resend"><p class="text-primary"> Resend activation link</p></a></div>
+  </div>
+  </div>
 </div>

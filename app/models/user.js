@@ -83,7 +83,8 @@ var userSchema = new mongoose.Schema({
 		default: 'admin'
 	},
 	picture: {
-		type: mongoose.Schema.Types.Mixed
+		type: mongoose.Schema.Types.Mixed,
+		default: {url: 'https://cdn.filepicker.io/api/file/qmWGarA8SWsXEyvJcsd4'}
 	}
 });
 

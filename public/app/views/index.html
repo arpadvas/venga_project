@@ -59,7 +59,7 @@
             <li><a ng-show="main.isLoggedIn" href="/myAscents">My ascents</a></li>
             <li><a href="#" ng-show="main.isLoggedIn" ng-click="main.logout();">Logout</a></li>
           </ul>
-          <div class="profile-pic-small navbar-right"><a ng-show="main.isLoggedIn" href="/profile"><img src="assets/img/profile/arpi.jpg"></a></div>
+          <div ng-show="main.isLoggedIn" class="profile-pic-small navbar-right"><a href="/profile"><img ng-src="{{main.profilePic.url}}"></a></div>
           <form class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Search...">
           </form>
@@ -109,7 +109,7 @@
                   <div class="sk-circle10 sk-circle"></div>
                   <div class="sk-circle11 sk-circle"></div>
                   <div class="sk-circle12 sk-circle"></div>
-              </div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" ng-hide="main.hideButton" ng-click="main.renewSession();" class="btn btn-default" data-dismiss="modal">Yes</button>
