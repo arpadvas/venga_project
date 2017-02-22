@@ -354,7 +354,7 @@ module.exports = function(router) {
 			if (!user) {
 				res.json({success: false, message: 'No user was found!'});
 			} else {
-				res.json({ success: true, permission: user.permission });
+				res.json({ success: true, permission: user.permission, picture: user.picture });
 			}
 		});
 	});

@@ -147,12 +147,13 @@ angular.module('mainController', ['authServices', 'userServices'])
 			Auth.getUser().then(function(data) {
 				app.name = data.data.name;
 				app.email = data.data.email;
-        app.profilePic = data.data.picture;
         User.getPermission().then(function(data) {
           if (data.data.permission === 'admin' || data.data.permission === 'moderator') {
+              app.profilePic = data.data.picture;
               app.authorized = true;
               app.loadme = true;
           } else {
+            app.profilePic = data.data.picture;
             app.loadme = true;
           }
         });

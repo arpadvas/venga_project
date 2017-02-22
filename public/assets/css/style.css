@@ -152,12 +152,6 @@ body {
   padding: 10px 0;
 }
 
-.profile-pic {
-  display: inline-block;
-  width: 200px;
-  height: 200px;
-}
-
 .profile-pic-small img {
   width: 30px;
   height: 30px;

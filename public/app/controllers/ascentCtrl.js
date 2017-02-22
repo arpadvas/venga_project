@@ -7,6 +7,7 @@ angular.module('ascentController', ['ascentServices'])
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
+	app.limit = 5;
 
 
 	function getMyAscents() {
@@ -23,6 +24,21 @@ angular.module('ascentController', ['ascentServices'])
 	}
 
 	getMyAscents();
+
+	app.showMore = function(number) {
+		app.searchErrorMsg = false;
+		if (number>0) {
+			app.limit = number;
+		} else {
+			app.searchErrorMsg = 'Please enter a valid number!';
+		}
+	};
+
+	app.showAll = function() {
+		app.limit = undefined;
+		app.errorMsg = false;
+		$scope.number = undefined;
+	};
 
 	app.addAscent = function(ascentData) {
 		app.loading = true;
@@ -121,6 +137,30 @@ angular.module('ascentController', ['ascentServices'])
 				app.errorMsg = data.data.message;
 			}
 		});
+	};
+
+	app.search = function(searchKeyword, number) {
+		if (searchKeyword) {
+			if (searchKeyword.length > 0) {
+				app.limit = 0;
+				$scope.searchFilter = searchKeyword;
+				app.limit = number;
+			} else {
+				$scope.searchFilter = undefined;
+				app.limit = 0;
+			}
+		} else {
+			$scope.searchFilter = undefined;
+			app.limit = 0;
+		}
+	};
+
+	app.clear = function() {
+		$scope.number = undefined;
+		app.limit = 5;
+		$scope.searchFilter = undefined;
+		$scope.searchKeyword = undefined;
+		app.searchErrorMsg = false;
 	};
 
 

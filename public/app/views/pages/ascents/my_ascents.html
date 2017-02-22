@@ -5,6 +5,40 @@
 <br> 
 <br> 
 
+<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.searchSuccessMsg'><p>{{ascent.searchSuccessMsg}}</p></div>
+<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.searchErrorMsg'><p>{{ascent.searchErrorMsg}}</p></div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Search</h3>
+	</div>
+	<div class="panel-body">
+		<form class="form-inline filter">
+		  <div class="form-group">
+		    <div class="input-group">
+		      <div class="input-group-addon">Results to display:</div>
+		      <input type="text" class="form-control" id="filter" ng-model="number">
+		    </div>
+		  </div>
+		  <button type="button" class="btn btn-success" ng-click="ascent.showMore(number);">Apply Filter</button>
+		  <button type="button" class="btn btn-success" ng-click="ascent.showAll();">Show All</button>
+		</form>
+		<form class="form-inline filter">
+		  <div class="form-group">
+		    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
+		  </div>
+		  <button type="submit" class="btn btn-info" ng-click="ascent.search(searchKeyword, number);">Quick Search</button>
+		  <button type="submit" class="btn btn-info" ng-click="ascent.clear();">Clear</button>
+		  <button type="submit" class="btn btn-info">Advanced Search</button>
+		</form>
+		<div ng-show="searchFilter !== undefined">
+			<p>Total results: {{(ascent.ascents | filter: searchFilter).length}}</p>
+			<p>Showing: {{(ascent.ascents | filter: searchFilter | limitTo: ascent.limit).length}}</p>
+		</div>
+	</div>
+</div>
+
+
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3 class="panel-title">Ascents</h3>
@@ -19,7 +53,7 @@
 						<th>Date</th>	
 						<th>Action</th>
 				</tr>
-				<tr ng-repeat="climb in ascent.ascents">
+				<tr ng-repeat="climb in ascent.ascents | filter: searchFilter | limitTo: ascent.limit">
 					<td>{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
