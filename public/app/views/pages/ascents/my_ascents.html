@@ -13,28 +13,39 @@
 		<h3 class="panel-title">Search</h3>
 	</div>
 	<div class="panel-body">
-		<form class="form-inline filter">
+
+		<form class="form-horizontal">
 		  <div class="form-group">
-		    <div class="input-group">
-		      <div class="input-group-addon">Results to display:</div>
-		      <input type="text" class="form-control" id="filter" ng-model="number">
+		    <label class="col-sm-2 control-label">Name</label>
+		    <div class="col-sm-10">
+		      <input type="text" class="form-control" name="searchByName" placeholder="Search by name" ng-model="searchByName">
 		    </div>
 		  </div>
-		  <button type="button" class="btn btn-success" ng-click="ascent.showMore(number);">Apply Filter</button>
-		  <button type="button" class="btn btn-success" ng-click="ascent.showAll();">Show All</button>
-		</form>
-		<form class="form-inline filter">
 		  <div class="form-group">
-		    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
+		    <label class="col-sm-2 control-label">Style</label>
+		    <div class="col-sm-10">
+		    	<select class="form-control" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascent.styles"></select>
+		    </div>
 		  </div>
-		  <button type="submit" class="btn btn-info" ng-click="ascent.search(searchKeyword, number);">Quick Search</button>
-		  <button type="submit" class="btn btn-info" ng-click="ascent.clear();">Clear</button>
-		  <button type="submit" class="btn btn-info">Advanced Search</button>
+		  <div class="form-group">
+		    <label class="col-sm-2 control-label">Grade</label>
+		    <div class="col-sm-10">
+		    	<select class="form-control" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascent.grades"></select>
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-success" ng-click="ascent.search(searchByName, searchByStyle, searchByGrade);">Search</button>
+		      <button type="submit" class="btn btn-secondary" ng-click="ascent.clear();">Clear</button>
+		    </div>
+		  </div>
+		  <div class="form-group" ng-show="searchFilter !== undefined">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <p>Total results: {{(ascent.ascents | filter: searchFilter).length}}</p>
+		    </div>
+		  </div>
 		</form>
-		<div ng-show="searchFilter !== undefined">
-			<p>Total results: {{(ascent.ascents | filter: searchFilter).length}}</p>
-			<p>Showing: {{(ascent.ascents | filter: searchFilter | limitTo: ascent.limit).length}}</p>
-		</div>
+
 	</div>
 </div>
 
@@ -53,7 +64,7 @@
 						<th>Date</th>	
 						<th>Action</th>
 				</tr>
-				<tr ng-repeat="climb in ascent.ascents | filter: searchFilter | limitTo: ascent.limit">
+				<tr ng-repeat="climb in ascent.ascents | filter: searchFilter">
 					<td>{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
