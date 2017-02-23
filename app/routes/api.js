@@ -370,6 +370,27 @@ module.exports = function(router) {
 		});
 	});
 
+	router.put('/propertyname', function(req, res) {
+		var propertyname = req.body.propertyname;
+		var reverse = req.body.reverse;
+		User.findOne({ email: req.decoded.email}, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				user.propertyname = propertyname;
+				user.reverse = reverse;
+				user.save(function(err) {
+					if (err) {
+						console.log(err);
+					} else {
+						res.json({ success: true, message: 'Account has been updated.'});
+					}
+				});
+			}
+		});
+	});
+
 	router.get('/profilePic', function(req, res) {
 		User.findOne({ email: req.decoded.email }, function(err, user) {
 			if (err) throw err;

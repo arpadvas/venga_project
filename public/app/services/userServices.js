@@ -75,5 +75,9 @@ angular.module('userServices', [])
 		return $http.get('/api/propertyname');
 	}
 
+	userFactory.updatePropertyName = function(propertyObject) {
+		return $http.put('/api/propertyname', propertyObject);
+	}
+
 	return userFactory;
 });

@@ -11,7 +11,6 @@ angular.module('ascentController', ['ascentServices'])
 	function getPropertyName() {
 		User.getPropertyName().then(function(data) {
 			if (data.data.success) {
-				console.log(data.data);
 				app.propertyName = data.data.propertyname;
 				app.reverse = data.data.reverse;
 			} else {
@@ -179,6 +178,14 @@ angular.module('ascentController', ['ascentServices'])
 	     ? !app.reverse : false;
       app.propertyName = propertyName;
       app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
+      app.updatePropertyName(app.propertyName, app.reverse);
+    };
+
+    app.updatePropertyName = function(propertyName, reverse) {
+    	var propertyObject = {};
+    	propertyObject.propertyname = app.propertyName;
+    	propertyObject.reverse = app.reverse;
+    	User.updatePropertyName(propertyObject);
     };
 
 
