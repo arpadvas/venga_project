@@ -13,6 +13,7 @@ angular.module('ascentServices', [])
 		return $http.get('/api/myascents');
 	};
 
+
 	ascentFactory.deleteAscent = function(id) {
 		return $http.delete('/api/myascents/' + id);
 	};

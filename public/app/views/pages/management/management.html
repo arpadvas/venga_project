@@ -25,7 +25,6 @@
 		  </div>
 		  <button type="submit" class="btn btn-info" ng-click="management.search(searchKeyword, number);">Quick Search</button>
 		  <button type="submit" class="btn btn-info" ng-click="management.clear();">Clear</button>
-		  <button type="submit" class="btn btn-info">Advanced Search</button>
 		</form>
 		<div ng-show="searchFilter !== undefined">
 			<p>Total results: {{(management.users | filter: searchFilter).length}}</p>

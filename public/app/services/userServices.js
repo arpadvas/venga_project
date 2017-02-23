@@ -71,5 +71,9 @@ angular.module('userServices', [])
 		return $http.put('/api/profile', currentUser);
 	}
 
+	userFactory.getPropertyName = function() {
+		return $http.get('/api/propertyname');
+	}
+
 	return userFactory;
 });

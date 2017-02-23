@@ -6,6 +6,16 @@ angular.module('mainController', ['authServices', 'userServices'])
 
 	app.loadme = false;
 
+  if (Auth.isLoggedIn()) {
+    Auth.getUser().then(function(data) {
+        if (data.data.name === undefined) {
+            Auth.logout();
+            app.isLoggedIn = false;
+            $location.path('/');
+            app.loadme = true;
+        }
+    });
+  }
 
 	app.checkSession = function() {
   		if (Auth.isLoggedIn()) {

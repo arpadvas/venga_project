@@ -85,6 +85,16 @@ var userSchema = new mongoose.Schema({
 	picture: {
 		type: mongoose.Schema.Types.Mixed,
 		default: {url: 'https://cdn.filepicker.io/api/file/qmWGarA8SWsXEyvJcsd4'}
+	},
+	propertyname: {
+		type: String,
+		required: true,
+		default: 'grade'
+	},
+	reverse: {
+		type: Boolean,
+		required: true,
+		default: true
 	}
 });
 

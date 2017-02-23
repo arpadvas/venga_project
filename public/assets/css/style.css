@@ -168,6 +168,10 @@ body {
   border-style: none;
 }
 
+.table th:hover {
+  color: #576366;
+}
+
 /*Spinner*/
 
 .sk-fading-circle {

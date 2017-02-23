@@ -359,6 +359,17 @@ module.exports = function(router) {
 		});
 	});
 
+	router.get('/propertyname', function(req, res) {
+		User.findOne({ email: req.decoded.email }, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				res.json({ success: true, propertyname: user.propertyname, reverse: user.reverse });
+			}
+		});
+	});
+
 	router.get('/profilePic', function(req, res) {
 		User.findOne({ email: req.decoded.email }, function(err, user) {
 			if (err) throw err;

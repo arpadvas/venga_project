@@ -1,6 +1,6 @@
 angular.module('ascentController', ['ascentServices'])
 
-.controller('ascentCtrl', function($http, $timeout, Ascent, $scope) {
+.controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User) {
 
 	var app = this;
 	app.loading = true;
@@ -8,6 +8,19 @@ angular.module('ascentController', ['ascentServices'])
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
 
+	function getPropertyName() {
+		User.getPropertyName().then(function(data) {
+			if (data.data.success) {
+				console.log(data.data);
+				app.propertyName = data.data.propertyname;
+				app.reverse = data.data.reverse;
+			} else {
+				app.errorMsg = data.data.message;
+			}
+		});
+	}
+
+	getPropertyName();
 
 	function getMyAscents() {
 
@@ -15,6 +28,7 @@ angular.module('ascentController', ['ascentServices'])
 			if (data.data.success) {
 				app.loading = false;
 				app.ascents = data.data.ascents;
+				app.ascents = $filter('orderBy')(data.data.ascents, app.propertyName, app.reverse);
 			} else {
 				app.loading = false;
 				app.errorMsg = data.data.message;
@@ -138,22 +152,6 @@ angular.module('ascentController', ['ascentServices'])
 		});
 	};
 
-	// app.search = function(searchKeyword, number) {
-	// 	if (searchKeyword) {
-	// 		if (searchKeyword.length > 0) {
-	// 			app.limit = 0;
-	// 			$scope.searchFilter = searchKeyword;
-	// 			app.limit = number;
-	// 		} else {
-	// 			$scope.searchFilter = undefined;
-	// 			app.limit = 0;
-	// 		}
-	// 	} else {
-	// 		$scope.searchFilter = undefined;
-	// 		app.limit = 0;
-	// 	}
-	// };
-
 	app.search = function(searchByName, searchByStyle, searchByGrade) {
 		if (searchByName || searchByStyle || searchByGrade) {
 			$scope.searchFilter = {};
@@ -175,6 +173,13 @@ angular.module('ascentController', ['ascentServices'])
 		$scope.searchByStyle = undefined;
 		$scope.searchByGrade = undefined;
 	};
+
+	app.sortBy = function(propertyName) {
+	  app.reverse = (propertyName !== null && app.propertyName === propertyName)
+	     ? !app.reverse : false;
+      app.propertyName = propertyName;
+      app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
+    };
 
 
 	// datepicker https://angular-ui.github.io/bootstrap/#!#datepicker
