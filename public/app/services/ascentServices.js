@@ -26,5 +26,9 @@ angular.module('ascentServices', [])
 		return $http.put('/api/myascents', id);
 	};
 
+	ascentFactory.getAscents = function() {
+		return $http.get('/api/ascents');
+	};
+
 	return ascentFactory;
 });

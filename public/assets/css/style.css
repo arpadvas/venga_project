@@ -172,6 +172,11 @@ body {
   color: #576366;
 }
 
+.center {
+  display: table;
+  margin: auto;
+}
+
 /*Spinner*/
 
 .sk-fading-circle {

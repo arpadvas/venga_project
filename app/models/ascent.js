@@ -22,7 +22,11 @@ var ascentSchema = new mongoose.Schema({
 	date: {
 		type: Date, 
 		required: true,
-	}
+	},
+	sentByName: {
+		type: String, 
+		required: true
+	},
 });
 
 module.exports = mongoose.model('Ascent', ascentSchema);

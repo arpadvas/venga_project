@@ -114,6 +114,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.profileMenu = 'default';
       $scope.myascentsMenu = 'default';
       $scope.managementMenu = 'default';
+      $scope.searchAscentsMenu = 'default';
     } else if (app.location === '/register') {
       $scope.registerMenu = 'active';
       $scope.loginMenu = 'default';
@@ -121,6 +122,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.profileMenu = 'default';
       $scope.myascentsMenu = 'default';
       $scope.managementMenu = 'default';
+      $scope.searchAscentsMenu = 'default';
     } else if (app.location === '/') {
       $scope.registerMenu = 'default';
       $scope.loginMenu = 'default';
@@ -128,6 +130,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.profileMenu = 'default';
       $scope.myascentsMenu = 'default';
       $scope.managementMenu = 'default';
+      $scope.searchAscentsMenu = 'default';
     } else if (app.location === '/profile') {
       $scope.registerMenu = 'default';
       $scope.loginMenu = 'default';
@@ -135,6 +138,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.profileMenu = 'active';
       $scope.myascentsMenu = 'default';
       $scope.managementMenu = 'default';
+      $scope.searchAscentsMenu = 'default';
     } else if (app.location === '/myAscents') {
       $scope.registerMenu = 'default';
       $scope.loginMenu = 'default';
@@ -142,6 +146,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.profileMenu = 'default';
       $scope.myascentsMenu = 'active';
       $scope.managementMenu = 'default';
+      $scope.searchAscentsMenu = 'default';
     } else if (app.location === '/management') {
       $scope.registerMenu = 'default';
       $scope.loginMenu = 'default';
@@ -149,6 +154,15 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.profileMenu = 'default';
       $scope.myascentsMenu = 'default';
       $scope.managementMenu = 'active';
+      $scope.searchAscentsMenu = 'default';
+    } else if (app.location === '/searchAscents') {
+      $scope.registerMenu = 'default';
+      $scope.loginMenu = 'default';
+      $scope.homeMenu = 'default';
+      $scope.profileMenu = 'default';
+      $scope.myascentsMenu = 'default';
+      $scope.managementMenu = 'default';
+      $scope.searchAscentsMenu = 'active';
     }
 
 

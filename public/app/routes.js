@@ -83,6 +83,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
         permission: ['admin', 'moderator']
     })
 
+    .when('/searchAscents', {
+		templateUrl: 'app/views/pages/ascents/searchascents.html',
+		controller: 'ascentSearchCtrl',
+        controllerAs: 'ascentSearch',
+		authenticated: true
+	})
+
 	.otherwise( {redirectTo: '/'} );
 
 	$locationProvider.html5Mode({

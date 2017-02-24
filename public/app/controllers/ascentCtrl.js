@@ -1,12 +1,15 @@
 angular.module('ascentController', ['ascentServices'])
 
-.controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User) {
+.controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User, $location, $rootScope) {
 
 	var app = this;
 	app.loading = true;
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
+ 	app.pageSize = 6;
+
+
 
 	function getPropertyName() {
 		User.getPropertyName().then(function(data) {
@@ -186,6 +189,11 @@ angular.module('ascentController', ['ascentServices'])
     	propertyObject.propertyname = app.propertyName;
     	propertyObject.reverse = app.reverse;
     	User.updatePropertyName(propertyObject);
+    };
+
+    app.openSearch = function(ascentName) {
+    	$location.path('/searchAscents');
+    	$rootScope.searchByAscentName(ascentName);
     };
 
 

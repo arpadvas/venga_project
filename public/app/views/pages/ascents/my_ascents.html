@@ -40,7 +40,7 @@
 		    </div>
 		  </div>
 		  <div class="form-group" ng-show="searchFilter !== undefined">
-		    <div class="col-sm-offset-2 col-sm-10">
+		    <div class="col-sm-offset-1 col-sm-10">
 		      <p>Total results: {{(ascent.ascents | filter: searchFilter).length}}</p>
 		    </div>
 		  </div>
@@ -63,9 +63,9 @@
 						<th ng-click="ascent.sortBy('grade')">Grade</th>
 						<th ng-click="ascent.sortBy('date')">Date</th>	
 						<th>Action</th>
-				</tr>
-				<tr ng-repeat="climb in ascent.ascents | filter: searchFilter">
-					<td>{{climb.name}}</td>
+					</tr>
+					<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize">
+						<td ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
 						<td>{{climb.date | date:'fullDate' }}</td>
@@ -76,8 +76,11 @@
 					</tr>
 				</table>
 				</div>
+				<dir-pagination-controls boundary-links="true" class="center"></dir-pagination-controls>
 		</div>
 </div>
+
+
 
 <!-- Add Modal -->
 <div class="modal fade" id="ascentModal" role="dialog">

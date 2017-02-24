@@ -631,6 +631,7 @@ module.exports = function(router) {
 			ascent.grade = req.body.grade;
 			ascent.sentBy = mainUser.email;
 			ascent.date = req.body.date;
+			ascent.sentByName = mainUser.name;
 			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '' || req.body.date == null || req.body.date == '') {
 				res.json({success: false, message: 'Please make sure the fields are filled out properly!'});
 			} else {
@@ -741,6 +742,16 @@ module.exports = function(router) {
 						res.json({ success: true, message: 'Account has been updated.'});
 					}
 				});
+			}
+		});
+	});
+
+	router.get('/ascents', function(req, res) {
+		Ascent.find({ }, function(err, ascents) {
+			if (!ascents) {
+				res.json({success: false, message: 'No ascent was found!'});
+			} else {
+				res.json({ success: true, ascents: ascents });
 			}
 		});
 	});
