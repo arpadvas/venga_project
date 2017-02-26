@@ -5,6 +5,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 	var app = this;
 
 	app.loadme = false;
+  $rootScope.limit = 0;
 
   if (Auth.isLoggedIn()) {
     Auth.getUser().then(function(data) {

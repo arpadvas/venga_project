@@ -193,7 +193,12 @@ angular.module('ascentController', ['ascentServices'])
 
     app.openSearch = function(ascentName) {
     	$location.path('/searchAscents');
-    	$rootScope.searchByAscentName(ascentName);
+    	$rootScope.searchFilter = {};
+    	$rootScope.searchByName = ascentName;
+		$rootScope.limit = undefined;
+		$rootScope.searchFilter.name = ascentName;
+		console.log($rootScope.limit);
+		console.log($rootScope.searchFilter);
     };
 
 
