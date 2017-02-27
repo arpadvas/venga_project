@@ -4,7 +4,6 @@ angular.module('ascentSearchController', ['ascentServices'])
 	
 	var app = this;
 	app.loading = true;
-	//$scope.limit = 0;
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
@@ -28,42 +27,33 @@ angular.module('ascentSearchController', ['ascentServices'])
 
 	getAscents();
 
-	console.log($rootScope.limit);
-	console.log($rootScope.searchFilter);
-
 	app.search = function(searchByName, searchByStyle, searchByGrade, searchBySender) {
 		if (searchByName || searchByStyle || searchByGrade || searchBySender) {
-			$scope.searchFilter = {};
-			$scope.limit = undefined;
+			$rootScope.searchFilter2 = {};
+			$rootScope.limit = undefined;
 			if (searchByName) {
-				$scope.searchFilter.name = searchByName;
+				$rootScope.searchFilter2.name = searchByName;
 			}
 			if (searchByStyle) {
-				$scope.searchFilter.style = searchByStyle;
+				$scope.searchFilter2.style = searchByStyle;
 			}
 			if (searchByGrade) {
-				$scope.searchFilter.grade = searchByGrade;
+				$scope.searchFilter2.grade = searchByGrade;
 			}
 			if (searchBySender) {
-				$scope.searchFilter.sentByName = searchBySender;
+				$scope.searchFilter2.sentByName = searchBySender;
 			}
 		}
 	};
 
-	$rootScope.searchByAscentName = function(ascentName) {
-		$scope.searchFilter = {};
-		$scope.limit = undefined;
-		$scope.searchFilter.name = ascentName;
-
-	};
-
 	app.clear = function() {
-		$scope.searchFilter = undefined;
+		$rootScope.searchFilter2 = undefined;
+		$rootScope.searchByName = undefined;
 		$scope.searchByName = undefined;
 		$scope.searchByStyle = undefined;
 		$scope.searchByGrade = undefined;
 		$scope.searchBySender = undefined;
-		$scope.limit = 0;
+		$rootScope.limit = 0;
 	};
 
 });

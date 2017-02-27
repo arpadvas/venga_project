@@ -3,7 +3,7 @@ angular.module('ascentController', ['ascentServices'])
 .controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User, $location, $rootScope) {
 
 	var app = this;
-	app.loading = true;
+	app.loading2 = true;
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
@@ -28,11 +28,11 @@ angular.module('ascentController', ['ascentServices'])
 
 		Ascent.getMyAscents().then(function(data) {
 			if (data.data.success) {
-				app.loading = false;
+				app.loading2 = false;
 				app.ascents = data.data.ascents;
 				app.ascents = $filter('orderBy')(data.data.ascents, app.propertyName, app.reverse);
 			} else {
-				app.loading = false;
+				app.loading2 = false;
 				app.errorMsg = data.data.message;
 			}
 		});
@@ -154,11 +154,11 @@ angular.module('ascentController', ['ascentServices'])
 		});
 	};
 
-	app.search = function(searchByName, searchByStyle, searchByGrade) {
-		if (searchByName || searchByStyle || searchByGrade) {
+	app.search = function(searchByAscent, searchByStyle, searchByGrade) {
+		if (searchByAscent || searchByStyle || searchByGrade) {
 			$scope.searchFilter = {};
-			if (searchByName) {
-				$scope.searchFilter.name = searchByName;
+			if (searchByAscent) {
+				$scope.searchFilter.name = searchByAscent;
 			}
 			if (searchByStyle) {
 				$scope.searchFilter.style = searchByStyle;
@@ -171,7 +171,7 @@ angular.module('ascentController', ['ascentServices'])
 
 	app.clear = function() {
 		$scope.searchFilter = undefined;
-		$scope.searchByName = undefined;
+		$scope.searchByAscent = undefined;
 		$scope.searchByStyle = undefined;
 		$scope.searchByGrade = undefined;
 	};
@@ -193,12 +193,10 @@ angular.module('ascentController', ['ascentServices'])
 
     app.openSearch = function(ascentName) {
     	$location.path('/searchAscents');
-    	$rootScope.searchFilter = {};
+    	$rootScope.searchFilter2 = {};
     	$rootScope.searchByName = ascentName;
 		$rootScope.limit = undefined;
-		$rootScope.searchFilter.name = ascentName;
-		console.log($rootScope.limit);
-		console.log($rootScope.searchFilter);
+		$rootScope.searchFilter2.name = ascentName;
     };
 
 

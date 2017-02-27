@@ -1,20 +1,5 @@
 <h1 class="h-no-top-margin grey-header">Search ascents</h1> 
 
-<div class="sk-fading-circle" ng-show="ascentSearch.loading">
-    <div class="sk-circle1 sk-circle"></div>
-    <div class="sk-circle2 sk-circle"></div>
-    <div class="sk-circle3 sk-circle"></div>
-    <div class="sk-circle4 sk-circle"></div>
-    <div class="sk-circle5 sk-circle"></div>
-    <div class="sk-circle6 sk-circle"></div>
-    <div class="sk-circle7 sk-circle"></div>
-    <div class="sk-circle8 sk-circle"></div>
-    <div class="sk-circle9 sk-circle"></div>
-    <div class="sk-circle10 sk-circle"></div>
-    <div class="sk-circle11 sk-circle"></div>
-    <div class="sk-circle12 sk-circle"></div>
-</div>
-
 <div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascentSearch.successMsg'><p>{{ascentSearch.successMsg}}</p></div>
 <div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascentSearch.errorMsg'><p>{{ascentSearch.errorMsg}}</p></div>
 
@@ -55,9 +40,9 @@
 		      <button type="submit" class="btn btn-info" ng-click="ascentSearch.clear();">Clear</button>
 		    </div>
 		  </div>
-		  <div class="form-group" ng-show="searchFilter !== undefined">
+		  <div class="form-group" ng-show="searchFilter2 !== undefined">
 		    <div class="col-sm-offset-1 col-sm-10">
-		      <p>Total results: {{(ascentSearch.ascents | filter: searchFilter).length}}</p>
+		      <p>Total results: {{(ascentSearch.ascents | filter: searchFilter2).length}}</p>
 		    </div>
 		  </div>
 		</form>
@@ -65,6 +50,20 @@
 	</div>
 </div>
 
+<div class="sk-fading-circle" ng-show="ascentSearch.loading">
+    <div class="sk-circle1 sk-circle"></div>
+    <div class="sk-circle2 sk-circle"></div>
+    <div class="sk-circle3 sk-circle"></div>
+    <div class="sk-circle4 sk-circle"></div>
+    <div class="sk-circle5 sk-circle"></div>
+    <div class="sk-circle6 sk-circle"></div>
+    <div class="sk-circle7 sk-circle"></div>
+    <div class="sk-circle8 sk-circle"></div>
+    <div class="sk-circle9 sk-circle"></div>
+    <div class="sk-circle10 sk-circle"></div>
+    <div class="sk-circle11 sk-circle"></div>
+    <div class="sk-circle12 sk-circle"></div>
+</div>
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -72,7 +71,7 @@
 	</div>
 		<div class="panel-body no-padding">
 			<div class="table-responsive">
-				<table class="table table-hover">
+				<table class="table">
 					<tr>
 						<th ng-click="ascentSearch.sortBy('name')">Name</th>
 						<th ng-click="ascentSearch.sortBy('style')">Style</th>
@@ -80,7 +79,7 @@
 						<th ng-click="ascentSearch.sortBy('date')">Date</th>	
 						<th ng-click="ascentSearch.sortBy('sentByName')">Sent By</th>
 					</tr>
-				<tr dir-paginate="climb in ascentSearch.ascents | filter: searchFilter | itemsPerPage: ascentSearch.pageSize | limitTo: limit">
+				<tr dir-paginate="climb in ascentSearch.ascents | filter: searchFilter2 | itemsPerPage: ascentSearch.pageSize | limitTo: limit">
 					<td>{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>

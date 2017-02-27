@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use('/api', appRoutes);
 
-mongoose.connect('mongodb://localhost/venga', function(err) {
+mongoose.connect('mongodb://avas:123456@ds145359.mlab.com:45359/venga', function(err) {
 	if (err) {
 		console.log('There is error while connecting to NongoDB: ' + err);
 	} else {

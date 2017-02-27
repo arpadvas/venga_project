@@ -18,7 +18,7 @@
 		  <div class="form-group">
 		    <label class="col-sm-1 control-label">Name</label>
 		    <div class="col-sm-6">
-		      <input type="text" class="form-control" name="searchByName" placeholder="Search by name" ng-model="searchByName">
+		      <input type="text" class="form-control" name="searchByAscent" placeholder="Search by name" ng-model="searchByAscent">
 		    </div>
 		  </div>
 		  <div class="form-group">
@@ -35,7 +35,7 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-1 col-sm-6">
-		      <button type="submit" class="btn btn-success" ng-click="ascent.search(searchByName, searchByStyle, searchByGrade);">Search</button>
+		      <button type="submit" class="btn btn-success" ng-click="ascent.search(searchByAscent, searchByStyle, searchByGrade);">Search</button>
 		      <button type="submit" class="btn btn-info" ng-click="ascent.clear();">Clear</button>
 		    </div>
 		  </div>
@@ -49,6 +49,20 @@
 	</div>
 </div>
 
+<div class="sk-fading-circle" ng-show="ascent.loading2">
+    <div class="sk-circle1 sk-circle"></div>
+    <div class="sk-circle2 sk-circle"></div>
+    <div class="sk-circle3 sk-circle"></div>
+    <div class="sk-circle4 sk-circle"></div>
+    <div class="sk-circle5 sk-circle"></div>
+    <div class="sk-circle6 sk-circle"></div>
+    <div class="sk-circle7 sk-circle"></div>
+    <div class="sk-circle8 sk-circle"></div>
+    <div class="sk-circle9 sk-circle"></div>
+    <div class="sk-circle10 sk-circle"></div>
+    <div class="sk-circle11 sk-circle"></div>
+    <div class="sk-circle12 sk-circle"></div>
+</div>
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
@@ -56,7 +70,7 @@
 	</div>
 		<div class="panel-body no-padding">
 			<div class="table-responsive">
-				<table class="table table-hover">
+				<table class="table">
 					<tr>
 						<th ng-click="ascent.sortBy('name')">Name</th>
 						<th ng-click="ascent.sortBy('style')">Style</th>
@@ -65,7 +79,7 @@
 						<th>Action</th>
 					</tr>
 					<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize">
-						<td ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
+						<td class="hover-blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
 						<td>{{climb.date | date:'fullDate' }}</td>
@@ -118,7 +132,20 @@
 
 		<br>
 
-		<div class="alert alert-info alert-custom" role="alert" ng-show='ascent.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>Loading...</p></div>
+		<div class="sk-fading-circle" ng-show="ascent.loading">
+		    <div class="sk-circle1 sk-circle"></div>
+		    <div class="sk-circle2 sk-circle"></div>
+		    <div class="sk-circle3 sk-circle"></div>
+		    <div class="sk-circle4 sk-circle"></div>
+		    <div class="sk-circle5 sk-circle"></div>
+		    <div class="sk-circle6 sk-circle"></div>
+		    <div class="sk-circle7 sk-circle"></div>
+		    <div class="sk-circle8 sk-circle"></div>
+		    <div class="sk-circle9 sk-circle"></div>
+		    <div class="sk-circle10 sk-circle"></div>
+		    <div class="sk-circle11 sk-circle"></div>
+		    <div class="sk-circle12 sk-circle"></div>
+		</div>
 	  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
 	  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
 	  </div>
@@ -134,7 +161,7 @@
 </div>
 <!-- /Modal content-->
 
-<!-- Add Modal -->
+<!-- Edit Modal -->
 <div class="modal fade" id="editAscentModal" role="dialog">
 <div class="modal-dialog">
 
@@ -170,7 +197,20 @@
 
 		<br>
 
-		<div class="alert alert-info alert-custom" role="alert" ng-show='ascent.loading'><span class="glyphicon glyphicon-repeat spinner" aria-hidden="true"></span><p>&nbsp;Loading...</p></div>
+		<div class="sk-fading-circle" ng-show="ascent.loading">
+		    <div class="sk-circle1 sk-circle"></div>
+		    <div class="sk-circle2 sk-circle"></div>
+		    <div class="sk-circle3 sk-circle"></div>
+		    <div class="sk-circle4 sk-circle"></div>
+		    <div class="sk-circle5 sk-circle"></div>
+		    <div class="sk-circle6 sk-circle"></div>
+		    <div class="sk-circle7 sk-circle"></div>
+		    <div class="sk-circle8 sk-circle"></div>
+		    <div class="sk-circle9 sk-circle"></div>
+		    <div class="sk-circle10 sk-circle"></div>
+		    <div class="sk-circle11 sk-circle"></div>
+		    <div class="sk-circle12 sk-circle"></div>
+		</div>
 	  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
 	  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
 	  </div>

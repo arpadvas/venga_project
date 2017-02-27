@@ -172,6 +172,16 @@ body {
   color: #576366;
 }
 
+.table th:hover {
+  color: #576366;
+  cursor: pointer;
+}
+
+.hover-blue:hover {
+  color: #337AB7;
+  cursor: pointer;
+}
+
 .center {
   display: table;
   margin: auto;
