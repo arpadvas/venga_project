@@ -80,7 +80,7 @@ var userSchema = new mongoose.Schema({
 	permission: {
 		type: String,
 		required: true,
-		default: 'admin'
+		default: 'user'
 	},
 	picture: {
 		type: mongoose.Schema.Types.Mixed,

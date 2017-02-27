@@ -57,8 +57,8 @@ module.exports = function(router) {
 				  from: 'venga.project@zoho.com',
 				  to: user.email,
 				  subject: 'Activation Link',
-				  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/activate/' + user.temporarytoken,
-				  html: 'Hello' + user.name + ', Please click on the following link: <a href="http://localhost:3000/activate/' + user.temporarytoken + '">link</a>'
+				  text: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: http://localhost:3000/activate/' + user.temporarytoken,
+				  html: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: <a href="http://localhost:3000/activate/' + user.temporarytoken + '">link</a>'
 				};
 
 				client.sendMail(email, function(err, info){
@@ -149,8 +149,8 @@ module.exports = function(router) {
 					  from: 'venga.project@zoho.com',
 					  to: user.email,
 					  subject: 'Activation Link Request',
-					  text: 'Hello' + user.name + ', Please click on the following link: http://localhost:3000/activate/' + user.temporarytoken,
-					  html: 'Hello' + user.name + ', Please click on the following link: <a href="http://localhost:3000/activate/' + user.temporarytoken + '">link</a>'
+					  text: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: http://localhost:3000/activate/' + user.temporarytoken,
+					  html: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: <a href="http://localhost:3000/activate/' + user.temporarytoken + '">link</a>'
 					};
 
 					client.sendMail(email, function(err, info){
@@ -189,9 +189,9 @@ module.exports = function(router) {
 							var email = {
 							  from: 'venga.project@zoho.com',
 							  to: user.email,
-							  subject: 'Activation Activated',
-							  text: 'Hello world' + user.name + ', Your account has been activated.',
-							  html: 'Hello world' + user.name + ', Your account has been activated.'
+							  subject: 'Account Activated',
+							  text: 'Hello ' + user.name + ', Your account has been activated.',
+							  html: 'Hello ' + user.name + ', Your account has been activated.'
 							};
 
 							client.sendMail(email, function(err, info){
@@ -231,8 +231,8 @@ module.exports = function(router) {
 						  from: 'venga.project@zoho.com',
 						  to: user.email,
 						  subject: 'Password Reset Link',
-						  text: 'Hello' + user.name + ', Please click on the following link to reset your password: http://localhost:3000/reset/' + user.resettoken,
-						  html: 'Hello' + user.name + ', Please click on the following link to reset your password: <a href="http://localhost:3000/reset/' + user.resettoken + '">link</a>'
+						  text: 'Hello ' + user.name + ', Please click on the following link to reset your password: http://localhost:3000/reset/' + user.resettoken,
+						  html: 'Hello ' + user.name + ', Please click on the following link to reset your password: <a href="http://localhost:3000/reset/' + user.resettoken + '">link</a>'
 						};
 
 						client.sendMail(email, function(err, info){
@@ -292,8 +292,8 @@ module.exports = function(router) {
 						  from: 'venga.project@zoho.com',
 						  to: user.email,
 						  subject: 'Success password reset',
-						  text: 'Hello world' + user.name + ', Your password has been succeccfully reset.',
-						  html: 'Hello world' + user.name + ', Your password has been succeccfully reset.'
+						  text: 'Hello ' + user.name + ', Your password has been succeccfully reset.',
+						  html: 'Hello ' + user.name + ', Your password has been succeccfully reset.'
 						};
 
 						client.sendMail(email, function(err, info){

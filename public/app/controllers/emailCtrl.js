@@ -82,7 +82,7 @@ angular.module('emailController', ['userServices'])
 
 })
 
-.controller('resetCtrl', function($routeParams, User, $scope) {
+.controller('resetCtrl', function($routeParams, User, $scope, $timeout, $location) {
 
 	app = this;
 	app.hide = true;
