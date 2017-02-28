@@ -38,6 +38,12 @@ angular.module('profileController', ['angular-filepicker', 'userServices'])
         });
     };
 
+})
+
+.controller('climberProfileCtrl', function() {
+
+    console.log('hello');
 });
+
 
 

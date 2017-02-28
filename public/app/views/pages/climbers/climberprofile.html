@@ -1,0 +1,25 @@
+<h1 class="h-no-top-margin grey-header">Cimber profile</h1>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Profile details</h3>
+  </div>
+    <div class="panel-body no-padding">
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4 p-10">
+              <a href="{{currentUser.picture.url}}" class="thumbnail">
+              <img ng-src="{{currentUser.picture.url}}">
+              </a>
+          </div>
+          <div class="col-md-8 p-10">
+            <ul class="list-group">
+              <li class="list-group-item no-border"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>   {{currentUser.name}}</li>
+              <li class="list-group-item no-border"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>   {{currentUser.email}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
