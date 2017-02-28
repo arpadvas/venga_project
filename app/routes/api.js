@@ -756,7 +756,16 @@ module.exports = function(router) {
 		});
 	});
 
+	router.get('/climbers/:keyword', function(req, res) {
+		User.find({ name: { $regex: req.params.keyword, $options: "i" } }, function(err, climbers) {
+			if (!climbers) {
+				res.json({success: false, message: 'No climber was found!'});
+			} else {
+				res.json({ success: true, climbers: climbers });
+			}
+		});
+	});
+
 
 	return router;
 }
-

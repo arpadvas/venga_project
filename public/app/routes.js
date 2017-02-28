@@ -90,6 +90,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 	})
 
+	.when('/searchClimbers', {
+		templateUrl: 'app/views/pages/climbers/searchclimbers.html',
+		controller: 'climberSearchCtrl',
+        controllerAs: 'climberSearch',
+		authenticated: true
+	})
+
 	.otherwise( {redirectTo: '/'} );
 
 	$locationProvider.html5Mode({

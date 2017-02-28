@@ -56,4 +56,11 @@ angular.module('ascentSearchController', ['ascentServices'])
 		$rootScope.limit = 0;
 	};
 
+	app.sortBy = function(propertyName) {
+	  app.reverse = (propertyName !== null && app.propertyName === propertyName)
+	     ? !app.reverse : false;
+      app.propertyName = propertyName;
+      app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
+    };
+
 });

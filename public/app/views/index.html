@@ -34,6 +34,7 @@
     <script src="app/controllers/ascentCtrl.js" type="text/javascript"></script>
     <script src="app/controllers/profileCtrl.js" type="text/javascript"></script>
     <script src="app/controllers/ascentSearchCtrl.js" type="text/javascript"></script>
+    <script src="app/controllers/climberSearchCtrl.js" type="text/javascript"></script>
 
     <!-- angular services -->
     <script src="app/services/userServices.js" type="text/javascript"></script>
@@ -74,9 +75,10 @@
             <li ng-class="homeMenu"><a href="/">Home</a></li>
             <li ng-class="registerMenu"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
             <li ng-class="loginMenu"><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
-            <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn">Profile</a></li>
+            <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn">My profile</a></li>
             <li ng-class="myascentsMenu"><a href="/myAscents" ng-show="main.isLoggedIn">My ascents</a></li>
             <li ng-class="searchAscentsMenu"><a href="/searchAscents" ng-show="main.isLoggedIn">Search ascents</a></li>
+            <li ng-class="searchClimersMenu"><a href="/searchClimbers" ng-show="main.isLoggedIn">Search climbers</a></li>
             <li ng-class="managementMenu"><a href="/management" ng-show="main.isLoggedIn && main.authorized">Management</a></li>
           </ul>
         </div> <!-- /sidebar -->
