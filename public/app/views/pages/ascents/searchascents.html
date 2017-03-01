@@ -84,7 +84,7 @@
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
 						<td>{{climb.date | date:'fullDate' }}</td>
-						<td>{{climb.sentByName}}</td>
+						<td class="hover-blue" ng-click="ascentSearch.openProfile(climb.sentByName);">{{climb.sentByName}}</td>
 					</tr>
 				</table>
 				</div>

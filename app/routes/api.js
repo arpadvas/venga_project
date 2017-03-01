@@ -758,10 +758,22 @@ module.exports = function(router) {
 
 	router.get('/climbers/:keyword', function(req, res) {
 		User.find({ name: { $regex: req.params.keyword, $options: "i" } }, function(err, climbers) {
+			if (err) throw err;
 			if (!climbers) {
 				res.json({success: false, message: 'No climber was found!'});
 			} else {
 				res.json({ success: true, climbers: climbers });
+			}
+		});
+	});
+
+	router.get('/climber/:name', function(req, res) {
+		User.findOne({ name: req.params.name }, function(err, climber) {
+			if (err) throw err;
+			if (!climber) {
+				res.json({success: false, message: 'No climber was found!'});
+			} else {
+				res.json({ success: true, climber: climber });
 			}
 		});
 	});

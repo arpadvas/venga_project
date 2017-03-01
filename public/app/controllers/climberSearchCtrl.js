@@ -1,6 +1,6 @@
 angular.module('climberSearchController', ['ascentServices'])
 
-.controller('climberSearchCtrl', function(Ascent, $filter, $scope, $location) {
+.controller('climberSearchCtrl', function(Ascent, $filter, $scope, $location, $rootScope) {
 	
 	var app = this;
 	app.pageSize = 6;
@@ -37,11 +37,19 @@ angular.module('climberSearchController', ['ascentServices'])
 	};
 
 	app.openProfile = function(climberName) {
+		$rootScope.loadingProfile = true;
+    	$rootScope.loadedProfile = false;
     	$location.path('/climberprofile');
-  //   	$rootScope.searchFilter2 = {};
-  //   	$rootScope.searchByName = ascentName;
-		// $rootScope.limit = undefined;
-		// $rootScope.searchFilter2.name = ascentName;
+    	Ascent.getClimber(climberName).then(function(data) {
+    		if (data.data.success) {
+    			$rootScope.loadingProfile = false;
+    			$rootScope.loadedProfile = true;
+    			$rootScope.climber = {};
+    			$rootScope.climber.name = data.data.climber.name;
+    			$rootScope.climber.email = data.data.climber.email;
+    			$rootScope.climber.picture = data.data.climber.picture;
+    		}
+    	});
     };
 
 });

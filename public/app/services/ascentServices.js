@@ -34,5 +34,9 @@ angular.module('ascentServices', [])
 		return $http.get('/api/climbers/' + keyword);
 	};
 
+	ascentFactory.getClimber = function(name) {
+		return $http.get('/api/climber/' + name);
+	};
+
 	return ascentFactory;
 });

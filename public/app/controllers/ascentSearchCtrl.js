@@ -1,6 +1,6 @@
 angular.module('ascentSearchController', ['ascentServices'])
 
-.controller('ascentSearchCtrl', function(Ascent, $filter, $scope, $rootScope) {
+.controller('ascentSearchCtrl', function(Ascent, $filter, $scope, $rootScope, $location) {
 	
 	var app = this;
 	app.loading = true;
@@ -61,6 +61,24 @@ angular.module('ascentSearchController', ['ascentServices'])
 	     ? !app.reverse : false;
       app.propertyName = propertyName;
       app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
+    };
+
+    app.openProfile = function(climberName) {
+    	$rootScope.loadingProfile = true;
+    	$rootScope.loadedProfile = false;
+    	$location.path('/climberprofile');
+    	Ascent.getClimber(climberName).then(function(data) {
+    		if (data.data.success) {
+    			$rootScope.loadingProfile = false;
+    			$rootScope.loadedProfile = true;
+    			$rootScope.climber = {};
+    			$rootScope.climber.name = data.data.climber.name;
+    			$rootScope.climber.email = data.data.climber.email;
+    			$rootScope.climber.picture = data.data.climber.picture;
+    		} else {
+				$rootScope.loadingProfile = false;
+			}
+    	});
     };
 
 });
