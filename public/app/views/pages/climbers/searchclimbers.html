@@ -59,7 +59,7 @@
 						<th ng-click="climberSearch.sortBy('email')">Email</th>
 					</tr>
 					<tr dir-paginate="climber in climberSearch.climbers | itemsPerPage: climberSearch.pageSize">
-						<td class="hover-blue" ng-click="climberSearch.openProfile(climber.name);">{{climber.name}}</td>
+						<td class="hover-blue" ng-click="climberSearch.openProfile(climber.email);">{{climber.name}}</td>
 						<td>{{climber.email}}</td>
 					</tr>
 				</table>

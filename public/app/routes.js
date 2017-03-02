@@ -97,7 +97,7 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 	})
 
-	.when('/climberprofile', {
+	.when('/climberprofile/:id', {
 		templateUrl: 'app/views/pages/climbers/climberprofile.html',
 		controller: 'climberProfileCtrl',
         controllerAs: 'climberProfile',

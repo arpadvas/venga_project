@@ -63,21 +63,13 @@ angular.module('ascentSearchController', ['ascentServices'])
       app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
     };
 
-    app.openProfile = function(climberName) {
-    	$rootScope.loadingProfile = true;
-    	$rootScope.loadedProfile = false;
-    	$location.path('/climberprofile');
-    	Ascent.getClimber(climberName).then(function(data) {
+    app.openProfile = function(climberEmail) {
+    	Ascent.getClimber(climberEmail).then(function(data) {
     		if (data.data.success) {
-    			$rootScope.loadingProfile = false;
-    			$rootScope.loadedProfile = true;
-    			$rootScope.climber = {};
-    			$rootScope.climber.name = data.data.climber.name;
-    			$rootScope.climber.email = data.data.climber.email;
-    			$rootScope.climber.picture = data.data.climber.picture;
-    		} else {
-				$rootScope.loadingProfile = false;
-			}
+    			app.climber = {};
+    			app.climber.id = data.data.climber._id;
+    			$location.path('/climberprofile/' + app.climber.id);
+    		}
     	});
     };
 

@@ -767,8 +767,8 @@ module.exports = function(router) {
 		});
 	});
 
-	router.get('/climber/:name', function(req, res) {
-		User.findOne({ name: req.params.name }, function(err, climber) {
+	router.get('/climber/:email', function(req, res) {
+		User.findOne({ email: req.params.email }, function(err, climber) {
 			if (err) throw err;
 			if (!climber) {
 				res.json({success: false, message: 'No climber was found!'});
@@ -777,6 +777,35 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+	router.get('/climberbyid/:id', function(req, res) {
+		User.findOne({ _id: req.params.id }, function(err, climber) {
+			if (err) throw err;
+			if (!climber) {
+				res.json({success: false, message: 'No climber was found!'});
+			} else {
+				res.json({ success: true, climber: climber });
+			}
+		});
+	});
+
+	router.get('/ascentsbyid/:id', function(req, res) {
+		User.findOne({ _id: req.params.id }, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				Ascent.find({ sentBy: user.email }, function(err, ascents) {
+					if (!ascents) {
+						res.json({success: false, message: 'No ascent was found!'});
+					} else {
+						res.json({ success: true, ascents: ascents });
+					}
+				});
+			}
+		});
+	});
+
 
 
 	return router;

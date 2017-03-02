@@ -1,6 +1,6 @@
-<h1 class="h-no-top-margin grey-header">{{climber.name}}'s profile</h1>
+<h1 class="h-no-top-margin grey-header">{{climberProfile.climber.name}}'s profile</h1>
 
-<div class="sk-fading-circle" ng-show="loadingProfile">
+<div class="sk-fading-circle" ng-show="climberProfile.loadingProfile">
     <div class="sk-circle1 sk-circle"></div>
     <div class="sk-circle2 sk-circle"></div>
     <div class="sk-circle3 sk-circle"></div>
@@ -15,7 +15,7 @@
     <div class="sk-circle12 sk-circle"></div>
 </div>
 
-<div class="panel panel-primary" ng-show="loadedProfile">
+<div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
   <div class="panel-heading">
     <h3 class="panel-title">Profile details</h3>
   </div>
@@ -24,17 +24,42 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-4 p-10">
-              <a href="{{climber.picture.url}}" class="thumbnail">
-              <img ng-src="{{climber.picture.url}}">
+              <a href="{{climberProfile.climber.picture.url}}" class="thumbnail">
+              <img ng-src="{{climberProfile.climber.picture.url}}">
               </a>
           </div>
           <div class="col-md-8 p-10">
             <ul class="list-group">
-              <li class="list-group-item no-border"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>   {{climber.name}}</li>
-              <li class="list-group-item no-border"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>   {{climber.email}}</li>
+              <li class="list-group-item no-border"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>   {{climberProfile.climber.name}}</li>
+              <li class="list-group-item no-border"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>   {{climberProfile.climber.email}}</li>
             </ul>
           </div>
         </div>
       </div>
+    </div>
+</div>
+
+<div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
+  <div class="panel-heading">
+    <h3 class="panel-title">Ascents</h3>
+  </div>
+    <div class="panel-body no-padding">
+      <div class="table-responsive">
+        <table class="table">
+          <tr>
+            <th ng-click="climberProfile.sortBy('name')">Name</th>
+            <th ng-click="climberProfile.sortBy('style')">Style</th>
+            <th ng-click="climberProfile.sortBy('grade')">Grade</th>
+            <th ng-click="climberProfile.sortBy('date')">Date</th>  
+          </tr>
+        <tr dir-paginate="climb in climberProfile.ascents | itemsPerPage: climberProfile.pageSize">
+          <td class="hover-blue" ng-click="climberProfile.openSearch(climb.name);">{{climb.name}}</td>
+            <td>{{climb.style}}</td>
+            <td>{{climb.grade}}</td>
+            <td>{{climb.date | date:'fullDate' }}</td>
+          </tr>
+        </table>
+        </div>
+        <dir-pagination-controls boundary-links="true" class="center"></dir-pagination-controls>
     </div>
 </div>
