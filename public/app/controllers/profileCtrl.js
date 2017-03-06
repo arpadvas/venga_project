@@ -91,11 +91,10 @@ angular.module('profileController', ['angular-filepicker', 'userServices'])
 
     app.openSearch = function(ascentName) {
         $location.path('/searchAscents');
-        $rootScope.searchFilter2 = {};
-        $rootScope.searchByName = ascentName;
-        $rootScope.limit = undefined;
-        $rootScope.searchFilter2.name = ascentName;
+        $rootScope.outerSearch = true;
+        $rootScope.outerSearchName = ascentName;
     };
+
 
 });
 

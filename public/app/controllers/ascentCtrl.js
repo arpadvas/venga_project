@@ -7,8 +7,7 @@ angular.module('ascentController', ['ascentServices'])
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
- 	app.pageSize = 6;
-
+ 	app.pageSize = 6; 
 
 
 	function getPropertyName() {
@@ -191,13 +190,14 @@ angular.module('ascentController', ['ascentServices'])
     	User.updatePropertyName(propertyObject);
     };
 
-    app.openSearch = function(ascentName) {
+     app.openSearch = function(ascentName) {
     	$location.path('/searchAscents');
-    	$rootScope.searchFilter2 = {};
-    	$rootScope.searchByName = ascentName;
-		$rootScope.limit = undefined;
-		$rootScope.searchFilter2.name = ascentName;
+    	$rootScope.outerSearch = true;
+    	$rootScope.outerSearchName = ascentName;
     };
+
+
+
 
 
 	// datepicker https://angular-ui.github.io/bootstrap/#!#datepicker

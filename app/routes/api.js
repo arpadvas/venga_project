@@ -746,14 +746,26 @@ module.exports = function(router) {
 		});
 	});
 
-	router.get('/ascents', function(req, res) {
-		Ascent.find({ }, function(err, ascents) {
-			if (!ascents) {
-				res.json({success: false, message: 'No ascent was found!'});
-			} else {
-				res.json({ success: true, ascents: ascents });
-			}
-		});
+	router.post('/ascents/', function(req, res) {
+		if (req.body.gradeKeyword) {
+			Ascent.find({ name: { $regex: req.body.nameKeyword, $options: "i" }, style: { $regex: req.body.styleKeyword, $options: "i" }, grade: { $eq: req.body.gradeKeyword }, sentByName: { $regex: req.body.senderKeyword, $options: "i" } }, function(err, ascents) {
+				if (err) throw err;
+				if (!ascents) {
+					res.json({success: false, message: 'No ascent was found!'});
+				} else {
+					res.json({ success: true, ascents: ascents }); 
+				}
+			});
+		} else if (req.body.gradeKeyword === '') {
+			Ascent.find({ name: { $regex: req.body.nameKeyword, $options: "i" }, style: { $regex: req.body.styleKeyword, $options: "i" }, grade: { $regex: req.body.gradeKeyword }, sentByName: { $regex: req.body.senderKeyword, $options: "i" } }, function(err, ascents) {
+				if (err) throw err;
+				if (!ascents) {
+					res.json({success: false, message: 'No ascent was found!'});
+				} else {
+					res.json({ success: true, ascents: ascents }); 
+				}
+			});
+		}
 	});
 
 	router.get('/climbers/:keyword', function(req, res) {
@@ -805,6 +817,8 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+
 
 
 
