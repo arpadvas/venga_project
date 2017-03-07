@@ -110,9 +110,16 @@
     	<!-- add ascent form  -->
       <div class="input-custom">
 	  	<form name="ascent.ascentForm">
-		  <div class="form-group">
+		  <div class="form-group relative">
 		    <label>Name</label>
-		    <input name="name" class="form-control" placeholder="Name" ng-model="ascent.ascentData.name">
+		    <input type="text" name="name" ng-model="ascent.name" ng-keyup="ascent.complete(ascent.name)" class="form-control" autocomplete="off" />
+			<!-- autocomplate dropdown -->
+		    <div class="dropdown" ng-model="ascent.hidethis" ng-hide="ascent.hidethis">
+		      <ul class="list-group">
+		        <li class="list-group-item" ng-repeat="namedata in ascent.filterName" ng-click="ascent.fillTextbox(namedata)">{{namedata}}</li>
+		      </ul>
+		    </div>
+		    <!-- /autocomplate dropdown-->
 		  </div>
 		  <div class="form-group">
 		    <label>Style</label>
