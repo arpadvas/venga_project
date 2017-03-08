@@ -1,4 +1,24 @@
-angular.module('userApp', ['appRoutes', 'ngAnimate', 'ngTouch', 'ui.bootstrap' , 'angular-filepicker', 'angularUtils.directives.dirPagination', 'userControllers', 'userServices', 'mainController', 'authServices', 'emailController', 'managementController', 'ascentController', 'ascentServices', 'profileController', 'ascentSearchController', 'climberSearchController'])
+angular.module('userApp', 
+	[
+	'appRoutes', 
+	'ngAnimate', 
+	'ngTouch', 
+	'ui.bootstrap' , 
+	'angular-filepicker', 
+	'angularUtils.directives.dirPagination', 
+	'userControllers', 
+	'userServices', 
+	'mainController', 
+	'authServices', 
+	'emailController', 
+	'managementController', 
+	'ascentController', 
+	'ascentServices', 
+	'profileController', 
+	'ascentSearchController', 
+	'climberSearchController',
+	'autocompleteDirective'
+	])
 
 .config(function($httpProvider, filepickerProvider) {
 	$httpProvider.interceptors.push('AuthInterceptors');

@@ -20,15 +20,13 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.15.2",
     "express": "4.14.0",
-    "gmail-node": "^1.0.0",
     "gulp-concat": "^2.6.1",
     "jsonwebtoken": "7.2.1",
     "mongoose": "4.7.7",
     "mongoose-title-case": "0.0.4",
     "mongoose-validator": "1.2.5",
     "morgan": "1.7.0",
-    "nodemailer": "2.7.2",
-    "nodemailer-sendgrid-transport": "0.2.0"
+    "nodemailer": "2.7.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
