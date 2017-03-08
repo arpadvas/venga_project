@@ -1,7 +1,7 @@
-<input type="text" name="name" ng-model="ascent.ascentData.name" ng-keyup="ascent.complete(ascent.ascentData.name)" class="form-control" autocomplete="off" />
-<div class="dropdown" ng-model="ascent.hidethis" ng-hide="ascent.hidethis">
+
+<div class="dropdown" ng-model="hide" ng-hide="hide">
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="data in ascent.filteredAscentName" ng-click="ascent.fillTextbox(data)">{{data}}</li>
+    <li class="list-group-item" ng-repeat="data in datasource" ng-click="action({data: data})">{{data}}</li>
   </ul>
 </div>
 

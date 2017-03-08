@@ -112,7 +112,8 @@
 	  	<form name="ascent.ascentForm">
 		  <div class="form-group relative">
 		    <label>Name</label>
-		    <autocomplete></autocomplete>
+		    <input type="text" name="name" ng-model="ascent.ascentData.name" ng-keyup="ascent.complete(ascent.ascentData.name)" class="form-control" autocomplete="off" />
+		    <autocomplete hide="ascent.hidethis" datasource="ascent.filteredAscentName" action="ascent.fillTextbox(data)"></autocomplete>
 		  </div>
 		  <div class="form-group">
 		    <label>Style</label>
