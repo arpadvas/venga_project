@@ -10,36 +10,7 @@ angular.module('ascentController', ['ascentServices'])
  	app.pageSize = 6;
 
     app.ascentList = [];
-    app.hidethis = true;
-
-    app.complete = function(string){  
-        if (string.length > 1) {  
-            var output = [];  
-            for (var i=0; i < app.ascentList.length; i++) {
-            	if(app.ascentList[i].name.toLowerCase().indexOf(string.toLowerCase()) >= 0) {  
-                    output.push(app.ascentList[i].name);  
-                }  
-              
-            } 
-            app.filteredAscentName = [];
-            $.each(output, function(i, el){
-			    if($.inArray(el, app.filteredAscentName) === -1) app.filteredAscentName.push(el);
-			});
-			if (app.filteredAscentName.length > 0) {
-            	app.hidethis = false;
-            } else {
-            	app.hidethis = true;
-            }
-
-        } else {
-            app.hidethis = true;
-        }
-    } 
-
-    app.fillTextbox = function(string){  
-        app.ascentData.name = string;
-        app.hidethis = true;   
-    }
+  
 
     function getAllAscents() {
 
@@ -133,7 +104,6 @@ angular.module('ascentController', ['ascentServices'])
 
 	app.showAscentModal = function() {
 		app.ascentData = {};
-		app.name = undefined;
 		app.hidethis = true;
 		getAllAscents();
 		$("#ascentModal").modal({backdrop: "static"});
@@ -143,11 +113,11 @@ angular.module('ascentController', ['ascentServices'])
 	app.cancelAscentModal = function() {
 		$("#ascentModal").modal('hide');
 		app.ascentData = undefined;
-		app.name = undefined;
 		app.errorMsg = false;
 		$scope.today();
 
 	};
+
 
 	app.showEditAscentModal = function(id) {
 		app.errorMsg = false;

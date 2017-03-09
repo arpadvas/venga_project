@@ -1,6 +1,6 @@
-<h1 class="h-no-top-margin grey-header">My ascents</h1>
+	<h1 class="h-no-top-margin grey-header">My ascents</h1>
     
-<button type="button" class="btn btn-primary" ng-click="ascent.showAscentModal();">Add Ascent</button>
+<button type="button" class="btn btn-success" ng-click="ascent.showAscentModal();"><img src="assets/img/icons/add.svg">&nbsp;Add Ascent</button>
 
 <br> 
 <br> 
@@ -10,7 +10,7 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Search</h3>
+		<img src="assets/img/icons/search.svg"></img>&nbsp;<h3 class="panel-title">Search</h3>
 	</div>
 	<div class="panel-body">
 
@@ -35,8 +35,8 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-1 col-sm-6">
-		      <button type="submit" class="btn btn-success" ng-click="ascent.search(searchByAscent, searchByStyle, searchByGrade);">Search</button>
-		      <button type="submit" class="btn btn-info" ng-click="ascent.clear();">Clear</button>
+		      <button type="submit" class="btn btn-custom" ng-click="ascent.search(searchByAscent, searchByStyle, searchByGrade);">Search</button>
+		      <button type="submit" class="btn btn-custom" ng-click="ascent.clear();">Clear</button>
 		    </div>
 		  </div>
 		  <div class="form-group" ng-show="searchFilter !== undefined">
@@ -66,26 +66,26 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Ascents</h3>
+		<img src="assets/img/icons/list.svg"></img>&nbsp;<h3 class="panel-title">Ascents</h3>
 	</div>
 		<div class="panel-body no-padding">
 			<div class="table-responsive">
 				<table class="table">
 					<tr>
-						<th ng-click="ascent.sortBy('name')">Name</th>
-						<th ng-click="ascent.sortBy('style')">Style</th>
-						<th ng-click="ascent.sortBy('grade')">Grade</th>
-						<th ng-click="ascent.sortBy('date')">Date</th>	
-						<th>Action</th>
+						<th style="width:30%" ng-click="ascent.sortBy('name')">Name</th>
+						<th style="width:25%" ng-click="ascent.sortBy('style')">Style</th>
+						<th style="width:10%" ng-click="ascent.sortBy('grade')">Grade</th>
+						<th style="width:25%" ng-click="ascent.sortBy('date')">Date</th>	
+						<th style="width:10%" ></th>
 					</tr>
 					<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize">
 						<td class="hover-blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
-						<td>{{climb.date | date:'fullDate' }}</td>
+						<td>{{climb.date | date:'MM/dd/yyyy' }}</td>
 						<td>
-							<a class="btn btn-primary" href="#" role="button" ng-click="ascent.showEditAscentModal(climb._id);">Edit</a>
-							<a class="btn btn-danger" href="#" role="button" ng-click="ascent.deleteAscent(climb._id);">Delete</a>
+							<img src="assets/img/icons/edit.svg" ng-click="ascent.showEditAscentModal(climb._id);" ></img>
+							<img src="assets/img/icons/delete.svg" ng-click="ascent.deleteAscent(climb._id);"></img>
 						</td>	
 					</tr>
 				</table>
@@ -112,8 +112,7 @@
 	  	<form name="ascent.ascentForm">
 		  <div class="form-group relative">
 		    <label>Name</label>
-		    <input type="text" name="name" ng-model="ascent.ascentData.name" ng-keyup="ascent.complete(ascent.ascentData.name)" class="form-control" autocomplete="off" />
-		    <autocomplete hide="ascent.hidethis" datasource="ascent.filteredAscentName" action="ascent.fillTextbox(data)"></autocomplete>
+		    <autocomplete datasource="ascent.ascentList" input="ascent.ascentData.name" hide="ascent.hidethis"></autocomplete>
 		  </div>
 		  <div class="form-group">
 		    <label>Style</label>

@@ -7,6 +7,8 @@
 body {
   padding-top: 50px;
   background-color: #EDEFF0;
+  font-family: 'Source Sans Pro', sans-serif;
+  background-color: white;
 }
 
 
@@ -42,7 +44,6 @@ body {
     bottom: 0;
     left: 20px;
     margin-bottom: 20px;
-    /*max-height: 900px;*/
     z-index: 1000;
     display: block;
     padding: 20px;
@@ -50,7 +51,6 @@ body {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: white;
     border-radius: 6px;
-    box-shadow: 0px 2px 2px #cccccc;
   }
 }
 
@@ -63,12 +63,13 @@ body {
 .nav-sidebar > li > a {
   padding-right: 20px;
   padding-left: 20px;
+  color: #576366;
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
   color: #fff;
-  background-color: #428bca;
+  background-color: #00AECC;
 }
 
 
@@ -109,115 +110,8 @@ body {
   border-radius: 50%;
 }
 
-/****custom*****/
 
-.panel {
-  border-width: 0;
-  box-shadow: 0px 2px 2px #cccccc;
-}
-
-.panel-heading {
-  padding: 15px;
-}
-
-.content {
-  max-width: 600px;
-  margin: 0px auto;
-}
-
-.alert-custom {
-  margin: 20px auto;
-}
-
-.filter {
-  margin-bottom: 20px;
-}
-
-.no-padding {
-  padding: 0 5px 0 5px;
-}
-
-.h-no-top-margin {
-  margin-top: 0;
-}
-
-.grey-header {
-  color: #576366;
-}
-
-.profile-pic-small {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  padding: 10px 0;
-}
-
-.profile-pic-small img {
-  width: 30px;
-  height: 30px;
-  -moz-border-radius: 15px;
-  -webkit-border-radius: 15px;
-  border-radius: 15px;
-}
-
-.p-10 {
-  padding: 10px;
-}
-
-.no-border {
-  border-style: none;
-}
-
-.table th:hover {
-  color: #576366;
-}
-
-.table th:hover {
-  color: #576366;
-  cursor: pointer;
-}
-
-.hover-blue:hover {
-  color: #337AB7;
-  cursor: pointer;
-}
-
-.center {
-  display: table;
-  margin: auto;
-}
-
-.relative {
-  position: relative;
-}
-
-.dropdown {
-  position: absolute;
-  top: 60px;
-  left: 5px;
-  overflow-y: auto;
-  max-height: 200px;
-  min-width: 150px;
-  border: 1px solid #C5C5C5;
-  box-shadow: 0px 2px 2px #cccccc;
-  z-index: 10000;
-}
-
-.dropdown .list-group {
-  margin: 0;
-}
-
-.dropdown .list-group .list-group-item {
-  border-style: none;
-  cursor:pointer; 
-} 
-
-.dropdown .list-group .list-group-item:hover {
-  background-color:#f9f9f9; 
-} 
-
-
-/*Spinner*/
+/*Spinner**************************************************************************************************************************************/
 
 .sk-fading-circle {
   margin: 20px auto;

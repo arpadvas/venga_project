@@ -17,7 +17,7 @@
 
 <div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
   <div class="panel-heading">
-    <h3 class="panel-title">Profile details</h3>
+    <img src="assets/img/icons/face.svg"></img>&nbsp;<h3 class="panel-title">Profile details</h3>
   </div>
     <div class="panel-body no-padding">
 
@@ -30,8 +30,8 @@
           </div>
           <div class="col-md-8 p-10">
             <ul class="list-group">
-              <li class="list-group-item no-border"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>   {{climberProfile.climber.name}}</li>
-              <li class="list-group-item no-border"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>   {{climberProfile.climber.email}}</li>
+              <li class="list-group-item no-border"><img src="assets/img/icons/face.svg"></img>&nbsp;</span>{{climberProfile.climber.name}}</li>
+              <li class="list-group-item no-border"><img src="assets/img/icons/email.svg"></img>&nbsp;{{climberProfile.climber.email}}</li>
             </ul>
           </div>
         </div>
@@ -41,16 +41,16 @@
 
 <div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
   <div class="panel-heading">
-    <h3 class="panel-title">Ascents</h3>
+    <img src="assets/img/icons/list.svg"></img>&nbsp;<h3 class="panel-title">Ascents</h3>
   </div>
     <div class="panel-body no-padding">
       <div class="table-responsive">
         <table class="table">
           <tr>
-            <th ng-click="climberProfile.sortBy('name')">Name</th>
-            <th ng-click="climberProfile.sortBy('style')">Style</th>
-            <th ng-click="climberProfile.sortBy('grade')">Grade</th>
-            <th ng-click="climberProfile.sortBy('date')">Date</th>  
+            <th style="width:25%" ng-click="climberProfile.sortBy('name')">Name</th>
+            <th style="width:25%" ng-click="climberProfile.sortBy('style')">Style</th>
+            <th style="width:25%" ng-click="climberProfile.sortBy('grade')">Grade</th>
+            <th style="width:25%" ng-click="climberProfile.sortBy('date')">Date</th>  
           </tr>
         <tr dir-paginate="climb in climberProfile.ascents | itemsPerPage: climberProfile.pageSize">
           <td class="hover-blue" ng-click="climberProfile.openSearch(climb.name);">{{climb.name}}</td>

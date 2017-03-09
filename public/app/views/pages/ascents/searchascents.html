@@ -5,7 +5,7 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Search parameters</h3>
+		<img src="assets/img/icons/search.svg"></img>&nbsp;<h3 class="panel-title">Search parameters</h3>
 	</div>
 	<div class="panel-body">
 
@@ -36,8 +36,8 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-1 col-sm-6">
-		      <button type="submit" class="btn btn-success" ng-click="ascentSearch.search(searchByName, searchByStyle, searchByGrade, searchBySender);">Search</button>
-		      <button type="submit" class="btn btn-info" ng-click="ascentSearch.clear();">Clear</button>
+		      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.search(searchByName, searchByStyle, searchByGrade, searchBySender);">Search</button>
+		      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.clear();">Clear</button>
 		    </div>
 		  </div>
 		  <div class="form-group" ng-show="ascentSearch.ascents !== undefined">
@@ -67,23 +67,23 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title">Search results</h3>
+		<img src="assets/img/icons/list.svg"></img>&nbsp;<h3 class="panel-title">Search results</h3>
 	</div>
 		<div class="panel-body no-padding">
 			<div class="table-responsive">
 				<table class="table">
 					<tr>
-						<th ng-click="ascentSearch.sortBy('name')">Name</th>
-						<th ng-click="ascentSearch.sortBy('style')">Style</th>
-						<th ng-click="ascentSearch.sortBy('grade')">Grade</th>
-						<th ng-click="ascentSearch.sortBy('date')">Date</th>	
-						<th ng-click="ascentSearch.sortBy('sentByName')">Sent By</th>
+						<th  style="width:30%"ng-click="ascentSearch.sortBy('name')">Name</th>
+						<th  style="width:25%"ng-click="ascentSearch.sortBy('style')">Style</th>
+						<th  style="width:10%"ng-click="ascentSearch.sortBy('grade')">Grade</th>
+						<th  style="width:20%"ng-click="ascentSearch.sortBy('date')">Date</th>	
+						<th  style="width:15%"ng-click="ascentSearch.sortBy('sentByName')">Sent By</th>
 					</tr>
 				<tr dir-paginate="climb in ascentSearch.ascents | itemsPerPage: ascentSearch.pageSize">
 					<td>{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
-						<td>{{climb.date | date:'fullDate' }}</td>
+						<td>{{climb.date | date:'MM/dd/yyyy' }}</td>
 						<td class="hover-blue" ng-click="ascentSearch.openProfile(climb.sentBy);">{{climb.sentByName}}</td>
 					</tr>
 				</table>

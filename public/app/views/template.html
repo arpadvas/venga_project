@@ -1,7 +1,7 @@
-
-<div class="dropdown" ng-model="hide" ng-hide="hide">
+<input type="text" name="name" ng-model="input" ng-keyup="complete(input)" class="form-control" autocomplete="off" />
+<div class="dropdown" ng-hide="hide">
   <ul class="list-group">
-    <li class="list-group-item" ng-repeat="data in datasource" ng-click="action({data: data})">{{data}}</li>
+    <li class="list-group-item" ng-repeat="data in filteredList" ng-click="fillTextbox(data)">{{data}}</li>
   </ul>
 </div>
 
