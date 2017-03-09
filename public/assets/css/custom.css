@@ -14,6 +14,14 @@ body{
   height: 40px;
 }
 
+.panel .panel-heading img {
+  margin-top: -1px;
+}
+
+.btn img {
+  margin-top: -3px;
+}
+
 .panel .panel-heading h3 {
   display: inline;
 }
@@ -90,9 +98,13 @@ body{
   cursor: pointer;
 }
 
-.hover-blue:hover {
+.blue {
   color: #337AB7;
   cursor: pointer;
+}
+
+.blue:hover {
+  text-decoration: underline;
 }
 
 .center {

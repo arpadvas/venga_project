@@ -12,7 +12,7 @@ module.exports = function(router) {
 	    secure: true,
 	    auth: {
 	        user: 'venga.project@zoho.com',
-	        pass: 'A5sG8!wt'
+	        pass: 'xxxxxxx'
 	    },
 	    tls: {
 	        rejectUnauthorized: false

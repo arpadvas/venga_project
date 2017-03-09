@@ -1,4 +1,4 @@
-	<h1 class="h-no-top-margin grey-header">My ascents</h1>
+<h1 class="h-no-top-margin grey-header">My ascents</h1>
     
 <button type="button" class="btn btn-success" ng-click="ascent.showAscentModal();"><img src="assets/img/icons/add.svg">&nbsp;Add Ascent</button>
 
@@ -79,7 +79,7 @@
 						<th style="width:10%" ></th>
 					</tr>
 					<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize">
-						<td class="hover-blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
+						<td class="blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
 						<td>{{climb.style}}</td>
 						<td>{{climb.grade}}</td>
 						<td>{{climb.date | date:'MM/dd/yyyy' }}</td>
