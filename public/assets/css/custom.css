@@ -2,6 +2,10 @@ body{
   background-color: white;
 }
 
+hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 .panel {
   border-width: 1px;
   border-color: #D5D7D9;
@@ -12,10 +16,6 @@ body{
   color: #576366;
   border-color: #D5D7D9;
   height: 40px;
-}
-
-.panel .panel-heading img {
-  margin-top: -1px;
 }
 
 .btn img {
@@ -30,7 +30,7 @@ body{
   border-top: 0px solid #ddd;
 }
 
-.panel .panel-body .table-responsive .table tr td img {
+.panel .panel-body .table-responsive .table tr td i {
   cursor: pointer;
 }
 
@@ -62,7 +62,8 @@ body{
   margin-top: 0;
 }
 
-.grey-header {
+.grey-header,
+.table th:hover {
   color: #576366;
 }
 
@@ -90,11 +91,6 @@ body{
 }
 
 .table th:hover {
-  color: #576366;
-}
-
-.table th:hover {
-  color: #576366;
   cursor: pointer;
 }
 

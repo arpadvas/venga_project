@@ -8,6 +8,8 @@ angular.module('ascentController', ['ascentServices'])
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
  	app.pageSize = 6;
+ 	app.pageNo = 1;
+ 	app.totalCount = 0;
 
     app.ascentList = [];
   
@@ -36,13 +38,15 @@ angular.module('ascentController', ['ascentServices'])
 
 	getPropertyName();
 
-	function getMyAscents() {
+	app.getMyAscents = function(pageNo) {
 
-		Ascent.getMyAscents().then(function(data) {
+		app.pageSize = 6;
+		app.loading2 = true;
+		app.pageNo = pageNo;
+		Ascent.getMyAscents(app.pageSize, pageNo, app.propertyName, app.reverse).then(function(data) {
 			if (data.data.success) {
 				app.loading2 = false;
 				app.ascents = data.data.ascents;
-				app.ascents = $filter('orderBy')(data.data.ascents, app.propertyName, app.reverse);
 			} else {
 				app.loading2 = false;
 				app.errorMsg = data.data.message;
@@ -50,7 +54,35 @@ angular.module('ascentController', ['ascentServices'])
 		});
 	}
 
-	getMyAscents();
+	function getMyascentsCount() {
+		Ascent.getMyascentsCount().then(function(data) {
+			if (data.data.success) {
+				app.totalCount = data.data.count;
+				app.getMyAscents(app.pageNo);
+			} else {
+				app.errorMsg = data.data.message;
+			}
+		});
+	}
+
+	getMyascentsCount();
+
+	app.sortBy = function(propertyName) {
+	  app.reverse = (propertyName !== null && app.propertyName === propertyName)
+	     ? !app.reverse : false;
+      app.propertyName = propertyName;
+      app.loading2 = true;
+      Ascent.getMyAscents(app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(data) {
+		if (data.data.success) {
+			app.loading2 = false;
+			app.ascents = data.data.ascents;
+		} else {
+			app.loading2 = false;
+			app.errorMsg = data.data.message;
+		}
+	});
+      app.updatePropertyName(app.propertyName, app.reverse);
+    };
 
 	app.showMore = function(number) {
 		app.searchErrorMsg = false;
@@ -191,14 +223,6 @@ angular.module('ascentController', ['ascentServices'])
 		$scope.searchByStyle = undefined;
 		$scope.searchByGrade = undefined;
 	};
-
-	app.sortBy = function(propertyName) {
-	  app.reverse = (propertyName !== null && app.propertyName === propertyName)
-	     ? !app.reverse : false;
-      app.propertyName = propertyName;
-      app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
-      app.updatePropertyName(app.propertyName, app.reverse);
-    };
 
     app.updatePropertyName = function(propertyName, reverse) {
     	var propertyObject = {};

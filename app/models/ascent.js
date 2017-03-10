@@ -7,6 +7,10 @@ var ascentSchema = new mongoose.Schema({
 		type: String, 
 		required: true
 	},
+	normalized: {
+		type: String,
+		default: 'a'
+	},
 	style: {
 		type: String, 
 		required: true
