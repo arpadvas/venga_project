@@ -57,8 +57,8 @@ module.exports = function(router) {
 				  from: 'venga.project@zoho.com',
 				  to: user.email,
 				  subject: 'Activation Link',
-				  text: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: https://venga-project.herokuapp.com/activate/' + user.temporarytoken,
-				  html: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: <a href="https://venga-project.herokuapp.com/activate/' + user.temporarytoken + '">link</a>'
+				  text: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: http://enigmatic-earth-37786.herokuapp.com/activate/' + user.temporarytoken,
+				  html: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: <a href="http://enigmatic-earth-37786.herokuapp.com/activate/' + user.temporarytoken + '">link</a>'
 				};
 
 				client.sendMail(email, function(err, info){
@@ -149,8 +149,8 @@ module.exports = function(router) {
 					  from: 'venga.project@zoho.com',
 					  to: user.email,
 					  subject: 'Activation Link Request',
-					  text: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: https://venga-project.herokuapp.com/activate/' + user.temporarytoken,
-					  html: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: <a href="https://venga-project.herokuapp.com/activate/' + user.temporarytoken + '">link</a>'
+					  text: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: http://enigmatic-earth-37786.herokuapp.com/activate/' + user.temporarytoken,
+					  html: 'Hello ' + user.name + ', Please click on the following link in order to activate your account: <a href="http://enigmatic-earth-37786.herokuapp.com/activate/' + user.temporarytoken + '">link</a>'
 					};
 
 					client.sendMail(email, function(err, info){
@@ -231,8 +231,8 @@ module.exports = function(router) {
 						  from: 'venga.project@zoho.com',
 						  to: user.email,
 						  subject: 'Password Reset Link',
-						  text: 'Hello ' + user.name + ', Please click on the following link to reset your password: https://venga-project.herokuapp.com/reset/' + user.resettoken,
-						  html: 'Hello ' + user.name + ', Please click on the following link to reset your password: <a href="https://venga-project.herokuapp.com/reset/' + user.resettoken + '">link</a>'
+						  text: 'Hello ' + user.name + ', Please click on the following link to reset your password: http://enigmatic-earth-37786.herokuapp.com/reset/' + user.resettoken,
+						  html: 'Hello ' + user.name + ', Please click on the following link to reset your password: <a href="http://enigmatic-earth-37786.herokuapp.com/reset/' + user.resettoken + '">link</a>'
 						};
 
 						client.sendMail(email, function(err, info){
