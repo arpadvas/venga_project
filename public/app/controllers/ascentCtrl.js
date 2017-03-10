@@ -114,7 +114,7 @@ angular.module('ascentController', ['ascentServices'])
 					app.successMsg = false;
 					$("#ascentModal").modal('hide');
 					app.ascentData = undefined;
-					getMyAscents();
+					app.getMyAscents(app.pageNo);
 					$scope.today();
 				}, 1000);
 			} else {
@@ -127,7 +127,7 @@ angular.module('ascentController', ['ascentServices'])
 	app.deleteAscent = function(id) {
 		Ascent.deleteAscent(id).then(function(data) {
 			if (data.data.success) {
-				getMyAscents();
+				app.getMyAscents(app.pageNo);
 			} else {
 				app.errorMsg = data.data.message;
 			}
@@ -192,7 +192,7 @@ angular.module('ascentController', ['ascentServices'])
 				$timeout(function() {
 					app.successMsg = false;
 					$("#editAscentModal").modal('hide');
-					getMyAscents();
+					app.getMyAscents(app.pageNo);
 					$scope.today();
 				}, 1000);
 			} else {
