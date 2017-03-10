@@ -60,6 +60,7 @@ angular.module('ascentController', ['ascentServices'])
 				app.totalCount = data.data.count;
 				app.getMyAscents(app.pageNo);
 			} else {
+				app.loading2 = false;
 				app.errorMsg = data.data.message;
 			}
 		});
