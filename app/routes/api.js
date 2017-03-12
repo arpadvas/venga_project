@@ -12,7 +12,7 @@ module.exports = function(router) {
 	    secure: true,
 	    auth: {
 	        user: 'venga.project@zoho.com',
-	        pass: 'A5sG8!wt'
+	        pass: 'xxxxxxx'
 	    },
 	    tls: {
 	        rejectUnauthorized: false
@@ -402,6 +402,8 @@ module.exports = function(router) {
 		});
 	});
 
+//user-management//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	router.get('/management', function(req, res) {
 		User.find({}, function(err, users) {
 			if (err) throw err;
@@ -600,6 +602,8 @@ module.exports = function(router) {
 		});
 	});
 
+//myascents//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	router.get('/myascentsCount', function(req, res) {
 		User.findOne({ email: req.decoded.email }, function(err, user) {
 			if (err) throw err;
@@ -615,6 +619,150 @@ module.exports = function(router) {
 				});
 			}
 		});
+	});
+
+	router.get('/myascentssearch/', function(req, res) {
+		var limit = Number(req.params.limit);
+		var page = Number(req.params.page);
+		page = page-1;
+		var offset = limit * page;
+		var propertyname = req.params.propertyname;
+		var reverse = req.params.reverse;
+
+		if (req.body.gradeKeyword) {
+			if (propertyname === 'grade' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ grade: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'grade' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ grade: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'name' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ normalized: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'name' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ normalized: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'style' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ style: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'style' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ style: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'date' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ date: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'date' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ date: -1 }).skip(offset).limit(limit).exec(function(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				}
+			
+		} else if (req.body.gradeKeyword === '') {
+			if (propertyname === 'grade' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ grade: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'grade' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ grade: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'name' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ normalized: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'name' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ normalized: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'style' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ style: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'style' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ style: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'date' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ date: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'date' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email, name: { $regex: req.params.nameKeyword, $options: "i" }, style: { $regex: req.params.styleKeyword, $options: "i" }, grade: { $eq: req.params.gradeKeyword }, sentByName: { $regex: req.params.senderKeyword, $options: "i" } }).sort({ date: -1 }).skip(offset).limit(limit).exec(function(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				}
+		}
 	});
 
 	router.get('/myascents/:limit/:page/:propertyname/:reverse', function(req, res) {
@@ -797,6 +945,8 @@ module.exports = function(router) {
 		});
 	});
 
+//climber-profile/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
 	router.get('/profile', function(req, res) {
 		User.findOne({ email: req.decoded.email}, function(err, user) {
 			if (err) throw err;
@@ -838,6 +988,8 @@ module.exports = function(router) {
 		});
 	});
 
+//ascent-search////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	router.post('/ascents/', function(req, res) {
 		if (req.body.gradeKeyword) {
 			Ascent.find({ name: { $regex: req.body.nameKeyword, $options: "i" }, style: { $regex: req.body.styleKeyword, $options: "i" }, grade: { $eq: req.body.gradeKeyword }, sentByName: { $regex: req.body.senderKeyword, $options: "i" } }, function(err, ascents) {
@@ -870,6 +1022,8 @@ module.exports = function(router) {
 			}
 		});
 	});
+
+//climber-search////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	router.get('/climber/:email', function(req, res) {
 		User.findOne({ email: req.params.email }, function(err, climber) {

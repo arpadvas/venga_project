@@ -3,16 +3,18 @@ angular.module('ascentController', ['ascentServices'])
 .controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User, $location, $rootScope) {
 
 	var app = this;
+
 	app.loading2 = true;
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
+
  	app.pageSize = 6;
  	app.pageNo = 1;
  	app.totalCount = 0;
 
     app.ascentList = [];
-  
+  	
 
     function getAllAscents() {
 
@@ -84,21 +86,6 @@ angular.module('ascentController', ['ascentServices'])
 	});
       app.updatePropertyName(app.propertyName, app.reverse);
     };
-
-	app.showMore = function(number) {
-		app.searchErrorMsg = false;
-		if (number>0) {
-			app.limit = number;
-		} else {
-			app.searchErrorMsg = 'Please enter a valid number!';
-		}
-	};
-
-	app.showAll = function() {
-		app.limit = undefined;
-		app.errorMsg = false;
-		$scope.number = undefined;
-	};
 
 	app.addAscent = function(ascentData) {
 		app.loading = true;
