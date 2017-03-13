@@ -8,47 +8,6 @@
 <div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.searchSuccessMsg'><p>{{ascent.searchSuccessMsg}}</p></div>
 <div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.searchErrorMsg'><p>{{ascent.searchErrorMsg}}</p></div>
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<i class="fa fa-search" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search</h3>
-	</div>
-	<div class="panel-body">
-
-		<form class="form-horizontal">
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Name</label>
-		    <div class="col-sm-6">
-		      <input type="text" class="form-control" name="searchByAscent" placeholder="Search by name" ng-model="searchByAscent">
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Style</label>
-		    <div class="col-sm-6">
-		    	<select class="form-control" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascent.styles"></select>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Grade</label>
-		    <div class="col-sm-6">
-		    	<select class="form-control" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascent.grades"></select>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <div class="col-sm-offset-1 col-sm-6">
-		      <button type="submit" class="btn btn-custom" ng-click="ascent.search(searchByAscent, searchByStyle, searchByGrade);">Search</button>
-		      <button type="submit" class="btn btn-custom" ng-click="ascent.clear();">Clear</button>
-		    </div>
-		  </div>
-		  <div class="form-group" ng-show="searchFilter !== undefined">
-		    <div class="col-sm-offset-1 col-sm-10">
-		      <p>Total results: {{(ascent.ascents | filter: searchFilter).length}}</p>
-		    </div>
-		  </div>
-		</form>
-
-	</div>
-</div>
-
 <div class="sk-fading-circle" ng-show="ascent.loading2">
     <div class="sk-circle1 sk-circle"></div>
     <div class="sk-circle2 sk-circle"></div>
@@ -90,9 +49,11 @@
 					</tr>
 				</table>
 				</div>
-				<dir-pagination-controls boundary-links="true" on-page-change="ascent.getMyAscents(newPageNumber)" class="center"></dir-pagination-controls>
+				<dir-pagination-controls boundary-links="true" current-page="currentPage" on-page-change="ascent.getMyAscents(newPageNumber)" class="center"></dir-pagination-controls>
 		</div>
 </div>
+
+
 
 
 
@@ -180,7 +141,6 @@
 		  </div>
 		  <div class="form-group">
 		    <label>Style</label>
-		    <!-- <input class="form-control" placeholder="Style" ng-model="newStyle"> -->
 		    <select class="form-control" ng-model="newStyle" ng-options="y for y in ascent.styles"></select>
 		  </div>
 		  <div class="form-group">

@@ -9,23 +9,13 @@ angular.module('ascentController', ['ascentServices'])
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
 
- 	app.pageSize = 6;
+ 	app.pageSize = 10;
  	app.pageNo = 1;
  	app.totalCount = 0;
 
     app.ascentList = [];
   	
-
-    function getAllAscents() {
-
-    	Ascent.getAllAscents().then(function(data) {
-    		if (data.data.success) {
-    			app.ascentList = data.data.ascents;
-    		} else {
-    			console.log(data.data.success);
-    		}
-    	});
-    }
+// get ascents when page load////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	function getPropertyName() {
 		User.getPropertyName().then(function(data) {
@@ -42,7 +32,7 @@ angular.module('ascentController', ['ascentServices'])
 
 	app.getMyAscents = function(pageNo) {
 
-		app.pageSize = 6;
+		app.pageSize = 10;
 		app.loading2 = true;
 		app.pageNo = pageNo;
 		Ascent.getMyAscents(app.pageSize, pageNo, app.propertyName, app.reverse).then(function(data) {
@@ -70,24 +60,41 @@ angular.module('ascentController', ['ascentServices'])
 
 	getMyascentsCount();
 
+
+// sort ascents/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+
 	app.sortBy = function(propertyName) {
 	  app.reverse = (propertyName !== null && app.propertyName === propertyName)
 	     ? !app.reverse : false;
       app.propertyName = propertyName;
       app.loading2 = true;
-      Ascent.getMyAscents(app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(data) {
-		if (data.data.success) {
-			app.loading2 = false;
-			app.ascents = data.data.ascents;
-		} else {
-			app.loading2 = false;
-			app.errorMsg = data.data.message;
-		}
-	});
+      	Ascent.getMyAscents(app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(data) {
+			if (data.data.success) {
+				app.loading2 = false;
+				app.ascents = data.data.ascents;
+			} else {
+				app.loading2 = false;
+				app.errorMsg = data.data.message;
+			}
+		});
       app.updatePropertyName(app.propertyName, app.reverse);
     };
 
-	app.addAscent = function(ascentData) {
+
+// adding ascents////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function getAllAscents() {
+
+    	Ascent.getAllAscents().then(function(data) {
+    		if (data.data.success) {
+    			app.ascentList = data.data.ascents;
+    		} else {
+    			console.log(data.data.success);
+    		}
+    	});
+    }
+
+    app.addAscent = function(ascentData) {
 		app.loading = true;
 		app.errorMsg = false;
 		if (app.ascentData) {
@@ -112,16 +119,6 @@ angular.module('ascentController', ['ascentServices'])
 		});
 	};
 
-	app.deleteAscent = function(id) {
-		Ascent.deleteAscent(id).then(function(data) {
-			if (data.data.success) {
-				app.getMyAscents(app.pageNo);
-			} else {
-				app.errorMsg = data.data.message;
-			}
-		});
-	};
-
 	app.showAscentModal = function() {
 		app.ascentData = {};
 		app.hidethis = true;
@@ -136,6 +133,18 @@ angular.module('ascentController', ['ascentServices'])
 		app.errorMsg = false;
 		$scope.today();
 
+	};
+
+// updating ascents/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+
+	app.deleteAscent = function(id) {
+		Ascent.deleteAscent(id).then(function(data) {
+			if (data.data.success) {
+				app.getMyAscents(app.pageNo);
+			} else {
+				app.errorMsg = data.data.message;
+			}
+		});
 	};
 
 
@@ -190,27 +199,7 @@ angular.module('ascentController', ['ascentServices'])
 		});
 	};
 
-	app.search = function(searchByAscent, searchByStyle, searchByGrade) {
-		if (searchByAscent || searchByStyle || searchByGrade) {
-			$scope.searchFilter = {};
-			if (searchByAscent) {
-				$scope.searchFilter.name = searchByAscent;
-			}
-			if (searchByStyle) {
-				$scope.searchFilter.style = searchByStyle;
-			}
-			if (searchByGrade) {
-				$scope.searchFilter.grade = searchByGrade;
-			}
-		}
-	};
-
-	app.clear = function() {
-		$scope.searchFilter = undefined;
-		$scope.searchByAscent = undefined;
-		$scope.searchByStyle = undefined;
-		$scope.searchByGrade = undefined;
-	};
+// helper functions////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     app.updatePropertyName = function(propertyName, reverse) {
     	var propertyObject = {};
@@ -226,10 +215,7 @@ angular.module('ascentController', ['ascentServices'])
     };
 
 
-
-
-
-	// datepicker https://angular-ui.github.io/bootstrap/#!#datepicker
+// datepicker https://angular-ui.github.io/bootstrap/#!#datepicker///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	$scope.today = function() {
     	$scope.dt = new Date();
     };
@@ -288,7 +274,7 @@ angular.module('ascentController', ['ascentServices'])
 
     return '';
   	}
-  	// end of date-picker
+
 
 });
 
