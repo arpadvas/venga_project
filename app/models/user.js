@@ -13,7 +13,7 @@ var nameValidator = [
 	}),
   validate({
   		validator: 'isLength',
-  		arguments: [3, 20],
+  		arguments: [3, 40],
   		message: 'Name should be between {ARGS[0]} and {ARGS[1]} characters.'
 	})
 ];
@@ -25,7 +25,7 @@ var emailValidator = [
 	}),
   validate({
   		validator: 'isLength',
-  		arguments: [3, 25],
+  		arguments: [3, 40],
   		message: 'Email should be between {ARGS[0]} and {ARGS[1]} characters.'
 	})
 ];
@@ -33,12 +33,12 @@ var emailValidator = [
 var passwordValidator = [
   validate({
   		validator: 'matches',
-  		arguments: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])(?=.*?[\W]).{8,35}$/,
-  		message: 'Password must have at least one lower case, one upper case, one number, one special character, and must be between 8 and 35 characters!'
+  		arguments: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+  		message: 'Password must have at least one lower case, one upper case, one number, one special character, and must be between 6 and 20 characters!'
 	}),
   validate({
   		validator: 'isLength',
-  		arguments: [8, 35],
+  		arguments: [6, 20],
   		message: 'Email should be between {ARGS[0]} and {ARGS[1]} characters.'
 	})
 ];
