@@ -57,7 +57,7 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <button type="button" class="navbar-toggle collapsed" ng-click="isNavCollapsed = !isNavCollapsed">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -65,15 +65,18 @@
           </button>
           <a class="navbar-brand" href="/">Venga Project</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse" uib-collapse="isNavCollapsed">
           <ul class="nav navbar-nav navbar-right">
-            <li><a ng-show="main.isLoggedIn" href="/profile"> {{main.name}}</a></li>
-            <li><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
-            <li><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
-            <li><a ng-show="main.isLoggedIn" href="/myAscents">My ascents</a></li>
-            <li><a href="#" ng-show="main.isLoggedIn" ng-click="main.logout();">Logout</a></li>
+            <li class="desktop-only"><a ng-show="main.isLoggedIn" href="/profile"> {{main.name}}</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/register" ng-click="isNavCollapsed = !isNavCollapsed">Register</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/login" ng-click="isNavCollapsed = !isNavCollapsed">Log In</a></li>
+            <li class="mobile-only"><a href="/profile" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed">My profile</a></li>
+            <li><a ng-show="main.isLoggedIn" href="/myAscents" ng-click="isNavCollapsed = !isNavCollapsed">My ascents</a></li>
+            <li class="mobile-only"><a href="/searchAscents" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed">Search ascents</a></li>
+            <li class="mobile-only"><a href="/searchClimbers" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed">Search climbers</a></li>
+            <li><a href="#" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed; main.logout();">Logout</a></li>
           </ul>
-          <div ng-show="main.isLoggedIn" class="profile-pic-small navbar-right"><a href="/profile"><img ng-src="{{main.profilePic.url}}"></a></div>
+          <div ng-show="main.isLoggedIn" class="profile-pic-small navbar-right desktop-only"><a href="/profile"><img ng-src="{{main.profilePic.url}}"></a></div>
         </div>
       </div>
     </nav>

@@ -7,6 +7,8 @@ angular.module('mainController', ['authServices', 'userServices'])
 	app.loadme = false;
   $rootScope.limit = 0;
 
+   $scope.isNavCollapsed = true;
+
   if (Auth.isLoggedIn()) {
     Auth.getUser().then(function(data) {
         if (data.data.name === undefined) {

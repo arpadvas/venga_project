@@ -136,3 +136,25 @@ hr {
 .dropdown .list-group .list-group-item:hover {
   background-color:#f9f9f9; 
 } 
+
+.nav .desktop-only a, 
+.navbar-collapse .desktop-only,
+.navbar-collapse .desktop-only a {
+  display: none;
+}
+@media (min-width: 768px) {
+  .nav .desktop-only a, 
+  .navbar-collapse .desktop-only,
+  .navbar-collapse .desktop-only a {
+    display: block;
+  }
+}
+
+.nav .mobile-only a{
+  display: block;
+}
+@media (min-width: 768px) {
+  .nav .mobile-only a{
+    display: none;
+  }
+}
