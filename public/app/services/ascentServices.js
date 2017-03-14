@@ -35,8 +35,12 @@ angular.module('ascentServices', [])
 		return $http.post('/api/ascents', keywordData);
 	};
 
-	ascentFactory.getClimbers = function(keyword) {
-		return $http.get('/api/climbers/' + keyword);
+	ascentFactory.getClimbers = function(keyword, limit, page, propertyName, reverse) {
+		return $http.get('/api/climbers/' + keyword + '/' + limit + '/' + page + '/' + propertyName + '/' + reverse);
+	};
+
+	ascentFactory.getClimbersCount = function(keyword) {
+		return $http.get('/api/climberscount/' + keyword);
 	};
 
 	ascentFactory.getClimber = function(name) {
