@@ -1,30 +1,78 @@
 angular.module('climberSearchController', ['ascentServices'])
 
-.controller('climberSearchCtrl', function(Ascent, $filter, $scope, $location, $rootScope) {
+.controller('climberSearchCtrl', function(Ascent, $filter, $scope, $location, $rootScope, paginationService) {
 	
 	var app = this;
+
 	app.pageSize = 6;
 	app.propertyName = 'name';
 	app.reverse = false;
+	app.totalCount = 0;
+	app.pageNo = 1;
 
 	app.sortBy = function(propertyName) {
 	  app.reverse = (propertyName !== null && app.propertyName === propertyName)
 	     ? !app.reverse : false;
       app.propertyName = propertyName;
-      app.climbers = $filter('orderBy')(app.climbers, app.propertyName, app.reverse);
+      app.loading = true;
+      Ascent.getClimbers($scope.keyword, app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(result) {
+			if (result.data.success) {
+				app.loading = false;
+				app.climbers = result.data.climbers;
+				app.setclear = false;
+			} else {
+				app.loading = false;
+				app.errorMsg = data.data.message;
+				app.setclear = false;
+			}
+		});
     };
 
-    app.search = function(searchByClimberName) {
-		if (searchByClimberName) {
+	app.getClimbers = function(pageNo) {
+		if (!app.setclear) {
 			app.loading = true;
-			$scope.keyword = searchByClimberName;
-			Ascent.getClimbers($scope.keyword).then(function(data) {
-				if (data.data.success) {
+			Ascent.getClimbers($scope.keyword, app.pageSize, pageNo, app.propertyName, app.reverse).then(function(result) {
+				if (result.data.success) {
 					app.loading = false;
-					app.climbers = data.data.climbers;
-					app.climbers = $filter('orderBy')(data.data.climbers, app.propertyName, app.reverse);
+					app.climbers = result.data.climbers;
+					app.setclear = false;
+					app.pageNo = pageNo;
 				} else {
 					app.loading = false;
+					app.errorMsg = data.data.message;
+					app.setclear = false;
+					app.pageNo = pageNo;
+				}
+			});
+		} else {
+			app.setclear = false;
+		}
+		
+	}
+
+	app.search = function(searchByClimberName) {
+		if (searchByClimberName) {
+			app.pageNo = 1
+			app.loading = true;
+			app.setclear = true;
+			paginationService.setCurrentPage('search', 1);
+			
+			$scope.keyword = searchByClimberName;
+			Ascent.getClimbersCount($scope.keyword).then(function(data) {
+				if (data.data.success) {
+					app.totalCount = data.data.count;
+					Ascent.getClimbers($scope.keyword, app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(result) {
+						if (result.data.success) {
+							app.loading = false;
+							app.setclear = false;
+							app.climbers = result.data.climbers;
+						} else {
+							app.loading = false;
+							app.setclear = false;
+							app.errorMsg = data.data.message;
+						}
+					});
+				} else {
 					app.errorMsg = data.data.message;
 				}
 			});
@@ -32,8 +80,11 @@ angular.module('climberSearchController', ['ascentServices'])
 	};
 
 	app.clear = function() {
-		$scope.searchByClimberName = undefined;
+		app.pageNo = 1;
+		app.setclear = true;
+		paginationService.setCurrentPage('search', 1);
 		app.climbers = undefined;
+		$scope.searchByClimberName = undefined;
 	};
 
     app.openProfile = function(climberEmail) {
