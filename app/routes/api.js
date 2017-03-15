@@ -871,16 +871,16 @@ module.exports = function(router) {
 
 //climber-search////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-router.get('/climberscount/:keyword', function(req, res) {
-		User.count({ name: { $regex: req.params.keyword, $options: "i" } }, function(err, count) {
-			if (err) throw err;
-			if (!count) {
-				res.json({success: false, message: 'No climber was found!'});
-			} else {
-				res.json({ success: true, count: count });
-			}
+	router.get('/climberscount/:keyword', function(req, res) {
+			User.count({ name: { $regex: req.params.keyword, $options: "i" } }, function(err, count) {
+				if (err) throw err;
+				if (!count) {
+					res.json({success: false, message: 'No climber was found!'});
+				} else {
+					res.json({ success: true, count: count });
+				}
+			});
 		});
-	});
 
 	router.get('/climbers/:keyword/:limit/:page/:propertyname/:reverse', function(req, res) {
 		var limit = Number(req.params.limit);
@@ -929,6 +929,7 @@ router.get('/climberscount/:keyword', function(req, res) {
 		}
 	});
 
+//climber-profile///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	router.get('/climber/:email', function(req, res) {
 		User.findOne({ email: req.params.email }, function(err, climber) {
@@ -952,19 +953,101 @@ router.get('/climberscount/:keyword', function(req, res) {
 		});
 	});
 
-	router.get('/ascentsbyid/:id', function(req, res) {
+	router.get('/ascentscountbyid/:id', function(req, res) {
 		User.findOne({ _id: req.params.id }, function(err, user) {
 			if (err) throw err;
 			if (!user) {
 				res.json({success: false, message: 'No user was found!'});
 			} else {
-				Ascent.find({ sentBy: user.email }, function(err, ascents) {
-					if (!ascents) {
+				Ascent.count({ sentBy: user.email }, function(err, count) {
+					if (!count) {
 						res.json({success: false, message: 'No ascent was found!'});
 					} else {
-						res.json({ success: true, ascents: ascents });
+						res.json({ success: true, count: count });
 					}
 				});
+			}
+		});
+	});
+
+	router.get('/ascentsbyid/:id/:limit/:page/:propertyname/:reverse', function(req, res) {
+		var limit = Number(req.params.limit);
+		var page = Number(req.params.page);
+		page = page-1;
+		var offset = limit * page;
+		var propertyname = req.params.propertyname;
+		var reverse = req.params.reverse;
+
+		User.findOne({ _id: req.params.id }, function(err, user) {
+			if (err) throw err;
+			if (!user) {
+				res.json({success: false, message: 'No user was found!'});
+			} else {
+				if (propertyname === 'grade' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ grade: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'grade' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ grade: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'name' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ normalized: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'name' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ normalized: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'style' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ style: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'style' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ style: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'date' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ date: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'date' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ date: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				}
 			}
 		});
 	});

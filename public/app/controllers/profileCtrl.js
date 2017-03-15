@@ -46,47 +46,71 @@ angular.module('profileController', ['angular-filepicker', 'userServices'])
     app.loadingProfile = true;
     app.loadedProfile = false;
     app.pageSize = 6;
+    app.pageNo = 1;
     app.propertyName = 'grade';
     app.reverse = true;
+    app.totalCount = 0;
 
-
-    function firstHandler(data) {
-        if (data.data.success) {
+    function loadDetails(id) {
+        return Ascent.getClimberByID(id).then(function(details) {
             app.climber = {};
-            app.climber.name = data.data.climber.name;
-            app.climber.email = data.data.climber.email;
-            app.climber.picture = data.data.climber.picture;
-        } else {
-            console.log(data.data.message);
-        }
+            app.climber.name = details.data.climber.name;
+            app.climber.email = details.data.climber.email;
+            app.climber.picture = details.data.climber.picture;
+        });
     }
 
-    function secondHandler(data) {
-        if (data.data.success) {
+    function loadAscentsCount() {
+        return Ascent.getClimberAscentsCount($routeParams.id).then(function(result) {
+                    app.totalCount = result.data.count;
+                });
+    }
+
+    function loadAscents() {
+        return Ascent.getClimberAscents($routeParams.id, app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(data) {
+            app.ascents = data.data.ascents;
             app.loadingProfile = false;
             app.loadedProfile = true;
-            app.ascents = data.data.ascents;
-            app.ascents = $filter('orderBy')(data.data.ascents, app.propertyName, app.reverse);
-        } else {
-            console.log(data.data.message);
-        }
+        });
     }
 
+    function reportProblems(error) {
+        console.log(error.data.message);
+    }
 
-    Ascent.getClimberByID($routeParams.id)
-        .then(firstHandler)
-        .then(Ascent.getClimberAscents($routeParams.id)
-            .then(secondHandler));
+    loadDetails($routeParams.id)
+        .then(loadAscentsCount)
+        .then(loadAscents)
+        .catch(reportProblems);
+
  
-
+    app.pager = function(pageNo) {
+        app.loadingProfile = true;
+        app.pageNo = pageNo;
+        Ascent.getClimberAscents($routeParams.id, app.pageSize, pageNo, app.propertyName, app.reverse).then(function(data) {
+            if (data.data.success) {
+                app.loadingProfile = false;
+                app.ascents = data.data.ascents;
+            } else {
+                console.log(data.data.message);
+            }
+        });
+    }; 
     
 
     app.sortBy = function(propertyName) {
-      app.reverse = (propertyName !== null && app.propertyName === propertyName)
+        app.reverse = (propertyName !== null && app.propertyName === propertyName)
          ? !app.reverse : false;
-      app.propertyName = propertyName;
-      app.ascents = $filter('orderBy')(app.ascents, app.propertyName, app.reverse);
-      app.updatePropertyName(app.propertyName, app.reverse);
+        app.propertyName = propertyName;
+        app.loadingProfile = true;
+        Ascent.getClimberAscents($routeParams.id, app.pageSize, app.pageNo, app.propertyName, app.reverse).then(function(data) {
+            if (data.data.success) {
+                app.loadingProfile = false;
+                app.ascents = data.data.ascents;
+            } else {
+                console.log(data.data.message);
+            }
+        });
     };
 
     app.openSearch = function(ascentName) {

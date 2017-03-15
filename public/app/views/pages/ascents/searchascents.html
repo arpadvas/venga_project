@@ -3,52 +3,54 @@
 <div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascentSearch.successMsg'><p>{{ascentSearch.successMsg}}</p></div>
 <div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascentSearch.errorMsg'><p>{{ascentSearch.errorMsg}}</p></div>
 
-<div class="panel panel-primary">
+<hr>
+
+<!-- <div class="panel panel-primary">
 	<div class="panel-heading">
 		<i class="fa fa-search" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search parameters</h3>
 	</div>
-	<div class="panel-body">
+	<div class="panel-body"> -->
 
 		<form class="form-horizontal">
 		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Ascent name</label>
-		    <div class="col-sm-6">
+		    <label class="col-sm-offset-3 col-sm-1 control-label">Ascent name</label>
+		    <div class="col-sm-5">
 		      <input type="text" class="form-control" name="searchByName" placeholder="Search by name" ng-model="searchByName">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Style</label>
-		    <div class="col-sm-6">
+		    <label class="col-sm-offset-3 col-sm-1 control-label">Style</label>
+		    <div class="col-sm-5">
 		    	<select class="form-control" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascentSearch.styles"></select>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Grade</label>
-		    <div class="col-sm-6">
+		    <label class="col-sm-offset-3 col-sm-1 control-label">Grade</label>
+		    <div class="col-sm-5">
 		    	<select class="form-control" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascentSearch.grades"></select>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label class="col-sm-1 control-label">Sent by</label>
-		    <div class="col-sm-6">
+		    <label class="col-sm-offset-3 col-sm-1 control-label">Sent by</label>
+		    <div class="col-sm-5">
 		      <input type="text" class="form-control" name="searchBySender" placeholder="Search by sender" ng-model="searchBySender">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <div class="col-sm-offset-1 col-sm-6">
+		    <div class="col-sm-offset-4 col-sm-6">
 		      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.search(searchByName, searchByStyle, searchByGrade, searchBySender);">Search</button>
 		      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.clear();">Clear</button>
 		    </div>
 		  </div>
-		  <div class="form-group" ng-show="ascentSearch.ascents !== undefined">
+		  <!-- <div class="form-group" ng-show="ascentSearch.ascents !== undefined">
 		    <div class="col-sm-offset-1 col-sm-10">
 		      <p>Total results: {{ascentSearch.ascents.length}}</p>
 		    </div>
-		  </div>
+		  </div> -->
 		</form>
 
-	</div>
-</div>
+<!-- 	</div>
+</div> -->
 
 <div class="sk-fading-circle" ng-show="ascentSearch.loading">
     <div class="sk-circle1 sk-circle"></div>

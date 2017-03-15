@@ -3,6 +3,11 @@ body{
 }
 
 hr {
+  margin-top: 32px;
+  margin-bottom: 30px;
+}
+
+.nav-sidebar hr {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -35,7 +40,7 @@ hr {
 }
 
 .panel .panel-body .content {
-  /*max-width: 600px;*/
+  max-width: 600px;
   margin: 0px auto;
 }
 
