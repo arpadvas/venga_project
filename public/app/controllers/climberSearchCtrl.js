@@ -22,7 +22,7 @@ angular.module('climberSearchController', ['ascentServices'])
 				app.setclear = false;
 			} else {
 				app.loading = false;
-				app.errorMsg = data.data.message;
+				app.errorMsg = result.data.message;
 				app.setclear = false;
 			}
 		});
@@ -39,7 +39,7 @@ angular.module('climberSearchController', ['ascentServices'])
 					app.pageNo = pageNo;
 				} else {
 					app.loading = false;
-					app.errorMsg = data.data.message;
+					app.errorMsg = result.data.message;
 					app.setclear = false;
 					app.pageNo = pageNo;
 				}
@@ -48,7 +48,7 @@ angular.module('climberSearchController', ['ascentServices'])
 			app.setclear = false;
 		}
 		
-	}
+	};
 
 	app.search = function(searchByClimberName) {
 		if (searchByClimberName) {
@@ -73,7 +73,7 @@ angular.module('climberSearchController', ['ascentServices'])
 						}
 					});
 				} else {
-					app.errorMsg = data.data.message;
+					app.errorMsg = result.data.message;
 				}
 			});
 		}

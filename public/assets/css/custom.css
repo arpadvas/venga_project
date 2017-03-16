@@ -7,6 +7,10 @@ hr {
   margin-bottom: 30px;
 }
 
+.table {
+  margin-bottom: 0px;
+}
+
 .nav-sidebar hr {
   margin-top: 10px;
   margin-bottom: 10px;

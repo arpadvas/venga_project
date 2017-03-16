@@ -58,7 +58,7 @@
 			<div class="table-responsive">
 				<table class="table">
 					<tr>
-						<th style="width:50%" ng-click="climberSearch.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberSearch.propertyName === 'name';"</th>
+						<th style="width:50%" ng-click="climberSearch.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberSearch.propertyName === 'name';"></th>
 						<th style="width:50%">Score</th>
 					</tr>
 					<tr dir-paginate="climber in climberSearch.climbers | itemsPerPage: climberSearch.pageSize" total-items="climberSearch.totalCount" pagination-id="search">
