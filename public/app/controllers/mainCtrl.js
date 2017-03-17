@@ -200,13 +200,16 @@ angular.module('mainController', ['authServices', 'userServices'])
             app.loadme = true;
           }
         });
-		});
+		  });
 		} else {
 			app.isLoggedIn = false;
 			app.name = '';
 			app.loadme = true;
 		}
-  	});
+    if ($location.hash() == '_=_') {
+      $location.hash(null);
+    }
+  });
 
 	
 	this.doLogin = function(loginData) {

@@ -20,6 +20,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: false
 	})
 
+	.when('/facebook/:token', {
+		templateUrl: 'app/views/pages/users/social/social.html',
+		authenticated: false,
+		controller: 'facebookCtrl',
+        controllerAs: 'facebook'
+	})
+
 	.when('/logout', {
 		templateUrl: 'app/views/pages/users/logout.html'
 		// authenticated: true
