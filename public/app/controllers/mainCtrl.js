@@ -1,6 +1,6 @@
 angular.module('mainController', ['authServices', 'userServices'])
 
-.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $interval, $window, $route, User, AuthToken, $scope) {
+.controller('mainCtrl', function(Auth, $timeout, $location, $rootScope, $interval, $window, $route, User, AuthToken, $scope, $window) {
 	
 	var app = this;
 
@@ -241,6 +241,10 @@ angular.module('mainController', ['authServices', 'userServices'])
 			}
 		});
 	};
+
+  app.facebook = function() {
+    $window.location = $window.location.protocol + '//' + $window.location.host + '/auth/facebook'
+  };
 
 	app.logout = function() {
 		showModal(2);

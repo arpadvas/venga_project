@@ -59,7 +59,7 @@ var userSchema = new mongoose.Schema({
 	},
 	password: {
 		type: String,
-		required: true,
+		//required: true,
 		validate: passwordValidator,
 		select: false
 	},
@@ -69,8 +69,8 @@ var userSchema = new mongoose.Schema({
 		default: false
 	},
 	temporarytoken: {
-		type: String,
-		required: true
+		type: String
+		//required: true
 	}
 	,
 	resettoken: {
