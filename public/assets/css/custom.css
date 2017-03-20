@@ -7,6 +7,28 @@ hr {
   margin-bottom: 30px;
 }
 
+#login {
+  display: none;
+}
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.container-fluid .jumbotron {
+  border-radius: 0px;
+}
+
+.navbar {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.btn-block {
+  width: 200px;
+}
+
 .table {
   margin-bottom: 0px;
 }
@@ -24,6 +46,13 @@ hr {
   background-color: #F6F8FA;
   color: #576366;
   border-color: #D5D7D9;
+  height: 40px;
+}
+
+.panel .panel-custom {
+  background-color: #2C699E;
+  color: white;
+  border-color: #2C699E;
   height: 40px;
 }
 

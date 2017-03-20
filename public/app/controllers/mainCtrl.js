@@ -14,8 +14,10 @@ angular.module('mainController', ['authServices', 'userServices'])
         if (data.data.name === undefined) {
             Auth.logout();
             app.isLoggedIn = false;
-            $location.path('/');
+            $location.path('/landing');
             app.loadme = true;
+        } else {
+          $location.path('/home');
         }
     });
   }
@@ -223,7 +225,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 				app.loading = false;
 				app.successMsg = data.data.message + ' Redirecting...';
 				$timeout(function() {
-					$location.path('/');
+					$location.path('/home');
 					app.loginData = '';
 					app.successMsg = false;
 					app.checkSession();

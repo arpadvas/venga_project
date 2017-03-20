@@ -1,73 +1,101 @@
-<h1 class="h-no-top-margin grey-header">Search climbers</h1> 
+<div class="row">
 
-<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='climberSearch.successMsg'><p>{{climberSearch.successMsg}}</p></div>
-<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='climberSearch.errorMsg'><p>{{climberSearch.errorMsg}}</p></div>
+  <!-- sidebar -->
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <li ng-class="homeMenu"><a href="/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
+      <hr>
+      <li ng-class="registerMenu"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
+      <li ng-class="loginMenu"><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
+      <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;My profile</a></li>
+      <li ng-class="myascentsMenu"><a href="/myAscents" ng-show="main.isLoggedIn"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;My ascents</a></li>
+      <hr ng-show="main.isLoggedIn">
+      <li ng-class="searchAscentsMenu"><a href="/searchAscents" ng-show="main.isLoggedIn"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search ascents</a></li>
+      <li ng-class="searchClimersMenu"><a href="/searchClimbers" ng-show="main.isLoggedIn"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Search climbers</a></li>
+      <hr ng-show="main.isLoggedIn">
+      <li ng-class="managementMenu"><a href="/management" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Management</a></li>
+    </ul>
+  </div> 
+  <!-- end of sidebar -->
 
-<hr>
+  <!-- main content -->
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-<!-- <div class="panel panel-primary">
-	<div class="panel-heading">
-		<i class="fa fa-search" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search parameters</h3>
-	</div>
-	<div class="panel-body"> -->
+	<h1 class="h-no-top-margin grey-header">Search climbers</h1> 
 
-		<form class="form-horizontal">
-		  <div class="form-group">
-		    <label class="col-sm-offset-2 col-sm-1 control-label">Name</label>
-		    <div class="col-sm-5">
-		      <input type="text" class="form-control" name="searchByClimberName" placeholder="Search by name" ng-model="searchByClimberName" ng-change="climberSearch.pageNo = 1;">
-		    </div>
-		    <div class="col-sm-2">
-		      <button type="submit" class="btn btn-custom" ng-click="climberSearch.search(searchByClimberName);">Search</button>
-		      <button type="submit" class="btn btn-custom" ng-click="climberSearch.clear();">Clear</button>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    
-		  </div>
-		 <!--  <div class="form-group" ng-show="climberSearch.climbers !== undefined">
-		    <div class="col-sm-offset-3 col-sm-10">
-		      <p>Total results: {{climberSearch.totalCount}}</p>
-		    </div>
-		  </div> -->
-		</form>
+	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='climberSearch.successMsg'><p>{{climberSearch.successMsg}}</p></div>
+	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='climberSearch.errorMsg'><p>{{climberSearch.errorMsg}}</p></div>
 
-<!-- 	</div>
-</div> -->
+	<hr>
 
-<div class="sk-fading-circle" ng-show="climberSearch.loading">
-    <div class="sk-circle1 sk-circle"></div>
-    <div class="sk-circle2 sk-circle"></div>
-    <div class="sk-circle3 sk-circle"></div>
-    <div class="sk-circle4 sk-circle"></div>
-    <div class="sk-circle5 sk-circle"></div>
-    <div class="sk-circle6 sk-circle"></div>
-    <div class="sk-circle7 sk-circle"></div>
-    <div class="sk-circle8 sk-circle"></div>
-    <div class="sk-circle9 sk-circle"></div>
-    <div class="sk-circle10 sk-circle"></div>
-    <div class="sk-circle11 sk-circle"></div>
-    <div class="sk-circle12 sk-circle"></div>
-</div>
-
-<div class="panel panel-primary" ng-hide="climberSearch.climbers === undefined">
-	<div class="panel-heading">
-		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search results</h3>
-	</div>
-		<div class="panel-body no-padding">
-			<div class="table-responsive">
-				<table class="table">
-					<tr>
-						<th style="width:50%" ng-click="climberSearch.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberSearch.propertyName === 'name';"></th>
-						<th style="width:50%">Score</th>
-					</tr>
-					<tr dir-paginate="climber in climberSearch.climbers | itemsPerPage: climberSearch.pageSize" total-items="climberSearch.totalCount" pagination-id="search">
-						<td class="blue" ng-click="climberSearch.openProfile(climber.email);">{{climber.name}}</td>
-						<td>000</td>
-					</tr>
-				</table>
-				</div>
+	<!-- <div class="panel panel-primary">
+		<div class="panel-heading">
+			<i class="fa fa-search" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search parameters</h3>
 		</div>
-</div>
+		<div class="panel-body"> -->
 
-<dir-pagination-controls boundary-links="true" class="center" ng-hide="climberSearch.climbers === undefined" current-page="climberSearch.pageNo" pagination-id="search" on-page-change="climberSearch.getClimbers(newPageNumber)"></dir-pagination-controls>
+			<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-offset-2 col-sm-1 control-label">Name</label>
+			    <div class="col-sm-5">
+			      <input type="text" class="form-control" name="searchByClimberName" placeholder="Search by name" ng-model="searchByClimberName" ng-change="climberSearch.pageNo = 1;">
+			    </div>
+			    <div class="col-sm-2">
+			      <button type="submit" class="btn btn-custom" ng-click="climberSearch.search(searchByClimberName);">Search</button>
+			      <button type="submit" class="btn btn-custom" ng-click="climberSearch.clear();">Clear</button>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    
+			  </div>
+			 <!--  <div class="form-group" ng-show="climberSearch.climbers !== undefined">
+			    <div class="col-sm-offset-3 col-sm-10">
+			      <p>Total results: {{climberSearch.totalCount}}</p>
+			    </div>
+			  </div> -->
+			</form>
+
+	<!-- 	</div>
+	</div> -->
+
+	<div class="sk-fading-circle" ng-show="climberSearch.loading">
+	    <div class="sk-circle1 sk-circle"></div>
+	    <div class="sk-circle2 sk-circle"></div>
+	    <div class="sk-circle3 sk-circle"></div>
+	    <div class="sk-circle4 sk-circle"></div>
+	    <div class="sk-circle5 sk-circle"></div>
+	    <div class="sk-circle6 sk-circle"></div>
+	    <div class="sk-circle7 sk-circle"></div>
+	    <div class="sk-circle8 sk-circle"></div>
+	    <div class="sk-circle9 sk-circle"></div>
+	    <div class="sk-circle10 sk-circle"></div>
+	    <div class="sk-circle11 sk-circle"></div>
+	    <div class="sk-circle12 sk-circle"></div>
+	</div>
+
+	<div class="panel panel-primary" ng-hide="climberSearch.climbers === undefined">
+		<div class="panel-heading">
+			<i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search results</h3>
+		</div>
+			<div class="panel-body no-padding">
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th style="width:50%" ng-click="climberSearch.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberSearch.propertyName === 'name';"></th>
+							<th style="width:50%">Score</th>
+						</tr>
+						<tr dir-paginate="climber in climberSearch.climbers | itemsPerPage: climberSearch.pageSize" total-items="climberSearch.totalCount" pagination-id="search">
+							<td class="blue" ng-click="climberSearch.openProfile(climber.email);">{{climber.name}}</td>
+							<td>000</td>
+						</tr>
+					</table>
+					</div>
+			</div>
+	</div>
+
+	<dir-pagination-controls boundary-links="true" class="center" ng-hide="climberSearch.climbers === undefined" current-page="climberSearch.pageNo" pagination-id="search" on-page-change="climberSearch.getClimbers(newPageNumber)"></dir-pagination-controls>
+
+  </div> 
+    <!-- end of main content -->
+
+</div>

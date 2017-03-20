@@ -1,0 +1,195 @@
+    <div class="jumbotron" id="register">
+      <div class="container">
+      	<div class="row">
+      		<div class="col-md-6">
+		        <h1>Venga Project</h1>
+		        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+		        <p><a class="btn btn-primary btn-lg" href="/login" role="button">Log in &raquo;</a></p>
+		    </div>
+		    <div class="col-md-6">
+		        <div class="panel panel-primary">
+			      <div class="panel-heading panel-custom">
+			        <h3 class="panel-title">Sign up now!</h3>
+			      </div>
+			      <div class="panel-body">
+			        <div class="content">
+			          <form name="regForm" ng-submit="register.regUser(regData, regForm.$valid, confirmed)" novalidate>
+
+
+			              <!-- Name -->
+			              <div class="form-group">
+			                <div ng-class="{'has-success':(regForm.name.$valid && !regForm.name.$pristine), 'has-error': (!regForm.name.$valid && !regForm.name.$pristine) || (!regForm.name.$valid && regForm.$submitted)}">
+			                  <label for="name">Name</label>
+			                  <input id="name" type="text" ng-disabled="register.disabled" ng-model="register.regData.name" placeholder="first and last name" name="name" class="form-control input-custom" ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minLength="3" ng-maxLength="40" required>
+			                  <p class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.required) || (regForm.$submitted && regForm.name.$error.required)">This field is required.</p>
+			                  <ul class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.pattern) || (!regForm.name.$pristine && regForm.name.$error.minlength) || (!regForm.name.$pristine && regForm.name.$error.maxlength)">
+			                    <li>Must contain space between first and last name.</li>
+			                    <li>Must not contain numbers and special characters.</li>
+			                    <li>Must be between 3 and 40 characters.</li>
+			                  </ul>
+			                </div>
+			              </div>
+
+
+			              <!-- Email -->
+			              <div class="form-group">
+			                <div ng-class="{'has-success':(regForm.email.$valid && !regForm.email.$pristine && !register.emailInvalid), 'has-error': (!regForm.email.$valid && !regForm.email.$pristine) || (!regForm.email.$valid && regForm.$submitted) || register.emailInvalid}">
+			                  <label for="email">Email</label>
+			                  <input id="email" type="email" ng-disabled="register.disabled" ng-model="register.regData.email" placeholder="name@email.com" name="email" class="form-control input-custom" ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-minLength="3" ng-maxLength="40" ng-blur="register.checkEmail(regData)" required>
+			                  <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.required) || (regForm.$submitted && regForm.email.$error.required)">This field is required.</p>
+			                  <p class="help-block" ng-show="register.emailMsg && !regForm.email.$error.required && regForm.email.$valid">{{register.emailMsg}}</p>
+			                  <ul class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.pattern) || (!regForm.email.$pristine && regForm.email.$error.minlength) || (!regForm.email.$pristine && regForm.email.$error.maxlength)">
+			                    <li>Must contain "@".</li>
+			                    <li>Must not contain special characters.</li>
+			                    <li>Must be between 3 and 40 characters.</li>
+			                  </ul>
+			                </div>
+			              </div>
+
+
+			              <!-- Password -->
+			              <div class="form-group">
+			                <div ng-class="{ 'has-success': regForm.firstPassword.$valid && !regForm.firstPassword.$pristine, 'has-error': (!regForm.firstPassword.$valid && !regForm.firstPassword.$pristine) || (!regForm.firstPassword.$valid && regForm.$submitted) }">
+			                  <label for="pw">Password</label>
+			                  <input id="pw" type="password" ng-disabled="register.disabled" ng-model="firstPassword" name="firstPassword" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/" ng-minLength="6" ng-maxLength="35" class="form-control input-custom" required>
+			                  <p class="help-block" ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.required) || (regForm.$submitted && regForm.firstPassword.$error.required)">This field is required.</p>
+			                  <ul class="help-block" ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.pattern) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.minlength) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.maxlength)">
+			                    <li>Must contain at least one lower case and one upper case letters and one number.</li>
+			                    <li>Must be between 6 and 20 characters.</li>
+			                  </ul>
+			                </div>
+			              </div>
+
+
+
+			              <!-- Confirm Password -->
+			              <div class="form-group">
+			                <div ng-class="{'has-success': confirmed && !regForm.confirmPassword.$error.required, 'has-error': (!confirmed && !regForm.confirmPassword.$error.required) || (regForm.confirmPassword.$error.required && !regForm.confirmPassword.$pristine) || (regForm.$submitted && regForm.confirmPassword.$error.required) }">
+			                  <label for="pw"> Confirm Password</label>
+			                  <input id="pw" type="password" ng-disabled="register.disabled" ng-model="confirm" match="{{[firstPassword]}}" ng-change="register.regData.password = confirm" name="confirmPassword" class="form-control input-custom" required>
+			                  <p class="help-block" ng-show="(!regForm.confirmPassword.$pristine && regForm.confirmPassword.$error.required) || (regForm.$submitted && regForm.confirmPassword.$error.required)">This field is required.</p>
+			                  <p ng-show="!confirmed && !regForm.confirmPassword.$pristine && regForm.firstPassword.$valid">Passwords do not match!</p>
+			                </div>
+			              </div>
+
+			              <button ng-disabled="register.disabled" type="submit" class="btn btn-primary">Sign up</button>
+			            </form>
+
+			               <div class="sk-fading-circle" ng-show="register.loading">
+				            <div class="sk-circle1 sk-circle"></div>
+				            <div class="sk-circle2 sk-circle"></div>
+				            <div class="sk-circle3 sk-circle"></div>
+				            <div class="sk-circle4 sk-circle"></div>
+				            <div class="sk-circle5 sk-circle"></div>
+				            <div class="sk-circle6 sk-circle"></div>
+				            <div class="sk-circle7 sk-circle"></div>
+				            <div class="sk-circle8 sk-circle"></div>
+				            <div class="sk-circle9 sk-circle"></div>
+				            <div class="sk-circle10 sk-circle"></div>
+				            <div class="sk-circle11 sk-circle"></div>
+				            <div class="sk-circle12 sk-circle"></div>
+				          </div>
+				          <div class="alert alert-success show-hide-message alert-custom" role="alert" ng-show='register.successMsg'><p>{{register.successMsg}}</p></div>
+				          <div class="alert alert-danger show-hide-message alert-custom" role="alert" ng-show='register.errorMsg'><p>{{register.errorMsg}}</p></div>
+
+			            <hr>
+
+			            <a class="btn btn-block btn-social btn-facebook center" ng-click="main.facebook();">
+							<span class="fa fa-facebook"></span>
+							Sign up with Facebook
+						</a>
+
+			      </div>
+			      </div>
+			    </div>
+		    </div>
+    	</div>
+      </div>
+    </div>
+
+    <div class="jumbotron" id="login">
+      <div class="container">
+      	<div class="row">
+      		<div class="col-md-3">
+      		</div>
+      		<div class="col-md-6">
+      			<div class="panel panel-primary">
+					<div class="panel-heading panel-custom">
+						<h3 class="panel-title">Account details</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content">
+						  <form ng-submit="main.doLogin(loginData)">
+						  <div class="form-group">
+						    <label for="email">Email</label>
+						    <input type="text" id="email" ng-disabled="main.disabled" ng-model="main.loginData.email" placeholder="email" name="email" class="form-control"/>
+						  </div>
+						  <div class="form-group">
+						    <label for="password">Password</label>
+						    <input type="password" id="password" ng-disabled="main.disabled" ng-model="main.loginData.password" placeholder="password" name="password" class="form-control"/>
+						  </div>
+						  <button ng-disabled="main.disabled" type="submit" class="btn btn-primary">Log in</button>
+						  <a href="/resetpassword"><button ng-disabled="main.disabled" type="button" class="btn btn-info">Forgot Password</button></a>
+						  <!-- <button type="button" class="btn btn-info" ng-click="main.facebook();">Facebook</button></a> -->
+						  </form>
+
+						  <div class="sk-fading-circle" ng-show="main.loading">
+						    <div class="sk-circle1 sk-circle"></div>
+						    <div class="sk-circle2 sk-circle"></div>
+						    <div class="sk-circle3 sk-circle"></div>
+						    <div class="sk-circle4 sk-circle"></div>
+						    <div class="sk-circle5 sk-circle"></div>
+						    <div class="sk-circle6 sk-circle"></div>
+						    <div class="sk-circle7 sk-circle"></div>
+						    <div class="sk-circle8 sk-circle"></div>
+						    <div class="sk-circle9 sk-circle"></div>
+						    <div class="sk-circle10 sk-circle"></div>
+						    <div class="sk-circle11 sk-circle"></div>
+						    <div class="sk-circle12 sk-circle"></div>
+						  </div>
+						  <div class="alert alert-success show-hide-message alert-custom" role="alert" ng-show='main.successMsg'><p>{{main.successMsg}}</p></div>
+						  <div class="alert alert-danger show-hide-message alert-custom" role="alert" ng-show='main.errorMsg'><p>{{main.errorMsg}}</p><a ng-show="main.expired" href="/resend"><p class="text-primary"> Resend activation link</p></a></div>
+
+						  <hr>
+
+				            <a class="btn btn-block btn-social btn-facebook center" ng-click="main.facebook();">
+								<span class="fa fa-facebook"></span>
+								Sign in with Facebook
+							</a>
+
+						</div>
+						</div>
+					</div>
+      		</div>
+      		<div class="col-md-3">
+      		</div>
+      </div>
+    </div>
+</div>
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; 2016 Company, Inc.</p>
+      </footer>
+    </div> <!-- /container -->
