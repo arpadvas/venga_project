@@ -252,7 +252,12 @@ angular.module('mainController', ['authServices', 'userServices'])
 		showModal(2);
 	};
 
-
+  $(document).ready(function() {
+        $('#login-button2').on('click', function() {
+          $('#register').hide();
+          $('#login').show();
+        })
+      });
 
 });
 

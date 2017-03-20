@@ -18,6 +18,7 @@ hr {
 
 .container-fluid .jumbotron {
   border-radius: 0px;
+  background-color: #00cccc;
 }
 
 .navbar {
@@ -37,9 +38,15 @@ hr {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
 .panel {
   border-width: 1px;
   border-color: #D5D7D9;
+}
+
+.panel-landing {
+  border-width: 0px;
+  /*border-color: #D5D7D9;*/
 }
 
 .panel .panel-heading {
@@ -50,9 +57,9 @@ hr {
 }
 
 .panel .panel-custom {
-  background-color: #2C699E;
-  color: white;
-  border-color: #2C699E;
+  background-color: #9fff80;
+  color: black;
+  border-color: #9fff80;
   height: 40px;
 }
 
@@ -84,8 +91,26 @@ hr {
   color: #576366;
 }
 
+.btn-landing {
+  border-width: 1px;
+  border-color: #9fff80;
+  background-color: #9fff80;
+  color: black;
+}
+
+.btn-landing:hover {
+  border-width: 1px;
+  border-color: #8cff66;
+  background-color: #8cff66;
+  color: black;
+}
+
 .alert-custom {
   margin: 20px auto;
+}
+
+.alert-custom p {
+  font-size: 14px;
 }
 
 .filter {
