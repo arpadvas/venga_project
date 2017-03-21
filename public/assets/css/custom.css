@@ -13,7 +13,7 @@ body{
 
 .container-fluid .jumbotron {
   border-radius: 0px;
-  background-color: #004d80;
+  background-color: #205a5e;
 }
 
 .jumbotron h1 {
@@ -36,16 +36,16 @@ body{
 }
 
 .panel .panel-heading {
-  background-color: #4D525B;
+  background-color: #205a5e;
   color: #C8C9CC;
   border-color: #D5D7D9;
   height: 40px;
 }
 
 .panel .panel-custom {
-  background-color: #9fff80;
+  background-color: #12ea82;
   color: black;
-  border-color: #9fff80;
+  border-color: #12ea82;
   height: 40px;
 }
 
@@ -105,6 +105,7 @@ body{
 .navbar {
   padding-left: 15px;
   padding-right: 15px;
+  background-color: #205a5e;
 }
 
 .nav .desktop-only a, 
@@ -149,10 +150,10 @@ body{
 .nav-sidebar hr {
   margin-top: 10px;
   margin-bottom: 10px;
-  color: #669999;
-  background-color: #669999;
+  color: #D5D7D9;
+  background-color: #D5D7D9;
   border: 0;
-  border-top: 1px solid #669999;
+  border-top: 1px solid #D5D7D9;
 }
 
 /*buttons*****************************************************************/
@@ -167,22 +168,22 @@ body{
 
 .btn-custom {
   border-width: 1px;
-  border-color: #D5D7D9;
-  background-color: #F6F8FA;
-  color: #576366;
+  border-color: #205a5e;
+  background-color: #12ea82;
+  color: #205a5e;
 }
 
 .btn-landing {
   border-width: 1px;
-  border-color: #004d80;
-  background-color: #9fff80;
+  border-color: #205a5e;
+  background-color: #12ea82;
   color: black;
 }
 
 .btn-landing:hover {
   border-width: 1px;
-  border-color: #004d80;
-  background-color: #8cff66;
+  border-color: #205a5e;
+  background-color: #05b27e;
   color: black;
 }
 
@@ -246,10 +247,10 @@ body{
 hr {
   margin-top: 32px;
   margin-bottom: 30px;
-  color: #669999;
-  background-color: #669999;
+  color: #D5D7D9;
+  background-color: #D5D7D9;
   border: 0;
-  border-top: 1px solid #669999;
+  border-top: 1px solid #D5D7D9;
 }
 
 #login {
