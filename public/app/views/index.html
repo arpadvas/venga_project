@@ -79,7 +79,11 @@
             <li class="mobile-only"><a href="/searchClimbers" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true">Search climbers</a></li>
             <li><a href="#" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true; main.logout();">Logout</a></li>
           </ul>
-          <div ng-show="main.isLoggedIn" class="profile-pic-small navbar-right desktop-only"><a href="/profile"><img ng-src="{{main.profilePic.url}}"></a></div>
+          <div ng-show="main.isLoggedIn" class="avatar navbar-right desktop-only">
+            <a href="/profile">
+              <img class="avatar__img" ng-src="{{main.profilePic.url}}">
+            </a>
+          </div>
         </div>
       </div>
     </nav>

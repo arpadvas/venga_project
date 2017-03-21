@@ -1,12 +1,12 @@
 <div class="jumbotron" ng-show="!main.login">
   <div class="container">
   	<div class="row">
-  		<div class="col-md-6">
+  		<div class="col-md-8">
 	        <h1>Venga Project</h1>
 	        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
 	        <p><a class="btn btn-lg btn-landing" href="#" role="button" ng-click="main.login = true">Log in &raquo;</a></p>
 	    </div>
-	    <div class="col-md-6">
+	    <div class="col-md-4">
 	        <div class="panel panel-primary panel-landing">
 		      <div class="panel-heading panel-custom">
 		        <h3 class="panel-title">Sign up now!</h3>
@@ -19,14 +19,10 @@
 		              <!-- Name -->
 		              <div class="form-group">
 		                <div ng-class="{'has-success':(regForm.name.$valid && !regForm.name.$pristine), 'has-error': (!regForm.name.$valid && !regForm.name.$pristine) || (!regForm.name.$valid && regForm.$submitted)}">
-		                  <label for="name">Name</label>
-		                  <input id="name" type="text" ng-disabled="register.disabled" ng-model="register.regData.name" placeholder="first and last name" name="name" class="form-control input-custom" ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minLength="3" ng-maxLength="40" required>
+		                  <!-- <label for="name">Name</label> -->
+		                  <input id="name" type="text" ng-disabled="register.disabled" ng-model="register.regData.name" placeholder="Name" name="name" class="form-control form-group__input" ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minLength="3" ng-maxLength="40" uib-tooltip="Must contain space between first and last name, must not contain numbers and special characters." tooltip-trigger="'focus'" tooltip-placement="rigth" required>
 		                  <p class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.required) || (regForm.$submitted && regForm.name.$error.required)">This field is required.</p>
-		                  <ul class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.pattern) || (!regForm.name.$pristine && regForm.name.$error.minlength) || (!regForm.name.$pristine && regForm.name.$error.maxlength)">
-		                    <li>Must contain space between first and last name.</li>
-		                    <li>Must not contain numbers and special characters.</li>
-		                    <li>Must be between 3 and 40 characters.</li>
-		                  </ul>
+		                  <p class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.pattern) || (!regForm.name.$pristine && regForm.name.$error.minlength) || (!regForm.name.$pristine && regForm.name.$error.maxlength)">Please enter a valid name.</p>
 		                </div>
 		              </div>
 
@@ -34,15 +30,11 @@
 		              <!-- Email -->
 		              <div class="form-group">
 		                <div ng-class="{'has-success':(regForm.email.$valid && !regForm.email.$pristine && !register.emailInvalid), 'has-error': (!regForm.email.$valid && !regForm.email.$pristine) || (!regForm.email.$valid && regForm.$submitted) || register.emailInvalid}">
-		                  <label for="email">Email</label>
-		                  <input id="email" type="email" ng-disabled="register.disabled" ng-model="register.regData.email" placeholder="name@email.com" name="email" class="form-control input-custom" ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-minLength="3" ng-maxLength="40" ng-blur="register.checkEmail(regData)" required>
+		                  <!-- <label for="email">Email</label> -->
+		                  <input id="email" type="email" ng-disabled="register.disabled" ng-model="register.regData.email" placeholder="Email address" name="email" class="form-control form-group__input" ng-pattern='/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/' ng-minLength="3" ng-maxLength="40" ng-blur="register.checkEmail(regData)" uib-tooltip="Must contain @, must not contain special characters." tooltip-trigger="'focus'" tooltip-placement="rigth" required>
 		                  <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.required) || (regForm.$submitted && regForm.email.$error.required)">This field is required.</p>
 		                  <p class="help-block" ng-show="register.emailMsg && !regForm.email.$error.required && regForm.email.$valid">{{register.emailMsg}}</p>
-		                  <ul class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.pattern) || (!regForm.email.$pristine && regForm.email.$error.minlength) || (!regForm.email.$pristine && regForm.email.$error.maxlength)">
-		                    <li>Must contain "@".</li>
-		                    <li>Must not contain special characters.</li>
-		                    <li>Must be between 3 and 40 characters.</li>
-		                  </ul>
+		                  <p class="help-block" ng-show="(!regForm.email.$pristine && regForm.email.$error.pattern) || (!regForm.email.$pristine && regForm.email.$error.minlength) || (!regForm.email.$pristine && regForm.email.$error.maxlength)">Please enter a valid email address.</p>
 		                </div>
 		              </div>
 
@@ -50,13 +42,10 @@
 		              <!-- Password -->
 		              <div class="form-group">
 		                <div ng-class="{ 'has-success': regForm.firstPassword.$valid && !regForm.firstPassword.$pristine, 'has-error': (!regForm.firstPassword.$valid && !regForm.firstPassword.$pristine) || (!regForm.firstPassword.$valid && regForm.$submitted) }">
-		                  <label for="pw">Password</label>
-		                  <input id="pw" type="password" ng-disabled="register.disabled" ng-model="firstPassword" name="firstPassword" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/" ng-minLength="6" ng-maxLength="35" class="form-control input-custom" required>
+		                  <!-- <label for="pw">Password</label> -->
+		                  <input id="pw" type="password" ng-disabled="register.disabled" ng-model="firstPassword" name="firstPassword" ng-pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/" ng-minLength="6" ng-maxLength="35" class="form-control form-group__input" placeholder="Password" uib-tooltip="Must be between 6 and 20 characters, must contain at least one lower case, one upper case letters and one number." tooltip-trigger="'focus'" tooltip-placement="rigth" required>
 		                  <p class="help-block" ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.required) || (regForm.$submitted && regForm.firstPassword.$error.required)">This field is required.</p>
-		                  <ul class="help-block" ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.pattern) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.minlength) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.maxlength)">
-		                    <li>Must contain at least one lower case and one upper case letters and one number.</li>
-		                    <li>Must be between 6 and 20 characters.</li>
-		                  </ul>
+		                  <p class="help-block" ng-show="(!regForm.firstPassword.$pristine && regForm.firstPassword.$error.pattern) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.minlength) || (!regForm.firstPassword.$pristine && regForm.firstPassword.$error.maxlength)">Please enter a valid password.</p>
 		                </div>
 		              </div>
 
@@ -65,8 +54,8 @@
 		              <!-- Confirm Password -->
 		              <div class="form-group">
 		                <div ng-class="{'has-success': confirmed && !regForm.confirmPassword.$error.required, 'has-error': (!confirmed && !regForm.confirmPassword.$error.required) || (regForm.confirmPassword.$error.required && !regForm.confirmPassword.$pristine) || (regForm.$submitted && regForm.confirmPassword.$error.required) }">
-		                  <label for="pw"> Confirm Password</label>
-		                  <input id="pw" type="password" ng-disabled="register.disabled" ng-model="confirm" match="{{[firstPassword]}}" ng-change="register.regData.password = confirm" name="confirmPassword" class="form-control input-custom" required>
+		                  <!-- <label for="pw"> Confirm Password</label> -->
+		                  <input id="pw" type="password" ng-disabled="register.disabled" ng-model="confirm" match="{{[firstPassword]}}" ng-change="register.regData.password = confirm" name="confirmPassword" class="form-control form-group__input" placeholder="Confirm password" required>
 		                  <p class="help-block" ng-show="(!regForm.confirmPassword.$pristine && regForm.confirmPassword.$error.required) || (regForm.$submitted && regForm.confirmPassword.$error.required)">This field is required.</p>
 		                  <p ng-show="!confirmed && !regForm.confirmPassword.$pristine && regForm.firstPassword.$valid">Passwords do not match!</p>
 		                </div>
@@ -121,15 +110,15 @@
 					<div class="content">
 					  <form ng-submit="main.doLogin(loginData)">
 					  <div class="form-group">
-					    <label for="email">Email</label>
-					    <input type="text" id="email" ng-disabled="main.disabled" ng-model="main.loginData.email" placeholder="email" name="email" class="form-control"/>
+					    <!-- <label for="email">Email</label> -->
+					    <input type="text" id="email" ng-disabled="main.disabled" ng-model="main.loginData.email" placeholder="Email address" name="email" class="form-control form-group__input"/>
 					  </div>
 					  <div class="form-group">
-					    <label for="password">Password</label>
-					    <input type="password" id="password" ng-disabled="main.disabled" ng-model="main.loginData.password" placeholder="password" name="password" class="form-control"/>
+					    <!-- <label for="password">Password</label> -->
+					    <input type="password" id="password" ng-disabled="main.disabled" ng-model="main.loginData.password" placeholder="password" name="Password" class="form-control form-group__input"/>
 					  </div>
 					  <button ng-disabled="main.disabled" type="submit" class="btn btn-landing">Log in</button>
-					  <a href="/resetpassword"><button ng-disabled="main.disabled" type="button" class="btn btn-info">Forgot Password</button></a>
+					  <a href="/resetpassword"><button ng-disabled="main.disabled" type="button" class="btn btn-custom">Forgot Password</button></a>
 					  <!-- <button type="button" class="btn btn-info" ng-click="main.facebook();">Facebook</button></a> -->
 					  </form>
 
