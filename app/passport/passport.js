@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
     	profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
   },
   function(accessToken, refreshToken, profile, done) {
-      console.log(profile.photos[0]);
+      console.log(profile);
       User.findOne({ email: profile._json.email }).select('name password email').exec(function(err, user) {
           if (err) done(err);
 
