@@ -181,17 +181,17 @@ body{
 }
 
 .btn-custom {
-  border-width: 1px;
-  border-color: #205a5e;
+  /*border-width: 1px;
+  border-color: #12ea82;*/
   background-color: #12ea82;
-  color: black;
+  color: white;
 }
 
 .btn-custom:hover {
-  border-width: 1px;
-  border-color: #205a5e;
+  /*border-width: 1px;
+  border-color: #205a5e;*/
   background-color: #10d576;
-  color: black;
+  color: white;
 }
 
 .btn-landing {
