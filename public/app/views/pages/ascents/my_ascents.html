@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row no-margin">
 
     <!-- sidebar -->
     <div class="col-sm-3 col-md-2 sidebar">
@@ -23,8 +23,10 @@
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
      	<h1 class="h-no-top-margin grey-header">My ascents</h1>
+
+     	<hr>
     
-		<button type="button" class="btn btn-success" ng-click="ascent.showAscentModal();"><img src="assets/img/icons/add.svg">&nbsp;Add Ascent</button>
+		<button type="button" class="btn btn-custom" ng-click="ascent.showAscentModal();"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Ascent</button>
 
 		<br> 
 		<br> 
@@ -100,11 +102,11 @@
 				  </div>
 				  <div class="form-group">
 				    <label>Style</label>
-				    <select class="form-control" ng-model="ascent.ascentData.style" ng-options="y for y in ascent.styles"></select>
+				    <select class="form-control form-group__input" ng-model="ascent.ascentData.style" ng-options="y for y in ascent.styles"></select>
 				  </div>
 				  <div class="form-group">
 				    <label>Grade</label>
-				    <select class="form-control" ng-model="ascent.ascentData.grade" ng-options="x for x in ascent.grades"></select>
+				    <select class="form-control form-group__input" ng-model="ascent.ascentData.grade" ng-options="x for x in ascent.grades"></select>
 				  </div>
 				  <div class="form-group">
 				    <label>Date</label>
@@ -135,7 +137,7 @@
 			  <!-- /add ascent form  -->
 		    </div>
 		    <div class="modal-footer">
-		      <button type="button" class="btn btn-success" ng-click="ascent.addAscent(ascentData);">Submit</button>
+		      <button type="button" class="btn btn-custom" ng-click="ascent.addAscent(ascentData);">Submit</button>
 		      <button type="button" class="btn btn-danger" ng-click="ascent.cancelAscentModal();">Cancel</button>
 		    </div>
 		  </div>
@@ -160,15 +162,15 @@
 			  	<form>
 				  <div class="form-group">
 				    <label>Name</label>
-				    <input name="name" class="form-control" placeholder="Name" ng-model="newName">
+				    <input name="name" class="form-control form-group__input" placeholder="Name" ng-model="newName">
 				  </div>
 				  <div class="form-group">
 				    <label>Style</label>
-				    <select class="form-control" ng-model="newStyle" ng-options="y for y in ascent.styles"></select>
+				    <select class="form-control form-group__input" ng-model="newStyle" ng-options="y for y in ascent.styles"></select>
 				  </div>
 				  <div class="form-group">
 				    <label>Grade</label>
-				    <select class="form-control" ng-model="newGrade" ng-options="x for x in ascent.grades"></select>
+				    <select class="form-control form-group__input" ng-model="newGrade" ng-options="x for x in ascent.grades"></select>
 				  </div>
 				  <div class="form-group">
 				    <label>Date</label>

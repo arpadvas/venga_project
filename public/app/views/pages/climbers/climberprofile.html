@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row no-margin">
 
   <!-- sidebar -->
   <div class="col-sm-3 col-md-2 sidebar">
@@ -23,6 +23,8 @@
 
     <h1 class="h-no-top-margin grey-header" ng-show="climberProfile.loadedProfile">{{climberProfile.climber.name}}'s profile</h1>
 
+    <hr>
+
     <div class="sk-fading-circle" ng-show="climberProfile.loadingProfile">
         <div class="sk-circle1 sk-circle"></div>
         <div class="sk-circle2 sk-circle"></div>
@@ -45,7 +47,7 @@
         <div class="panel-body no-padding">
 
           <div class="container-fluid">
-            <div class="row">
+            <div class="row no-margin">
               <div class="col-md-4 p-10">
                   <a href="{{climberProfile.climber.picture.url}}" class="thumbnail">
                   <img ng-src="{{climberProfile.climber.picture.url}}">

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row no-margin">
 
   <!-- sidebar -->
   <div class="col-sm-3 col-md-2 sidebar">
@@ -38,25 +38,25 @@
 			  <div class="form-group">
 			    <label class="col-sm-offset-3 col-sm-1 control-label">Ascent name</label>
 			    <div class="col-sm-5">
-			      <input type="text" class="form-control" name="searchByName" placeholder="Search by name" ng-model="searchByName" ng-change="climberSearch.pageNo = 1;">
+			      <input type="text" class="form-control form-group__input" name="searchByName" placeholder="Search by name" ng-model="searchByName" ng-change="climberSearch.pageNo = 1;">
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-offset-3 col-sm-1 control-label">Style</label>
 			    <div class="col-sm-5">
-			    	<select class="form-control" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascentSearch.styles" ng-change="climberSearch.pageNo = 1;"></select>
+			    	<select class="form-control form-group__input" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascentSearch.styles" ng-change="climberSearch.pageNo = 1;"></select>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-offset-3 col-sm-1 control-label">Grade</label>
 			    <div class="col-sm-5">
-			    	<select class="form-control" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascentSearch.grades" ng-change="climberSearch.pageNo = 1;"></select>
+			    	<select class="form-control form-group__input" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascentSearch.grades" ng-change="climberSearch.pageNo = 1;"></select>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-offset-3 col-sm-1 control-label">Sent by</label>
 			    <div class="col-sm-5">
-			      <input type="text" class="form-control" name="searchBySender" placeholder="Search by sender" ng-model="searchBySender" ng-change="climberSearch.pageNo = 1;">
+			      <input type="text" class="form-control form-group__input" name="searchBySender" placeholder="Search by sender" ng-model="searchBySender" ng-change="climberSearch.pageNo = 1;">
 			    </div>
 			  </div>
 			  <div class="form-group">

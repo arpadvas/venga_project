@@ -130,7 +130,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.managementMenu = 'default';
       $scope.searchAscentsMenu = 'default';
       $scope.searchClimersMenu = 'default';
-    } else if (app.location === '/') {
+    } else if (app.location === '/home') {
       $scope.registerMenu = 'default';
       $scope.loginMenu = 'default';
       $scope.homeMenu = 'active';
