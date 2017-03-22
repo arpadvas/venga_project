@@ -12,7 +12,8 @@
 
     <!-- CSS files -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="assets/css//font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="assets/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap-social/bootstrap-social.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/animate.css" rel="stylesheet">
     <link href="assets/css/custom.css" rel="stylesheet">
@@ -54,6 +55,8 @@
 
   </head>
   <body ng-app="userApp" ng-controller='mainCtrl as main' ng-show="main.loadme" ng-cloak>
+
+    <!-- top nav bar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -63,95 +66,80 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Venga Project</a>
+          <a class="navbar-brand" href="/home">Venga Project</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse" uib-collapse="isNavCollapsed">
           <ul class="nav navbar-nav navbar-right">
             <li class="desktop-only"><a ng-show="main.isLoggedIn" href="/profile"> {{main.name}}</a></li>
-            <li><a ng-show="!main.isLoggedIn" href="/register" ng-click="isNavCollapsed = !isNavCollapsed">Register</a></li>
-            <li><a ng-show="!main.isLoggedIn" href="/login" ng-click="isNavCollapsed = !isNavCollapsed">Log In</a></li>
-            <li class="mobile-only"><a href="/profile" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed">My profile</a></li>
-            <li><a ng-show="main.isLoggedIn" href="/myAscents" ng-click="isNavCollapsed = !isNavCollapsed">My ascents</a></li>
-            <li class="mobile-only"><a href="/searchAscents" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed">Search ascents</a></li>
-            <li class="mobile-only"><a href="/searchClimbers" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed">Search climbers</a></li>
-            <li><a href="#" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = !isNavCollapsed; main.logout();">Logout</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="#" ng-click="isNavCollapsed = true; main.login = false;">Register</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="#" ng-click="isNavCollapsed = true; main.login = true;">Log In</a></li>
+            <li class="mobile-only"><a href="/profile" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true">My profile</a></li>
+            <li><a ng-show="main.isLoggedIn" href="/myAscents" ng-click="isNavCollapsed = true">My ascents</a></li>
+            <li class="mobile-only"><a href="/searchAscents" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true">Search ascents</a></li>
+            <li class="mobile-only"><a href="/searchClimbers" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true">Search climbers</a></li>
+            <li><a href="#" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true; main.logout();">Logout</a></li>
           </ul>
-          <div ng-show="main.isLoggedIn" class="profile-pic-small navbar-right desktop-only"><a href="/profile"><img ng-src="{{main.profilePic.url}}"></a></div>
+          <div ng-show="main.isLoggedIn" class="avatar navbar-right desktop-only">
+            <a href="/profile">
+              <img class="avatar__img" ng-src="{{main.profilePic.url}}">
+            </a>
+          </div>
         </div>
       </div>
     </nav>
+    <!-- end of top nav bar -->
 
-    <!-- sidebar -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li ng-class="homeMenu"><a href="/"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
-            <hr>
-            <li ng-class="registerMenu"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
-            <li ng-class="loginMenu"><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
-            <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;My profile</a></li>
-            <li ng-class="myascentsMenu"><a href="/myAscents" ng-show="main.isLoggedIn"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;My ascents</a></li>
-            <hr ng-show="main.isLoggedIn">
-            <li ng-class="searchAscentsMenu"><a href="/searchAscents" ng-show="main.isLoggedIn"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search ascents</a></li>
-            <li ng-class="searchClimersMenu"><a href="/searchClimbers" ng-show="main.isLoggedIn"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Search climbers</a></li>
-            <hr ng-show="main.isLoggedIn">
-            <li ng-class="managementMenu"><a href="/management" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Management</a></li>
-          </ul>
-        </div> <!-- /sidebar -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-          
-            <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" ng-click="main.endSession();" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">{{main.modalHeader}}</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{main.modalBody}}</p>
 
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" ng-click="main.endSession();" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{main.modalHeader}}</h4>
-              </div>
-              <div class="modal-body">
-                <p>{{main.modalBody}}</p>
-
-                <!-- Spinner -->
-                <div class="sk-fading-circle">
-                  <div class="sk-circle1 sk-circle"></div>
-                  <div class="sk-circle2 sk-circle"></div>
-                  <div class="sk-circle3 sk-circle"></div>
-                  <div class="sk-circle4 sk-circle"></div>
-                  <div class="sk-circle5 sk-circle"></div>
-                  <div class="sk-circle6 sk-circle"></div>
-                  <div class="sk-circle7 sk-circle"></div>
-                  <div class="sk-circle8 sk-circle"></div>
-                  <div class="sk-circle9 sk-circle"></div>
-                  <div class="sk-circle10 sk-circle"></div>
-                  <div class="sk-circle11 sk-circle"></div>
-                  <div class="sk-circle12 sk-circle"></div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" ng-hide="main.hideButton" ng-click="main.renewSession();" class="btn btn-default" data-dismiss="modal">Yes</button>
-                <button type="button" ng-hide="main.hideButton" ng-click="main.endSession();" class="btn btn-default" data-dismiss="modal">No</button>
-              </div>
+            <!-- Spinner -->
+            <div class="sk-fading-circle">
+              <div class="sk-circle1 sk-circle"></div>
+              <div class="sk-circle2 sk-circle"></div>
+              <div class="sk-circle3 sk-circle"></div>
+              <div class="sk-circle4 sk-circle"></div>
+              <div class="sk-circle5 sk-circle"></div>
+              <div class="sk-circle6 sk-circle"></div>
+              <div class="sk-circle7 sk-circle"></div>
+              <div class="sk-circle8 sk-circle"></div>
+              <div class="sk-circle9 sk-circle"></div>
+              <div class="sk-circle10 sk-circle"></div>
+              <div class="sk-circle11 sk-circle"></div>
+              <div class="sk-circle12 sk-circle"></div>
             </div>
-            
+          </div>
+          <div class="modal-footer">
+            <button type="button" ng-hide="main.hideButton" ng-click="main.renewSession();" class="btn btn-default" data-dismiss="modal">Yes</button>
+            <button type="button" ng-hide="main.hideButton" ng-click="main.endSession();" class="btn btn-default" data-dismiss="modal">No</button>
           </div>
         </div>
         
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view>
-
-          <!-- template files go here -->
-
-          
-
-        </div> <!-- /main content -->
-
       </div>
-    </div> <!-- /main container -->
+    </div>
+    <!-- end of modal -->
+
+    <!-- main container -->
+    <div class="container-fluid" ng-view>
+
+      
+
+    </div> 
+    <!-- end of main container -->
 
     <!-- Jquery and Bootstrap JS files -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   </body>
 </html>

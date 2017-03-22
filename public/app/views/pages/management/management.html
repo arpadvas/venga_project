@@ -1,75 +1,103 @@
-<h1 class="h-no-top-margin grey-header">User management</h1>
+<div class="row no-margin">
 
-<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='management.successMsg'><p>{{management.successMsg}}</p></div>
-<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='management.errorMsg'><p>{{management.errorMsg}}</p></div>
+  <!-- sidebar -->
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <li ng-class="homeMenu"><a href="/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
+      <hr>
+      <li ng-class="registerMenu"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
+      <li ng-class="loginMenu"><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
+      <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;My profile</a></li>
+      <li ng-class="myascentsMenu"><a href="/myAscents" ng-show="main.isLoggedIn"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;My ascents</a></li>
+      <hr ng-show="main.isLoggedIn">
+      <li ng-class="searchAscentsMenu"><a href="/searchAscents" ng-show="main.isLoggedIn"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search ascents</a></li>
+      <li ng-class="searchClimersMenu"><a href="/searchClimbers" ng-show="main.isLoggedIn"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Search climbers</a></li>
+      <hr ng-show="main.isLoggedIn">
+      <li ng-class="managementMenu"><a href="/management" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Management</a></li>
+    </ul>
+  </div> 
+  <!-- end of sidebar -->
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">Search</h3>
-	</div>
-	<div class="panel-body">
-		<form class="form-inline filter">
-		  <div class="form-group">
-		    <div class="input-group">
-		      <div class="input-group-addon">Results to display:</div>
-		      <input type="text" class="form-control" id="filter" ng-model="number">
-		    </div>
-		  </div>
-		  <button type="button" class="btn btn-success" ng-click="management.showMore(number);">Apply Filter</button>
-		  <button type="button" class="btn btn-success" ng-click="management.showAll();">Show All</button>
-		</form>
-		<form class="form-inline filter">
-		  <div class="form-group">
-		    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
-		  </div>
-		  <button type="submit" class="btn btn-info" ng-click="management.search(searchKeyword, number);">Quick Search</button>
-		  <button type="submit" class="btn btn-info" ng-click="management.clear();">Clear</button>
-		</form>
-		<div ng-show="searchFilter !== undefined">
-			<p>Total results: {{(management.users | filter: searchFilter).length}}</p>
-			<p>Showing: {{(management.users | filter: searchFilter | limitTo: management.limit).length}}</p>
+  <!-- main content -->
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+	<h1 class="h-no-top-margin grey-header">User management</h1>
+
+	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='management.successMsg'><p>{{management.successMsg}}</p></div>
+	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='management.errorMsg'><p>{{management.errorMsg}}</p></div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Search</h3>
 		</div>
-	</div>
-</div>
-
-<div class="sk-fading-circle" ng-show="management.loading">
-    <div class="sk-circle1 sk-circle"></div>
-    <div class="sk-circle2 sk-circle"></div>
-    <div class="sk-circle3 sk-circle"></div>
-    <div class="sk-circle4 sk-circle"></div>
-    <div class="sk-circle5 sk-circle"></div>
-    <div class="sk-circle6 sk-circle"></div>
-    <div class="sk-circle7 sk-circle"></div>
-    <div class="sk-circle8 sk-circle"></div>
-    <div class="sk-circle9 sk-circle"></div>
-    <div class="sk-circle10 sk-circle"></div>
-    <div class="sk-circle11 sk-circle"></div>
-    <div class="sk-circle12 sk-circle"></div>
-</div>
-
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title">Users</h3>
-	</div>
-		<div class="panel-body no-padding">
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<tr>
-						<th>Name</th>
-						<th>Email</th>
-						<th>Permission</th>	
-						<th>Action</th>
-					</tr>
-					<tr ng-repeat="person in management.users | filter: searchFilter | limitTo: management.limit">
-						<td>{{person.name}}</td>
-						<td>{{person.email}}</td>
-						<td>{{person.permission}}</td>
-						<td>
-							<a ng-show="management.editAccess" class="btn btn-primary" href="/edituser/{{person._id}}" role="button">Edit</a>
-							<a ng-show="management.deleteAccess" class="btn btn-danger" href="#" role="button" ng-click="management.deleteUser(person.email);">Delete</a>
-						</td>	
-					</tr>
-				</table>
+		<div class="panel-body">
+			<form class="form-inline filter">
+			  <div class="form-group">
+			    <div class="input-group">
+			      <div class="input-group-addon">Results to display:</div>
+			      <input type="text" class="form-control" id="filter" ng-model="number">
+			    </div>
+			  </div>
+			  <button type="button" class="btn btn-success" ng-click="management.showMore(number);">Apply Filter</button>
+			  <button type="button" class="btn btn-success" ng-click="management.showAll();">Show All</button>
+			</form>
+			<form class="form-inline filter">
+			  <div class="form-group">
+			    <input type="text" class="form-control" placeholder="Search..." ng-model="searchKeyword">
+			  </div>
+			  <button type="submit" class="btn btn-info" ng-click="management.search(searchKeyword, number);">Quick Search</button>
+			  <button type="submit" class="btn btn-info" ng-click="management.clear();">Clear</button>
+			</form>
+			<div ng-show="searchFilter !== undefined">
+				<p>Total results: {{(management.users | filter: searchFilter).length}}</p>
+				<p>Showing: {{(management.users | filter: searchFilter | limitTo: management.limit).length}}</p>
 			</div>
 		</div>
+	</div>
+
+	<div class="sk-fading-circle" ng-show="management.loading">
+	    <div class="sk-circle1 sk-circle"></div>
+	    <div class="sk-circle2 sk-circle"></div>
+	    <div class="sk-circle3 sk-circle"></div>
+	    <div class="sk-circle4 sk-circle"></div>
+	    <div class="sk-circle5 sk-circle"></div>
+	    <div class="sk-circle6 sk-circle"></div>
+	    <div class="sk-circle7 sk-circle"></div>
+	    <div class="sk-circle8 sk-circle"></div>
+	    <div class="sk-circle9 sk-circle"></div>
+	    <div class="sk-circle10 sk-circle"></div>
+	    <div class="sk-circle11 sk-circle"></div>
+	    <div class="sk-circle12 sk-circle"></div>
+	</div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Users</h3>
+		</div>
+			<div class="panel-body no-padding">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Permission</th>	
+							<th>Action</th>
+						</tr>
+						<tr ng-repeat="person in management.users | filter: searchFilter | limitTo: management.limit">
+							<td>{{person.name}}</td>
+							<td>{{person.email}}</td>
+							<td>{{person.permission}}</td>
+							<td>
+								<a ng-show="management.editAccess" class="btn btn-primary" href="/edituser/{{person._id}}" role="button">Edit</a>
+								<a ng-show="management.deleteAccess" class="btn btn-danger" href="#" role="button" ng-click="management.deleteUser(person.email);">Delete</a>
+							</td>	
+						</tr>
+					</table>
+				</div>
+			</div>
+	</div>
+
+  </div> 
+    <!-- end of main content -->
+
 </div>

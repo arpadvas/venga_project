@@ -14,8 +14,10 @@ angular.module('mainController', ['authServices', 'userServices'])
         if (data.data.name === undefined) {
             Auth.logout();
             app.isLoggedIn = false;
-            $location.path('/');
+            $location.path('/landing');
             app.loadme = true;
+        } else {
+          $location.path('/home');
         }
     });
   }
@@ -128,7 +130,7 @@ angular.module('mainController', ['authServices', 'userServices'])
       $scope.managementMenu = 'default';
       $scope.searchAscentsMenu = 'default';
       $scope.searchClimersMenu = 'default';
-    } else if (app.location === '/') {
+    } else if (app.location === '/home') {
       $scope.registerMenu = 'default';
       $scope.loginMenu = 'default';
       $scope.homeMenu = 'active';
@@ -223,7 +225,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 				app.loading = false;
 				app.successMsg = data.data.message + ' Redirecting...';
 				$timeout(function() {
-					$location.path('/');
+					$location.path('/home');
 					app.loginData = '';
 					app.successMsg = false;
 					app.checkSession();
@@ -250,7 +252,12 @@ angular.module('mainController', ['authServices', 'userServices'])
 		showModal(2);
 	};
 
-
+  $(document).ready(function() {
+        $('#login-button2').on('click', function() {
+          $('#register').hide();
+          $('#login').show();
+        })
+      });
 
 });
 

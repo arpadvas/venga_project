@@ -713,7 +713,6 @@ module.exports = function(router) {
 		} else {
 			var ascent = new Ascent();
 			ascent.name = req.body.name;
-			ascent.normalized = ascent.name.toLowerCase();
 			ascent.style = req.body.style;
 			ascent.grade = req.body.grade;
 			ascent.sentBy = mainUser.email;
@@ -722,6 +721,7 @@ module.exports = function(router) {
 			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '' || req.body.date == null || req.body.date == '') {
 				res.json({success: false, message: 'Please make sure the fields are filled out properly!'});
 			} else {
+				ascent.normalized = ascent.name.toLowerCase();
 				ascent.save(function(err) {
 					if (err) {
 						res.json({success: false, message: 'An error occured. Please try again later!'});

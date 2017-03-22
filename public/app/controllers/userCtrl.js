@@ -54,7 +54,7 @@ angular.module('userControllers', ['userServices'])
 
 .controller('facebookCtrl', function($routeParams, Auth, $location) {
 	Auth.facebook($routeParams.token);
-	$location.path('/');
+	$location.path('/home');
 })
 
 .directive('match', function() {

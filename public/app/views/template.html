@@ -1,7 +1,7 @@
-<input type="text" name="name" ng-model="input" ng-keyup="complete(input)" class="form-control" autocomplete="off" />
+<input type="text" name="name" ng-model="input" ng-keyup="complete(input)" class="form-control form-group__input" autocomplete="off" />
 <div class="dropdown" ng-hide="hide">
-  <ul class="list-group">
-    <li class="list-group-item" ng-repeat="data in filteredList" ng-click="fillTextbox(data)">{{data}}</li>
+  <ul class="list-group dropdown__list">
+    <li class="list-group-item dropdown__list-item" ng-repeat="data in filteredList" ng-click="fillTextbox(data)">{{data}}</li>
   </ul>
 </div>
 

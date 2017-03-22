@@ -1,65 +1,95 @@
-<h1 class="h-no-top-margin grey-header" ng-show="climberProfile.loadedProfile">{{climberProfile.climber.name}}'s profile</h1>
+<div class="row no-margin">
 
-<div class="sk-fading-circle" ng-show="climberProfile.loadingProfile">
-    <div class="sk-circle1 sk-circle"></div>
-    <div class="sk-circle2 sk-circle"></div>
-    <div class="sk-circle3 sk-circle"></div>
-    <div class="sk-circle4 sk-circle"></div>
-    <div class="sk-circle5 sk-circle"></div>
-    <div class="sk-circle6 sk-circle"></div>
-    <div class="sk-circle7 sk-circle"></div>
-    <div class="sk-circle8 sk-circle"></div>
-    <div class="sk-circle9 sk-circle"></div>
-    <div class="sk-circle10 sk-circle"></div>
-    <div class="sk-circle11 sk-circle"></div>
-    <div class="sk-circle12 sk-circle"></div>
-</div>
+  <!-- sidebar -->
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <li ng-class="homeMenu"><a href="/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
+      <hr>
+      <li ng-class="registerMenu"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
+      <li ng-class="loginMenu"><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
+      <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;My profile</a></li>
+      <li ng-class="myascentsMenu"><a href="/myAscents" ng-show="main.isLoggedIn"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;My ascents</a></li>
+      <hr ng-show="main.isLoggedIn">
+      <li ng-class="searchAscentsMenu"><a href="/searchAscents" ng-show="main.isLoggedIn"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search ascents</a></li>
+      <li ng-class="searchClimersMenu"><a href="/searchClimbers" ng-show="main.isLoggedIn"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Search climbers</a></li>
+      <hr ng-show="main.isLoggedIn">
+      <li ng-class="managementMenu"><a href="/management" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Management</a></li>
+    </ul>
+  </div> 
+  <!-- end of sidebar -->
 
-<div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
-  <div class="panel-heading">
-    <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Profile details</h3>
-  </div>
-    <div class="panel-body no-padding">
+  <!-- main content -->
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 p-10">
-              <a href="{{climberProfile.climber.picture.url}}" class="thumbnail">
-              <img ng-src="{{climberProfile.climber.picture.url}}">
-              </a>
-          </div>
-          <div class="col-md-8 p-10">
-            <ul class="list-group">
-              <li class="list-group-item no-border"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{climberProfile.climber.name}}</li>
-            </ul>
-          </div>
-        </div>
+    <h1 class="h-no-top-margin grey-header" ng-show="climberProfile.loadedProfile">{{climberProfile.climber.name}}'s profile</h1>
+
+    <hr>
+
+    <div class="sk-fading-circle" ng-show="climberProfile.loadingProfile">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+    </div>
+
+    <div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
+      <div class="panel-heading">
+        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Profile details</h3>
       </div>
-    </div>
-</div>
+        <div class="panel-body no-padding">
 
-<div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
-  <div class="panel-heading">
-    <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Ascents</h3>
-  </div>
-    <div class="panel-body no-padding">
-      <div class="table-responsive">
-        <table class="table">
-          <tr>
-            <th style="width:25%" ng-click="climberProfile.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'name';"</th>
-            <th style="width:25%" ng-click="climberProfile.sortBy('style')">Style&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'style';"</th>
-            <th style="width:25%" ng-click="climberProfile.sortBy('grade')">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'grade';"</th>
-            <th style="width:25%" ng-click="climberProfile.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'date';"</th>  
-          </tr>
-        <tr dir-paginate="climb in climberProfile.ascents | itemsPerPage: climberProfile.pageSize"total-items="climberProfile.totalCount">
-          <td class="blue" ng-click="climberProfile.openSearch(climb.name);">{{climb.name}}</td>
-            <td>{{climb.style}}</td>
-            <td>{{climb.grade}}</td>
-            <td>{{climb.date | date:'MM/dd/yyyy' }}</td>
-          </tr>
-        </table>
+          <div class="container-fluid">
+            <div class="row no-margin">
+              <div class="col-md-4 p-10">
+                  <a href="{{climberProfile.climber.picture.url}}" class="thumbnail">
+                  <img ng-src="{{climberProfile.climber.picture.url}}">
+                  </a>
+              </div>
+              <div class="col-md-8 p-10">
+                <ul class="list-group">
+                  <li class="list-group-item no-border"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{climberProfile.climber.name}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
-</div>
 
-<dir-pagination-controls boundary-links="true" ng-show="climberProfile.loadedProfile" on-page-change="climberProfile.pager(newPageNumber)" class="center"></dir-pagination-controls>
+    <div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
+      <div class="panel-heading">
+        <i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Ascents</h3>
+      </div>
+        <div class="panel-body no-padding">
+          <div class="table-responsive">
+            <table class="table">
+              <tr>
+                <th style="width:25%" ng-click="climberProfile.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'name';"</th>
+                <th style="width:25%" ng-click="climberProfile.sortBy('style')">Style&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'style';"</th>
+                <th style="width:25%" ng-click="climberProfile.sortBy('grade')">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'grade';"</th>
+                <th style="width:25%" ng-click="climberProfile.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="climberProfile.propertyName === 'date';"</th>  
+              </tr>
+            <tr dir-paginate="climb in climberProfile.ascents | itemsPerPage: climberProfile.pageSize"total-items="climberProfile.totalCount">
+              <td class="blue" ng-click="climberProfile.openSearch(climb.name);">{{climb.name}}</td>
+                <td>{{climb.style}}</td>
+                <td>{{climb.grade}}</td>
+                <td>{{climb.date | date:'MM/dd/yyyy' }}</td>
+              </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    <dir-pagination-controls boundary-links="true" ng-show="climberProfile.loadedProfile" on-page-change="climberProfile.pager(newPageNumber)" class="center"></dir-pagination-controls>
+
+  </div> 
+    <!-- end of main content -->
+
+</div>

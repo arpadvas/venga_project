@@ -1,187 +1,221 @@
-<h1 class="h-no-top-margin grey-header">My ascents</h1>
+<div class="row no-margin">
+
+    <!-- sidebar -->
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul class="nav nav-sidebar">
+        <li ng-class="homeMenu"><a href="/home"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home</a></li>
+        <hr>
+        <li ng-class="registerMenu"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
+        <li ng-class="loginMenu"><a ng-show="!main.isLoggedIn" href="/login">Log In</a></li>
+        <li ng-class="profileMenu"><a href="/profile" ng-show="main.isLoggedIn"><i class="fa fa-user-circle-o" aria-hidden="true"></i>&nbsp;My profile</a></li>
+        <li ng-class="myascentsMenu"><a href="/myAscents" ng-show="main.isLoggedIn"><i class="fa fa-list" aria-hidden="true"></i>&nbsp;My ascents</a></li>
+        <hr ng-show="main.isLoggedIn">
+        <li ng-class="searchAscentsMenu"><a href="/searchAscents" ng-show="main.isLoggedIn"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;Search ascents</a></li>
+        <li ng-class="searchClimersMenu"><a href="/searchClimbers" ng-show="main.isLoggedIn"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Search climbers</a></li>
+        <hr ng-show="main.isLoggedIn">
+        <li ng-class="managementMenu"><a href="/management" ng-show="main.isLoggedIn && main.authorized"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;Management</a></li>
+      </ul>
+    </div> 
+    <!-- end of sidebar -->
+
     
-<button type="button" class="btn btn-success" ng-click="ascent.showAscentModal();"><img src="assets/img/icons/add.svg">&nbsp;Add Ascent</button>
+    <!-- main content -->
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-<br> 
-<br> 
+     	<h1 class="h-no-top-margin grey-header">My ascents</h1>
 
-<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.searchSuccessMsg'><p>{{ascent.searchSuccessMsg}}</p></div>
-<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.searchErrorMsg'><p>{{ascent.searchErrorMsg}}</p></div>
+     	<hr>
+    
+		<button type="button" class="btn btn-custom" ng-click="ascent.showAscentModal();"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Ascent</button>
 
-<div class="sk-fading-circle" ng-show="ascent.loading2">
-    <div class="sk-circle1 sk-circle"></div>
-    <div class="sk-circle2 sk-circle"></div>
-    <div class="sk-circle3 sk-circle"></div>
-    <div class="sk-circle4 sk-circle"></div>
-    <div class="sk-circle5 sk-circle"></div>
-    <div class="sk-circle6 sk-circle"></div>
-    <div class="sk-circle7 sk-circle"></div>
-    <div class="sk-circle8 sk-circle"></div>
-    <div class="sk-circle9 sk-circle"></div>
-    <div class="sk-circle10 sk-circle"></div>
-    <div class="sk-circle11 sk-circle"></div>
-    <div class="sk-circle12 sk-circle"></div>
-</div>
+		<br> 
+		<br> 
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Ascents</h3>
-	</div>
-		<div class="panel-body no-padding">
-			<div class="table-responsive">
-				<table class="table">
-					<tr>
-						<th style="width:30%" ng-click="ascent.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'name';"></i></th>
-						<th style="width:25%" ng-click="ascent.sortBy('style')">Style&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'style';"></i></th>
-						<th style="width:10%" ng-click="ascent.sortBy('grade')">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'grade';"></i></th>
-						<th style="width:25%" ng-click="ascent.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'date';"></i></th>	
-						<th style="width:10%" ></th>
-					</tr>
-					<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize" total-items="ascent.totalCount">
-						<td class="blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
-						<td>{{climb.style}}</td>
-						<td>{{climb.grade}}</td>
-						<td>{{climb.date | date:'MM/dd/yyyy' }}</td>
-						<td>
-							<i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" ng-click="ascent.showEditAscentModal(climb._id);"></i>&nbsp;
-							<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="ascent.deleteAscent(climb._id);"></i>
-						</td>	
-					</tr>
-				</table>
+		<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.searchSuccessMsg'><p>{{ascent.searchSuccessMsg}}</p></div>
+		<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.searchErrorMsg'><p>{{ascent.searchErrorMsg}}</p></div>
+
+		<div class="sk-fading-circle" ng-show="ascent.loading2">
+		    <div class="sk-circle1 sk-circle"></div>
+		    <div class="sk-circle2 sk-circle"></div>
+		    <div class="sk-circle3 sk-circle"></div>
+		    <div class="sk-circle4 sk-circle"></div>
+		    <div class="sk-circle5 sk-circle"></div>
+		    <div class="sk-circle6 sk-circle"></div>
+		    <div class="sk-circle7 sk-circle"></div>
+		    <div class="sk-circle8 sk-circle"></div>
+		    <div class="sk-circle9 sk-circle"></div>
+		    <div class="sk-circle10 sk-circle"></div>
+		    <div class="sk-circle11 sk-circle"></div>
+		    <div class="sk-circle12 sk-circle"></div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<i class="fa fa-list" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Ascents</h3>
+			</div>
+				<div class="panel-body no-padding">
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th style="width:30%" ng-click="ascent.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'name';"></i></th>
+								<th style="width:25%" ng-click="ascent.sortBy('style')">Style&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'style';"></i></th>
+								<th style="width:10%" ng-click="ascent.sortBy('grade')">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'grade';"></i></th>
+								<th style="width:25%" ng-click="ascent.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'date';"></i></th>	
+								<th style="width:10%" ></th>
+							</tr>
+							<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize" total-items="ascent.totalCount">
+								<td class="blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
+								<td>{{climb.style}}</td>
+								<td>{{climb.grade}}</td>
+								<td>{{climb.date | date:'MM/dd/yyyy' }}</td>
+								<td>
+									<i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" ng-click="ascent.showEditAscentModal(climb._id);"></i>&nbsp;
+									<i class="fa fa-trash fa-lg" aria-hidden="true" ng-click="ascent.deleteAscent(climb._id);"></i>
+								</td>	
+							</tr>
+						</table>
+						</div>
 				</div>
 		</div>
-</div>
 
-<dir-pagination-controls boundary-links="true" current-page="currentPage" on-page-change="ascent.getMyAscents(newPageNumber)" class="center"></dir-pagination-controls>
-
+		<dir-pagination-controls boundary-links="true" current-page="currentPage" on-page-change="ascent.getMyAscents(newPageNumber)" class="center"></dir-pagination-controls>
 
 
-<!-- Add Ascent Modal -->
-<div class="modal fade" id="ascentModal" role="dialog">
-<div class="modal-dialog">
 
-  <!-- Modal content-->
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" ng-click="ascent.cancelAscentModal();">&times;</button>
-      <h4 class="modal-title">Add new ascent</h4>
-    </div>
-    <div class="modal-body">
-    	<!-- add ascent form  -->
-      <div class="input-custom">
-	  	<form name="ascent.ascentForm">
-		  <div class="form-group relative">
-		    <label>Name</label>
-		    <autocomplete datasource="ascent.ascentList" input="ascent.ascentData.name" hide="ascent.hidethis"></autocomplete>
+		<!-- Add Ascent Modal -->
+		<div class="modal fade" id="ascentModal" role="dialog">
+		<div class="modal-dialog">
+
+		  <!-- Modal content-->
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <button type="button" class="close" ng-click="ascent.cancelAscentModal();">&times;</button>
+		      <h4 class="modal-title">Add new ascent</h4>
+		    </div>
+		    <div class="modal-body">
+		    	<!-- add ascent form  -->
+		      <div class="input-custom">
+			  	<form name="ascent.ascentForm">
+				  <div class="form-group relative">
+				    <label>Name</label>
+				    <autocomplete datasource="ascent.ascentList" input="ascent.ascentData.name" hide="ascent.hidethis"></autocomplete>
+				  </div>
+				  <div class="form-group">
+				    <label>Style</label>
+				    <select class="form-control form-group__input" ng-model="ascent.ascentData.style" ng-options="y for y in ascent.styles"></select>
+				  </div>
+				  <div class="form-group">
+				    <label>Grade</label>
+				    <select class="form-control form-group__input" ng-model="ascent.ascentData.grade" ng-options="x for x in ascent.grades"></select>
+				  </div>
+				  <div class="form-group">
+				    <label>Date</label>
+				    <p>Selected date is: <em>{{dt | date:'fullDate' }}</em></p>
+				    <div uib-datepicker ng-model="dt" datepicker-options="options"></div>
+				  </div>
+				</form>
+
+				<br>
+
+				<div class="sk-fading-circle" ng-show="ascent.loading">
+				    <div class="sk-circle1 sk-circle"></div>
+				    <div class="sk-circle2 sk-circle"></div>
+				    <div class="sk-circle3 sk-circle"></div>
+				    <div class="sk-circle4 sk-circle"></div>
+				    <div class="sk-circle5 sk-circle"></div>
+				    <div class="sk-circle6 sk-circle"></div>
+				    <div class="sk-circle7 sk-circle"></div>
+				    <div class="sk-circle8 sk-circle"></div>
+				    <div class="sk-circle9 sk-circle"></div>
+				    <div class="sk-circle10 sk-circle"></div>
+				    <div class="sk-circle11 sk-circle"></div>
+				    <div class="sk-circle12 sk-circle"></div>
+				</div>
+			  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
+			  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
+			  </div>
+			  <!-- /add ascent form  -->
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-custom" ng-click="ascent.addAscent(ascentData);">Submit</button>
+		      <button type="button" class="btn btn-danger" ng-click="ascent.cancelAscentModal();">Cancel</button>
+		    </div>
 		  </div>
-		  <div class="form-group">
-		    <label>Style</label>
-		    <select class="form-control" ng-model="ascent.ascentData.style" ng-options="y for y in ascent.styles"></select>
-		  </div>
-		  <div class="form-group">
-		    <label>Grade</label>
-		    <select class="form-control" ng-model="ascent.ascentData.grade" ng-options="x for x in ascent.grades"></select>
-		  </div>
-		  <div class="form-group">
-		    <label>Date</label>
-		    <p>Selected date is: <em>{{dt | date:'fullDate' }}</em></p>
-		    <div uib-datepicker ng-model="dt" datepicker-options="options"></div>
-		  </div>
-		</form>
-
-		<br>
-
-		<div class="sk-fading-circle" ng-show="ascent.loading">
-		    <div class="sk-circle1 sk-circle"></div>
-		    <div class="sk-circle2 sk-circle"></div>
-		    <div class="sk-circle3 sk-circle"></div>
-		    <div class="sk-circle4 sk-circle"></div>
-		    <div class="sk-circle5 sk-circle"></div>
-		    <div class="sk-circle6 sk-circle"></div>
-		    <div class="sk-circle7 sk-circle"></div>
-		    <div class="sk-circle8 sk-circle"></div>
-		    <div class="sk-circle9 sk-circle"></div>
-		    <div class="sk-circle10 sk-circle"></div>
-		    <div class="sk-circle11 sk-circle"></div>
-		    <div class="sk-circle12 sk-circle"></div>
+		  
 		</div>
-	  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
-	  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
-	  </div>
-	  <!-- /add ascent form  -->
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-success" ng-click="ascent.addAscent(ascentData);">Submit</button>
-      <button type="button" class="btn btn-danger" ng-click="ascent.cancelAscentModal();">Cancel</button>
-    </div>
-  </div>
-  
-</div>
-</div>
-<!-- /Modal content-->
-
-<!-- Edit Ascent Modal -->
-<div class="modal fade" id="editAscentModal" role="dialog">
-<div class="modal-dialog">
-
-  <!-- Modal content-->
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" ng-click="ascent.cancelEditAscentModal();">&times;</button>
-      <h4 class="modal-title">Edit ascent</h4>
-    </div>
-    <div class="modal-body">
-    	<!-- edit ascent form  -->
-      <div class="input-custom">
-	  	<form>
-		  <div class="form-group">
-		    <label>Name</label>
-		    <input name="name" class="form-control" placeholder="Name" ng-model="newName">
-		  </div>
-		  <div class="form-group">
-		    <label>Style</label>
-		    <select class="form-control" ng-model="newStyle" ng-options="y for y in ascent.styles"></select>
-		  </div>
-		  <div class="form-group">
-		    <label>Grade</label>
-		    <select class="form-control" ng-model="newGrade" ng-options="x for x in ascent.grades"></select>
-		  </div>
-		  <div class="form-group">
-		    <label>Date</label>
-		    <p>Selected date is: <em>{{dt | date:'fullDate' }}</em></p>
-		    <div uib-datepicker ng-model="dt" datepicker-options="options"></div>
-		  </div>
-		</form>
-
-		<br>
-
-		<div class="sk-fading-circle" ng-show="ascent.loading">
-		    <div class="sk-circle1 sk-circle"></div>
-		    <div class="sk-circle2 sk-circle"></div>
-		    <div class="sk-circle3 sk-circle"></div>
-		    <div class="sk-circle4 sk-circle"></div>
-		    <div class="sk-circle5 sk-circle"></div>
-		    <div class="sk-circle6 sk-circle"></div>
-		    <div class="sk-circle7 sk-circle"></div>
-		    <div class="sk-circle8 sk-circle"></div>
-		    <div class="sk-circle9 sk-circle"></div>
-		    <div class="sk-circle10 sk-circle"></div>
-		    <div class="sk-circle11 sk-circle"></div>
-		    <div class="sk-circle12 sk-circle"></div>
 		</div>
-	  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
-	  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
-	  </div>
-	  <!-- /add ascent form  -->
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-success" ng-click="ascent.saveAscent(newName, newStyle, newGrade);">Save</button>
-      <button type="button" class="btn btn-danger" ng-click="ascent.cancelEditAscentModal();">Cancel</button>
-    </div>
-  </div>
-  
+		<!-- /Modal content-->
+
+		<!-- Edit Ascent Modal -->
+		<div class="modal fade" id="editAscentModal" role="dialog">
+		<div class="modal-dialog">
+
+		  <!-- Modal content-->
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <button type="button" class="close" ng-click="ascent.cancelEditAscentModal();">&times;</button>
+		      <h4 class="modal-title">Edit ascent</h4>
+		    </div>
+		    <div class="modal-body">
+		    	<!-- edit ascent form  -->
+		      <div class="input-custom">
+			  	<form>
+				  <div class="form-group">
+				    <label>Name</label>
+				    <input name="name" class="form-control form-group__input" placeholder="Name" ng-model="newName">
+				  </div>
+				  <div class="form-group">
+				    <label>Style</label>
+				    <select class="form-control form-group__input" ng-model="newStyle" ng-options="y for y in ascent.styles"></select>
+				  </div>
+				  <div class="form-group">
+				    <label>Grade</label>
+				    <select class="form-control form-group__input" ng-model="newGrade" ng-options="x for x in ascent.grades"></select>
+				  </div>
+				  <div class="form-group">
+				    <label>Date</label>
+				    <p>Selected date is: <em>{{dt | date:'fullDate' }}</em></p>
+				    <div uib-datepicker ng-model="dt" datepicker-options="options"></div>
+				  </div>
+				</form>
+
+				<br>
+
+				<div class="sk-fading-circle" ng-show="ascent.loading">
+				    <div class="sk-circle1 sk-circle"></div>
+				    <div class="sk-circle2 sk-circle"></div>
+				    <div class="sk-circle3 sk-circle"></div>
+				    <div class="sk-circle4 sk-circle"></div>
+				    <div class="sk-circle5 sk-circle"></div>
+				    <div class="sk-circle6 sk-circle"></div>
+				    <div class="sk-circle7 sk-circle"></div>
+				    <div class="sk-circle8 sk-circle"></div>
+				    <div class="sk-circle9 sk-circle"></div>
+				    <div class="sk-circle10 sk-circle"></div>
+				    <div class="sk-circle11 sk-circle"></div>
+				    <div class="sk-circle12 sk-circle"></div>
+				</div>
+			  	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascent.successMsg'><p>{{ascent.successMsg}}</p></div>
+			  	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascent.errorMsg'><p>{{ascent.errorMsg}}</p></div>
+			  </div>
+			  <!-- /add ascent form  -->
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-success" ng-click="ascent.saveAscent(newName, newStyle, newGrade);">Save</button>
+		      <button type="button" class="btn btn-danger" ng-click="ascent.cancelEditAscentModal();">Cancel</button>
+		    </div>
+		  </div>
+		  
+		</div>
+		</div>
+		<!-- /Modal content-->
+    </div> 
+    <!-- end of main content -->
+
 </div>
-</div>
-<!-- /Modal content-->
+
+
+
+
 
 

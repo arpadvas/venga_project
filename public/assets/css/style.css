@@ -27,6 +27,7 @@ body {
  */
 .navbar-fixed-top {
   border: 0;
+  border-color: #D5D7D9;
 }
 
 /*
@@ -68,8 +69,8 @@ body {
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #00AECC;
+  color: #C8C9CC;
+  background-color: #205a5e;
 }
 
 
