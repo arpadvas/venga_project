@@ -1,4 +1,5 @@
 var User = require('../models/user');
+var Ascent = require('../models/ascent');
 
 module.exports = function(profile) {
 
