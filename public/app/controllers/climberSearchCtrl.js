@@ -55,6 +55,7 @@ angular.module('climberSearchController', ['ascentServices'])
 			app.pageNo = 1
 			app.loading = true;
 			app.setclear = true;
+			app.errorMsg = undefined;
 			paginationService.setCurrentPage('search', 1);
 			
 			$scope.keyword = searchByClimberName;
@@ -73,7 +74,9 @@ angular.module('climberSearchController', ['ascentServices'])
 						}
 					});
 				} else {
-					app.errorMsg = result.data.message;
+					app.errorMsg = data.data.message;
+					app.loading = false;
+					app.climbers = undefined;
 				}
 			});
 		}

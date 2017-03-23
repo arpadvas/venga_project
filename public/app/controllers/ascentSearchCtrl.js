@@ -18,6 +18,7 @@ angular.module('ascentSearchController', ['ascentServices'])
 			app.pageNo = 1
 			app.loading = true;
 			app.setclear = true;
+			app.errorMsg = undefined;
 			paginationService.setCurrentPage('search', 1);
 			$scope.keywordData = {};
 			if (searchByName) {
@@ -64,6 +65,8 @@ angular.module('ascentSearchController', ['ascentServices'])
 					});
 				} else {
 					app.errorMsg = data.data.message;
+					app.loading = false;
+					app.ascents = undefined;
 				}
 			});
 		}
