@@ -8,7 +8,8 @@ var validate = require('mongoose-validator');
 var nameValidator = [
   validate({
   		validator: 'matches',
-  		arguments: /^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/,
+  		//arguments: /^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/,
+  		arguments: /^(([A-Za-z\u00C0-\u017F]{3,40})+[ ]+([A-Za-z\u00C0-\u017F]{3,40})+)+$/,
   		message: 'Name must be between 3 and 30, no special characters and numbers allowed, space must be between names!'
 	}),
   validate({

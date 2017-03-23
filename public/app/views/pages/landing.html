@@ -20,7 +20,7 @@
 		              <div class="form-group">
 		                <div ng-class="{'has-success':(regForm.name.$valid && !regForm.name.$pristine), 'has-error': (!regForm.name.$valid && !regForm.name.$pristine) || (!regForm.name.$valid && regForm.$submitted)}">
 		                  <!-- <label for="name">Name</label> -->
-		                  <input id="name" type="text" ng-disabled="register.disabled" ng-model="register.regData.name" placeholder="Name" name="name" class="form-control form-group__input" ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minLength="3" ng-maxLength="40" uib-tooltip="Must contain space between first and last name, must not contain numbers and special characters." tooltip-trigger="'focus'" tooltip-placement="rigth" required>
+		                  <input id="name" type="text" ng-disabled="register.disabled" ng-model="register.regData.name" placeholder="Name" name="name" class="form-control form-group__input" ng-pattern="/^(([A-Za-z\u00C0-\u017F]{3,40})+[ ]+([A-Za-z\u00C0-\u017F]{3,40})+)+$/" ng-minLength="3" ng-maxLength="40" uib-tooltip="Must contain space between first and last name, must not contain numbers and special characters." tooltip-trigger="'focus'" tooltip-placement="rigth" required>
 		                  <p class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.required) || (regForm.$submitted && regForm.name.$error.required)">This field is required.</p>
 		                  <p class="help-block" ng-show="(!regForm.name.$pristine && regForm.name.$error.pattern) || (!regForm.name.$pristine && regForm.name.$error.minlength) || (!regForm.name.$pristine && regForm.name.$error.maxlength)">Please enter a valid name.</p>
 		                </div>

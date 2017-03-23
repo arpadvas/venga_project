@@ -1,6 +1,6 @@
 angular.module('ascentSearchController', ['ascentServices'])
 
-.controller('ascentSearchCtrl', function(Ascent, $filter, $scope, $rootScope, $location, paginationService) {
+.controller('ascentSearchCtrl', function(Ascent, $filter, $scope, $rootScope, $location, paginationService, $timeout) {
 	
 	var app = this;
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
@@ -19,7 +19,6 @@ angular.module('ascentSearchController', ['ascentServices'])
 			app.loading = true;
 			app.setclear = true;
 			paginationService.setCurrentPage('search', 1);
-
 			$scope.keywordData = {};
 			if (searchByName) {
 				$scope.keywordData.nameKeyword = searchByName;
@@ -69,13 +68,6 @@ angular.module('ascentSearchController', ['ascentServices'])
 			});
 		}
 	};
-
-
-	if ($rootScope.outerSearch) {
-		$scope.searchByName = $rootScope.outerSearchName;
-		app.search($rootScope.outerSearchName);
-		$rootScope.outerSearch = false;
-	}
 
 
 	app.clear = function() {
@@ -142,5 +134,13 @@ angular.module('ascentSearchController', ['ascentServices'])
     		}
     	});
     };
+
+    if ($rootScope.outerSearch) {
+		$scope.searchByName = $rootScope.outerSearchName;
+		$scope.$on('$viewContentLoaded', function() {
+			app.search($rootScope.outerSearchName);
+			$rootScope.outerSearch = false;
+		});
+	}
 
 });
