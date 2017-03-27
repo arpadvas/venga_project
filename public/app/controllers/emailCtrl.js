@@ -1,6 +1,6 @@
 angular.module('emailController', ['userServices'])
 
-.controller('emailCtrl', function($routeParams, User, $timeout, $location) {
+.controller('emailCtrl', function($routeParams, User, $timeout, $location, $scope) {
 
 	app = this;
 
@@ -12,12 +12,14 @@ angular.module('emailController', ['userServices'])
 		if (data.data.success) {
 			app.successMsg = data.data.message + ' Redirecting...';
 					$timeout(function() {
-						$location.path('/login');
+						$scope.$parent.login = true;
+						$location.path('/');
 					}, 2000);
 		} else {
 			app.errorMsg = data.data.message + ' Redirecting...';
 					$timeout(function() {
-						$location.path('/login');
+						$scope.$parent.login = true;
+						$location.path('/');
 					}, 2000);
 		}
 	});
@@ -110,7 +112,8 @@ angular.module('emailController', ['userServices'])
 				if (data.data.success) {
 					app.successMsg = data.data.message + ' Redirecting...';
 					$timeout(function() {
-						$location.path('/login');
+						$scope.$parent.login = true;
+						$location.path('/');
 					}, 2000);
 				} else {
 					app.loading = false;

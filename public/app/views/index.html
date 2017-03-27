@@ -71,8 +71,8 @@
         <div id="navbar" class="navbar-collapse collapse" uib-collapse="isNavCollapsed">
           <ul class="nav navbar-nav navbar-right">
             <li class="desktop-only"><a ng-show="main.isLoggedIn" href="/profile"> {{main.name}}</a></li>
-            <li><a ng-show="!main.isLoggedIn" href="/" ng-click="isNavCollapsed = true; main.login = false;">Register</a></li>
-            <li><a ng-show="!main.isLoggedIn" href="/" ng-click="isNavCollapsed = true; main.login = true;">Log In</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/" ng-click="isNavCollapsed = true; login = false;">Register</a></li>
+            <li><a ng-show="!main.isLoggedIn" href="/" ng-click="isNavCollapsed = true; login = true;">Log In</a></li>
             <li class="mobile-only"><a href="/profile" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true">My profile</a></li>
             <li><a ng-show="main.isLoggedIn" href="/myAscents" ng-click="isNavCollapsed = true">My ascents</a></li>
             <li class="mobile-only"><a href="/searchAscents" ng-show="main.isLoggedIn" ng-click="isNavCollapsed = true">Search ascents</a></li>

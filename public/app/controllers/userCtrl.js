@@ -1,6 +1,6 @@
 angular.module('userControllers', ['userServices'])
 
-.controller('regCtrl', function($http, $location, $timeout, User) {
+.controller('regCtrl', function($http, $location, $timeout, User, $rootScope, $scope) {
 
 	var app = this;
 	
@@ -15,7 +15,8 @@ angular.module('userControllers', ['userServices'])
 					app.loading = false;
 					app.successMsg = data.data.message + ' Redirecting...';
 					$timeout(function() {
-						$location.path('/login');
+						$scope.$parent.login = true;
+						$location.path('/');
 					}, 2000);
 				} else {
 					app.loading = false;

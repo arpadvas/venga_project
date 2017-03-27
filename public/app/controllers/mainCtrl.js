@@ -5,6 +5,7 @@ angular.module('mainController', ['authServices', 'userServices'])
 	var app = this;
 
 	app.loadme = false;
+  $scope.login = false;
   $rootScope.limit = 0;
 
    $scope.isNavCollapsed = true;

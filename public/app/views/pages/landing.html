@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-show="!main.login">
+<div class="jumbotron" ng-show="!login">
   <div class="container">
   	<div class="row">
   		<div class="col-md-8">
@@ -7,7 +7,7 @@
 			<p>Email: qgeu@c.theplug.org</p>
 			<p>Password: Avasss1!</p>
 			<p>Github project: https://github.com/arpadvas/venga_project</p>
-	        <p><a class="btn btn-lg btn-landing" href="#" role="button" ng-click="main.login = true">Log in &raquo;</a></p>
+	        <p><a class="btn btn-lg btn-landing" href="/" role="button" ng-click="$parent.login = true;">Log in &raquo;</a></p>
 	    </div>
 	    <div class="col-md-4">
 	        <div class="panel panel-primary panel-landing">
@@ -99,7 +99,7 @@
   </div>
 </div>
 
-<div class="jumbotron" ng-show="main.login">
+<div class="jumbotron" ng-show="login">
   <div class="container">
   	<div class="row">
   		<div class="col-md-3">
