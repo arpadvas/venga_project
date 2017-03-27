@@ -63,7 +63,7 @@
 								<th style="width:25%" ng-click="ascent.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascent.propertyName === 'date';"></i></th>	
 								<th style="width:10%" ></th>
 							</tr>
-							<tr dir-paginate="climb in ascent.ascents | filter: searchFilter | itemsPerPage: ascent.pageSize" total-items="ascent.totalCount">
+							<tr dir-paginate="climb in ascent.ascents | itemsPerPage: ascent.pageSize" total-items="ascent.totalCount">
 								<td class="blue" ng-click="ascent.openSearch(climb.name);">{{climb.name}}</td>
 								<td>{{climb.style}}</td>
 								<td>{{climb.grade}}</td>
@@ -78,7 +78,7 @@
 				</div>
 		</div>
 
-		<dir-pagination-controls boundary-links="true" current-page="currentPage" on-page-change="ascent.getMyAscents(newPageNumber)" class="center" max-size="5"></dir-pagination-controls>
+		<dir-pagination-controls boundary-links="true" ng-hide="ascent.ascents === undefined" on-page-change="ascent.getMyAscents(newPageNumber)" class="center" max-size="5"></dir-pagination-controls>
 
 
 
