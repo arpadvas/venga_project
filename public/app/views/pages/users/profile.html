@@ -21,29 +21,30 @@
   <!-- main content -->
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-    <h1 class="h-no-top-margin grey-header">My profile</h1>
-
-    <hr>
-
     <div class="panel panel-primary">
-      <div class="panel-heading">
-        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Profile details</h3>
-      </div>
-        <div class="panel-body no-padding">
+
+        <div class="panel-body panel-body-profile">
 
           <div class="container-fluid">
+
+            <div class="row user-background-pic">
+              <div class="col-md-12">
+              </div>
+            </div>
+
             <div class="row no-margin">
-              <div class="col-md-4 p-10">
+              <div class="col-md-3 p-10 user-profile-pic">
                   <a href="{{currentUser.picture.url}}" class="thumbnail">
                   <img ng-src="{{currentUser.picture.url}}">
                   </a>
               </div>
-              <div class="col-md-8 p-10">
+              <div class="col-md-9 p-10">
                 <ul class="list-group">
                   <li class="list-group-item no-border"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{currentUser.name}}</li>
                 </ul>
               </div>
             </div>
+
             <div class="row no-margin">
               <div class="col-md-4 text-center p-10">
                 <button type="button" class="btn btn-default" ng-click="profile.upload()">
@@ -54,6 +55,7 @@
               <div class="col-md-8 p-10">
               </div>
             </div>
+
             <div class="row no-margin">
               <div class="col-md-12 text-center p-10">
                 <div class="sk-fading-circle" ng-show="profile.loading">
