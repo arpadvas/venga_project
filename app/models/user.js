@@ -96,6 +96,18 @@ var userSchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 		default: true
+	},
+	description: {
+		type: String,
+		default: 'Add a description'
+	},
+	gender: {
+		type: String,
+		default: 'Add your gender'
+	},
+	country: {
+		type: String,
+		default: 'Add your country'
 	}
 });
 

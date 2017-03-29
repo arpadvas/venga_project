@@ -34,25 +34,40 @@
 
             <div class="row no-margin">
               <div class="col-md-3 p-10 user-profile-pic">
-                  <a href="{{currentUser.picture.url}}" class="thumbnail">
-                  <img ng-src="{{currentUser.picture.url}}">
-                  </a>
+                  <!-- <a href="{{currentUser.picture.url}}" class="thumbnail"> -->
+                  <img ng-src="{{currentUser.picture.url}}" class="thumbnail" ng-mouseover="profile.showUploadButton()" ng-mouseleave="profile.hideUploadButton()">
+                  <button type="button" class="btn btn-default btn-upload-profile-pic" ng-mouseover="profile.showUploadButton()" ng-mouseleave="profile.hideUploadButton()" ng-show="profile.uploadButtonVisible" ng-click="profile.upload()">Update picture</button>
+                  <!-- </a> -->
               </div>
               <div class="col-md-9 p-10">
                 <ul class="list-group">
-                  <li class="list-group-item no-border"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{currentUser.name}}</li>
+                  <li style="font-size: 22px;" class="list-group-item no-border"><strong>{{currentUser.name}}</strong></li>
+                  <li class="list-group-item no-border" ng-mouseover="profile.showDescriptionPencil = true;" ng-mouseleave="profile.showDescriptionPencil = false;" ng-show="!profile.editDescription">{{currentUser.description}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" ng-click="profile.showEditDescription();" ng-show="profile.showDescriptionPencil"></i></li>
+                  <div ng-show="profile.editDescription">
+                    <textarea class="form-control description" rows="3" ng-model="profile.descriptionEdited" maxLength="400"></textarea>
+                    <button type="button" class="btn btn-default" ng-click="profile.saveDescription();">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="profile.editDescription = false;">Cancel</button>
+                  </div>
+                  <li class="list-group-item no-border" ng-mouseover="profile.showGenderPencil = true;" ng-mouseleave="profile.showGenderPencil = false;" ng-show="!profile.editGender">Gender:&nbsp;{{currentUser.gender}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" ng-click="profile.showEditGender();" ng-show="profile.showGenderPencil"></i></li>
+                  <div ng-show="profile.editGender">
+                    <select class="form-control description" ng-model="profile.genderEdited" ng-options="y for y in profile.genders"></select>
+                    <button type="button" class="btn btn-default" ng-click="profile.saveGender();">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="profile.editGender = false;">Cancel</button>
+                  </div>
+                  <li class="list-group-item no-border">Country:&nbsp;{{currentUser.country}}</li>
                 </ul>
               </div>
             </div>
 
             <div class="row no-margin">
-              <div class="col-md-4 text-center p-10">
-                <button type="button" class="btn btn-default" ng-click="profile.upload()">
-                Upload <span class="caret"></span>
-                </button>
-                <button type="submit" class="btn btn-danger"  ng-click="profile.savePicture()" ng-disabled="!currentUser.picture">Save Picture</button>
+              <div class="col-md-2 p-10">
+                
+                <!-- <button type="submit" class="btn btn-danger"  ng-click="profile.savePicture()" ng-disabled="!currentUser.picture">Save Picture</button> -->
+                <ul class="list-group">
+                </ul>
+
               </div>
-              <div class="col-md-8 p-10">
+              <div class="col-md-10 p-10">
               </div>
             </div>
 

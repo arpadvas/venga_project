@@ -16,6 +16,8 @@ module.exports = function(profile) {
 
 	profile.put('/profile', function(req, res) {
 		var picture = req.body.picture;
+		var description = req.body.description;
+		var gender = req.body.gender;
 		var editedUser = req.body.email;
 		User.findOne({ email: editedUser}, function(err, user) {
 			if (err) throw err;
@@ -23,6 +25,8 @@ module.exports = function(profile) {
 				res.json({success: false, message: 'No user was found!'});
 			} else {
 				user.picture = picture;
+				user.description = description;
+				user.gender = gender;
 				user.save(function(err) {
 					if (err) {
 						console.log(err);

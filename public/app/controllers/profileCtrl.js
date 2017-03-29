@@ -3,6 +3,8 @@ angular.module('profileController', ['angular-filepicker', 'userServices'])
 .controller('profileCtrl', function(filepickerService, User, $scope, $timeout) {
 
 	app = this;
+    app.editDescription = false;
+    app.genders = ['male', 'female'];
 
     User.getProfile().then(function(data) {
         $scope.currentUser = data.data.user;
@@ -18,10 +20,11 @@ angular.module('profileController', ['angular-filepicker', 'userServices'])
             }, function(Blob){
                 $scope.currentUser.picture = Blob;
                 $scope.$apply();
+                app.saveUser();
             });
     };
 
-    app.savePicture = function() {
+    app.saveUser = function() {
         app.loading = true;
         app.errorMsg = false;
         User.editProfile($scope.currentUser).then(function(data) {
@@ -36,6 +39,36 @@ angular.module('profileController', ['angular-filepicker', 'userServices'])
                 app.errorMsg = data.data.message;
             }
         });
+    };
+
+    app.showUploadButton = function() {
+        app.uploadButtonVisible = true;
+    };
+
+    app.hideUploadButton = function() {
+        app.uploadButtonVisible = false;
+    };
+
+    app.showEditDescription = function() {
+        app.editDescription = true;
+        app.descriptionEdited = $scope.currentUser.description;
+    };
+
+    app.saveDescription = function() {
+        app.editDescription = false;
+        $scope.currentUser.description = app.descriptionEdited;
+        app.saveUser();
+    };
+
+    app.showEditGender = function() {
+        app.editGender = true;
+        app.genderEdited = $scope.currentUser.gender;
+    };
+
+    app.saveGender = function() {
+        app.editGender = false;
+        $scope.currentUser.gender = app.genderEdited;
+        app.saveUser();
     };
 
 })
