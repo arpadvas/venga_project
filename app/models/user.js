@@ -85,7 +85,11 @@ var userSchema = new mongoose.Schema({
 	},
 	picture: {
 		type: mongoose.Schema.Types.Mixed,
-		default: {url: 'https://cdn.filepicker.io/api/file/qmWGarA8SWsXEyvJcsd4'}
+		default: {url: 'https://s17.postimg.org/6oc9lqm0f/no-avatar.png'}
+	},
+	bgrpicture: {
+		type: mongoose.Schema.Types.Mixed,
+		default: {url: 'https://s7.postimg.org/3t905fn4r/sng.png'}
 	},
 	propertyname: {
 		type: String,
@@ -99,15 +103,15 @@ var userSchema = new mongoose.Schema({
 	},
 	description: {
 		type: String,
-		default: 'Add a description'
+		default: 'No description added'
 	},
 	gender: {
 		type: String,
-		default: 'Add your gender'
+		default: 'No gender added'
 	},
 	country: {
 		type: String,
-		default: 'Add your country'
+		default: 'No place added'
 	}
 });
 

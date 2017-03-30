@@ -21,10 +21,6 @@
   <!-- main content -->
   <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-    <h1 class="h-no-top-margin grey-header" ng-show="climberProfile.loadedProfile">{{climberProfile.climber.name}}'s profile</h1>
-
-    <hr>
-
     <div class="sk-fading-circle" ng-show="climberProfile.loadingProfile">
         <div class="sk-circle1 sk-circle"></div>
         <div class="sk-circle2 sk-circle"></div>
@@ -41,27 +37,35 @@
     </div>
 
     <div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
-      <div class="panel-heading">
-        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Profile details</h3>
-      </div>
-        <div class="panel-body no-padding">
+
+        <div class="panel-body panel-body-profile">
 
           <div class="container-fluid">
-            <div class="row no-margin">
-              <div class="col-md-4 p-10">
-                  <a href="{{climberProfile.climber.picture.url}}" class="thumbnail">
-                  <img ng-src="{{climberProfile.climber.picture.url}}">
-                  </a>
+
+            <div class="row user-background-pic">
+              <div class="col-md-12">
+                <img ng-src="{{climberProfile.climber.bgrpicture.url}}">
               </div>
-              <div class="col-md-8 p-10">
+            </div>
+
+            <div class="row no-margin">
+              <div class="col-md-3 p-10 user-profile-pic">
+                  <img ng-src="{{climberProfile.climber.picture.url}}" class="thumbnail">
+              </div>
+              <div class="col-md-9 p-10">
                 <ul class="list-group">
-                  <li class="list-group-item no-border"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;{{climberProfile.climber.name}}</li>
+                  <li style="font-size: 22px;" class="list-group-item no-border"><strong>{{climberProfile.climber.name}}</strong></li>
+                  <li class="list-group-item no-border">{{climberProfile.climber.description}}</li>
+                  <li class="list-group-item no-border">Gender:&nbsp;{{climberProfile.climber.gender}}</li>
+                  <li class="list-group-item no-border">Place:&nbsp;{{climberProfile.climber.country}}</li>
                 </ul>
               </div>
             </div>
+
           </div>
         </div>
     </div>
+    
 
     <div class="panel panel-primary" ng-show="climberProfile.loadedProfile">
       <div class="panel-heading">

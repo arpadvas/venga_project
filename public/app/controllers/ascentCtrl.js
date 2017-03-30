@@ -87,7 +87,9 @@ angular.module('ascentController', ['ascentServices'])
 
     	Ascent.getAllAscents().then(function(data) {
     		if (data.data.success) {
-    			app.ascentList = data.data.ascents;
+    			for (var i = 0; i < data.data.ascents.length; i++) {
+    				app.ascentList.push(data.data.ascents[i].name);
+    			}
     		} else {
     			console.log(data.data.success);
     		}

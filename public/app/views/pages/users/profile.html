@@ -29,15 +29,15 @@
 
             <div class="row user-background-pic">
               <div class="col-md-12">
+                <img ng-src="{{currentUser.bgrpicture.url}}" ng-mouseover="profile.showUploadBgrButton()" ng-mouseleave="profile.hideUploadBgrButton()">
+                <button type="button" class="btn btn-default btn-upload-bgr-pic" ng-mouseover="profile.showUploadBgrButton()" ng-mouseleave="profile.hideUploadBgrButton()" ng-show="profile.uploadBgrButtonVisible" ng-click="profile.uploadBgrPhoto()">Update picture</button>
               </div>
             </div>
 
             <div class="row no-margin">
               <div class="col-md-3 p-10 user-profile-pic">
-                  <!-- <a href="{{currentUser.picture.url}}" class="thumbnail"> -->
                   <img ng-src="{{currentUser.picture.url}}" class="thumbnail" ng-mouseover="profile.showUploadButton()" ng-mouseleave="profile.hideUploadButton()">
                   <button type="button" class="btn btn-default btn-upload-profile-pic" ng-mouseover="profile.showUploadButton()" ng-mouseleave="profile.hideUploadButton()" ng-show="profile.uploadButtonVisible" ng-click="profile.upload()">Update picture</button>
-                  <!-- </a> -->
               </div>
               <div class="col-md-9 p-10">
                 <ul class="list-group">
@@ -54,22 +54,28 @@
                     <button type="button" class="btn btn-default" ng-click="profile.saveGender();">Save</button>
                     <button type="button" class="btn btn-default" ng-click="profile.editGender = false;">Cancel</button>
                   </div>
-                  <li class="list-group-item no-border">Country:&nbsp;{{currentUser.country}}</li>
+                  <li class="list-group-item no-border" ng-mouseover="profile.showCountryPencil = true;" ng-mouseleave="profile.showCountryPencil = false;" ng-show="!profile.editCountry">Place:&nbsp;{{currentUser.country}}&nbsp;<i class="fa fa-pencil" aria-hidden="true" ng-click="profile.showEditCountry();" ng-show="profile.showCountryPencil"></i></li>
+                  <div ng-show="profile.editCountry">
+                    <!-- <select class="form-control description" ng-model="profile.countryEdited" ng-options="y for y in profile.genders"></select> -->
+                    <autocomplete datasource="profile.country_list" input="profile.countryEdited" hide="profile.hidethis"></autocomplete>
+                    <button type="button" class="btn btn-default" ng-click="profile.saveCountry();">Save</button>
+                    <button type="button" class="btn btn-default" ng-click="profile.editCountry = false;">Cancel</button>
+                  </div>
                 </ul>
               </div>
             </div>
 
-            <div class="row no-margin">
+            <!-- <div class="row no-margin">
               <div class="col-md-2 p-10">
                 
-                <!-- <button type="submit" class="btn btn-danger"  ng-click="profile.savePicture()" ng-disabled="!currentUser.picture">Save Picture</button> -->
+                <button type="submit" class="btn btn-danger"  ng-click="profile.savePicture()" ng-disabled="!currentUser.picture">Save Picture</button>
                 <ul class="list-group">
                 </ul>
 
               </div>
               <div class="col-md-10 p-10">
               </div>
-            </div>
+            </div> -->
 
             <div class="row no-margin">
               <div class="col-md-12 text-center p-10">

@@ -16,8 +16,10 @@ module.exports = function(profile) {
 
 	profile.put('/profile', function(req, res) {
 		var picture = req.body.picture;
+		var bgrpicture = req.body.bgrpicture;
 		var description = req.body.description;
 		var gender = req.body.gender;
+		var country = req.body.country;
 		var editedUser = req.body.email;
 		User.findOne({ email: editedUser}, function(err, user) {
 			if (err) throw err;
@@ -27,6 +29,8 @@ module.exports = function(profile) {
 				user.picture = picture;
 				user.description = description;
 				user.gender = gender;
+				user.country = country;
+				user.bgrpicture = bgrpicture;
 				user.save(function(err) {
 					if (err) {
 						console.log(err);
