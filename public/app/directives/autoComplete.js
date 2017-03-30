@@ -1,6 +1,6 @@
 angular.module('autocompleteDirective', [])
 
-.directive('autocomplete', function() {
+.directive('autocomplete', function($location) {
 
 	return {
 		restrict: 'E',
@@ -13,13 +13,19 @@ angular.module('autocompleteDirective', [])
 		controller: function($scope) {
 
 			$scope.hide = true;
+			$scope.location = $location.path();
+			if ($scope.location === '/myAscents') {
+      			$scope.typeaheadClass = 'form-group__input';
+      		} else if ($scope.location === '/profile') {
+      			$scope.typeaheadClass = 'description';
+      		}
 
 			$scope.complete = function(inputString){  
 		        if (inputString.length > 1) {  
 		            var output = [];  
 		            for (var i=0; i < $scope.datasource.length; i++) {
-		            	if($scope.datasource[i].name.toLowerCase().indexOf(inputString.toLowerCase()) >= 0) {  
-		                    output.push($scope.datasource[i].name);  
+		            	if($scope.datasource[i].toLowerCase().indexOf(inputString.toLowerCase()) >= 0) {  
+		                    output.push($scope.datasource[i]);  
 		                }  
 		              
 		            } 
