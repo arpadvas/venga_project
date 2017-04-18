@@ -17,7 +17,8 @@ angular.module('userApp',
 	'profileController', 
 	'ascentSearchController', 
 	'climberSearchController',
-	'autocompleteDirective'
+	'autocompleteDirective',
+	'cragServices'
 	])
 
 .config(function($httpProvider, filepickerProvider) {

@@ -1,6 +1,6 @@
-angular.module('ascentController', ['ascentServices'])
+angular.module('ascentController', ['ascentServices', 'cragServices'])
 
-.controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User, $location, $rootScope, $route) {
+.controller('ascentCtrl', function($http, $timeout, Ascent, $scope, $filter, User, $location, $rootScope, $route, Crag) {
 
 	var app = this;
 
@@ -8,6 +8,22 @@ angular.module('ascentController', ['ascentServices'])
 	app.grades = ['3', '4', '5a', '5b', '5c', '6a', '6a+', '6b', '6b+', '6c', '6c+', '7a', '7a+', '7b', 
 				'7b+', '7c', '7c+', '8a', '8a+', '8b', '8b+', '8c', '8c+', '9a', '9a+'];
 	app.styles = ['Redpoint', 'On-sight', 'Flash', 'Top-rope'];
+
+	app.country_list = ["Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antigua &amp; Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas"
+		,"Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia &amp; Herzegovina","Botswana","Brazil","British Virgin Islands"
+		,"Brunei","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Chad","Chile","China","Colombia","Congo","Cook Islands","Costa Rica"
+		,"Cote D Ivoire","Croatia","Cruise Ship","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea"
+		,"Estonia","Ethiopia","Falkland Islands","Faroe Islands","Fiji","Finland","France","French Polynesia","French West Indies","Gabon","Gambia","Georgia","Germany","Ghana"
+		,"Gibraltar","Greece","Greenland","Grenada","Guam","Guatemala","Guernsey","Guinea","Guinea Bissau","Guyana","Haiti","Honduras","Hong Kong","Hungary","Iceland","India"
+		,"Indonesia","Iran","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kuwait","Kyrgyz Republic","Laos","Latvia"
+		,"Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macau","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Mauritania"
+		,"Mauritius","Mexico","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Namibia","Nepal","Netherlands","Netherlands Antilles","New Caledonia"
+		,"New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal"
+		,"Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Pierre &amp; Miquelon","Samoa","San Marino","Satellite","Saudi Arabia","Senegal","Serbia","Seychelles"
+		,"Sierra Leone","Singapore","Slovakia","Slovenia","South Africa","South Korea","Spain","Sri Lanka","St Kitts &amp; Nevis","St Lucia","St Vincent","St. Lucia","Sudan"
+		,"Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor L'Este","Togo","Tonga","Trinidad &amp; Tobago","Tunisia"
+		,"Turkey","Turkmenistan","Turks &amp; Caicos","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay"
+		,"Uzbekistan","Venezuela","Vietnam","Virgin Islands (US)","Yemen","Zambia","Zimbabwe"];
 
  	app.pageSize = 10;
  	app.pageNo = 1;
@@ -111,7 +127,6 @@ angular.module('ascentController', ['ascentServices'])
 					app.successMsg = false;
 					$("#ascentModal").modal('hide');
 					app.ascentData = undefined;
-					//app.getMyAscents(app.pageNo);
 					$scope.today();
 					$route.reload();
 				}, 1000);
@@ -120,11 +135,18 @@ angular.module('ascentController', ['ascentServices'])
 				app.errorMsg = data.data.message;
 			}
 		});
+
+		app.cragData = {};
+		app.cragData.cragName = app.ascentData.name;
+		app.cragData.country = app.ascentData.country;
+		Crag.addcrag(app.cragData).then(function(data) {
+			console.log(data.data.message); 
+		});
 	};
 
 	app.showAscentModal = function() {
 		app.ascentData = {};
-		app.hidethis = true;
+		app.hideName = true;
 		getAllAscents();
 		$("#ascentModal").modal({backdrop: "static"});
 
@@ -160,6 +182,8 @@ angular.module('ascentController', ['ascentServices'])
 				$scope.newName = data.data.ascent.name;
 				$scope.newStyle = data.data.ascent.style;
 				$scope.newGrade = data.data.ascent.grade;
+				$scope.newCrag = data.data.ascent.crag;
+				$scope.newCountry = data.data.ascent.country;
 				$scope.dt = data.data.ascent.date;
 				app.currentAscent = data.data.ascent._id;
 			} else {
@@ -182,6 +206,8 @@ angular.module('ascentController', ['ascentServices'])
 		ascentObject.name = $scope.newName;
 		ascentObject.style = $scope.newStyle;
 		ascentObject.grade = $scope.newGrade;
+		ascentObject.crag = $scope.newCrag;
+		ascentObject.country = $scope.newCountry;
 		ascentObject.date = $scope.dt;
 		app.loading = true;
 		app.errorMsg = false;

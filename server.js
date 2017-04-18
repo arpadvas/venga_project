@@ -12,6 +12,7 @@ var myascents = express.Router();
 var ascentsearch = express.Router();
 var climbersearch = express.Router();
 var climberprofile = express.Router();
+var crag = express.Router();
 var appRoutes = require('./app/routes/api')(router);
 var profileRoutes = require('./app/routes/profile')(profile);
 var userMgmtRoutes = require('./app/routes/usermgmt')(userMgmt);
@@ -19,6 +20,7 @@ var myascentsRoutes = require('./app/routes/myascents')(myascents);
 var ascentSearchRoutes = require('./app/routes/ascentsearch')(ascentsearch);
 var climberSearchRoutes = require('./app/routes/climbersearch')(climbersearch);
 var climberProfileRoutes = require('./app/routes/climberprofile')(climberprofile);
+var cragRoutes = require('./app/routes/crag')(crag);
 var path = require('path');
 var passport = require('passport');
 var social = require('./app/passport/passport')(app, passport);
@@ -35,6 +37,7 @@ app.use('/api', myascentsRoutes);
 app.use('/api', ascentSearchRoutes);
 app.use('/api', climberSearchRoutes);
 app.use('/api', climberProfileRoutes);
+app.use('/api', cragRoutes);
 
 mongoose.connect('mongodb://avas:123456@ds145359.mlab.com:45359/venga', function(err) {
 	if (err) {

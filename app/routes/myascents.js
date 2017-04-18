@@ -97,6 +97,38 @@ module.exports = function(myascents) {
 							res.json({ success: true, ascents: ascents });
 						}
 					});
+				} else if (propertyname === 'crag' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ crag: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'crag' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ crag: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'country' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ country: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'country' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ country: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
 				}
 			}
 		});
@@ -117,7 +149,9 @@ module.exports = function(myascents) {
 			ascent.sentBy = mainUser.email;
 			ascent.date = req.body.date;
 			ascent.sentByName = mainUser.name;
-			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '' || req.body.date == null || req.body.date == '') {
+			ascent.crag = req.body.crag;
+			ascent.country = req.body.country;
+			if (req.body.name == null || req.body.name == '' || req.body.style == null || req.body.style == '' || req.body.grade == null || req.body.grade == '' || req.body.date == null || req.body.date == '' || req.body.crag == null || req.body.crag == '' || req.body.country == null || req.body.country == '') {
 				res.json({success: false, message: 'Please make sure the fields are filled out properly!'});
 			} else {
 				ascent.normalized = ascent.name.toLowerCase();
@@ -155,6 +189,8 @@ module.exports = function(myascents) {
 		var newStyle = req.body.style;
 		var newGrade = req.body.grade;
 		var newDate = req.body.date;
+		var newCrag = req.body.crag;
+		var newCountry = req.body.country;
 		User.findOne({ email: req.decoded.email }, function(err, mainUser) {
 			if (err) throw err;
 			if (!mainUser) {
@@ -169,6 +205,9 @@ module.exports = function(myascents) {
 						ascent.style = newStyle;
 						ascent.grade = newGrade;
 						ascent.date = newDate;
+						ascent.crag = newCrag;
+						ascent.country = newCountry;
+						ascent.normalized = newName.toLowerCase();
 						ascent.save(function(err) {
 							if (err) {
 								console.log(err);
