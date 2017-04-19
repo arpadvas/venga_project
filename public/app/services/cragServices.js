@@ -7,5 +7,9 @@ angular.module('cragServices', [])
 		return $http.post('/api/crag', cragData);
 	};
 
+	cragFactory.checkCrag = function(name) {
+		return $http.get('/api/checkcrag/' + name)
+	};
+
 	return cragFactory;
 });

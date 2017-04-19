@@ -112,14 +112,14 @@ angular.module('ascentController', ['ascentServices', 'cragServices'])
     	});
     }
 
-    app.addAscent = function(ascentData) {
-		app.loading = true;
-		app.errorMsg = false;
-		if (app.ascentData) {
-			app.ascentData.date = $scope.dt;
-		}
+    function toTitleCase(str) {
+	    return str.replace(/\w\S*/g, function(txt){
+	    	return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	    });
+	}
 
-		Ascent.addAscent(app.ascentData).then(function(data) {
+    function addAscent() {
+    	return Ascent.addAscent(app.ascentData).then(function(data) {
 			if (data.data.success) {
 				app.loading = false;
 				app.successMsg = data.data.message;
@@ -135,13 +135,38 @@ angular.module('ascentController', ['ascentServices', 'cragServices'])
 				app.errorMsg = data.data.message;
 			}
 		});
+    }
 
-		app.cragData = {};
-		app.cragData.cragName = app.ascentData.name;
+    function addCrag() {
+    	app.cragData = {};
+		app.cragData.cragName = toTitleCase(app.ascentData.crag);
 		app.cragData.country = app.ascentData.country;
-		Crag.addcrag(app.cragData).then(function(data) {
-			console.log(data.data.message); 
+		Crag.checkCrag(app.cragData.cragName).then(function(data) {
+			if (data.data.success) {
+				console.log(data.data.message);
+			} else {
+				Crag.addcrag(app.cragData).then(function(response) {
+					console.log(response.data.message); 
+				});
+			}
 		});
+    }
+
+    function reportProblems(error) {
+	    app.errorMsg = error.data.message;
+	}
+
+    app.addAscent = function(ascentData) {
+		app.loading = true;
+		app.errorMsg = false;
+		if (app.ascentData) {
+			app.ascentData.date = $scope.dt;
+		}
+
+		addAscent()
+			.then(addCrag)
+			.catch(reportProblems);
+
 	};
 
 	app.showAscentModal = function() {

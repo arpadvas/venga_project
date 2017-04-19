@@ -1,5 +1,3 @@
-var User = require('../models/user');
-var Ascent = require('../models/ascent');
 var Crag = require('../models/crag');
 
 module.exports = function(crag) {
@@ -13,6 +11,17 @@ module.exports = function(crag) {
 				res.json({success: false, message: 'An error occured. Please try again later!'});
 			} else {
 				res.json({success: true, message: 'Crag created.'});
+			}
+		});
+	});
+
+	crag.get('/checkcrag/:name', function(req, res) {
+		Crag.findOne({ name: req.params.name }, function(err, crag) {
+			if (err) throw err;
+			if (!crag) {
+				res.json({success: false, message: 'No crag was found!'});
+			} else {
+				res.json({success: true, message: 'Crag already exists!'});
 			}
 		});
 	});
