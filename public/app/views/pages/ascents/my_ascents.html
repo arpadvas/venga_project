@@ -114,7 +114,8 @@
 				  </div>
 				  <div class="form-group">
 				    <label>Crag</label>
-				    <input name="crag" class="form-control form-group__input" ng-model="ascent.ascentData.crag">
+				    <!-- <input name="crag" class="form-control form-group__input" ng-model="ascent.ascentData.crag"> -->
+				    <autocomplete datasource="ascent.cragList" input="ascent.ascentData.crag" hide="ascent.hideCrag"></autocomplete>
 				  </div>
 				  <div class="form-group">
 				    <label>Country</label>

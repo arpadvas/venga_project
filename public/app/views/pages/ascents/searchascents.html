@@ -28,52 +28,51 @@
 	<div class="alert alert-success alert-custom show-hide-message" role="alert" ng-show='ascentSearch.successMsg'><p>{{ascentSearch.successMsg}}</p></div>
 	<div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='ascentSearch.errorMsg'><p>{{ascentSearch.errorMsg}}</p></div>
 
-	<!-- <div class="panel panel-primary">
-		<div class="panel-heading">
-			<i class="fa fa-search" aria-hidden="true"></i>&nbsp;<h3 class="panel-title">Search parameters</h3>
-		</div>
-		<div class="panel-body"> -->
 
-			<form class="form-horizontal">
-			  <div class="form-group">
-			    <label class="col-sm-offset-3 col-sm-1 control-label">Ascent name</label>
-			    <div class="col-sm-5">
-			      <input type="text" class="form-control form-group__input" name="searchByName" placeholder="Search by name" ng-model="searchByName" ng-change="climberSearch.pageNo = 1;">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="col-sm-offset-3 col-sm-1 control-label">Style</label>
-			    <div class="col-sm-5">
-			    	<select class="form-control form-group__input" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascentSearch.styles" ng-change="climberSearch.pageNo = 1;"></select>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="col-sm-offset-3 col-sm-1 control-label">Grade</label>
-			    <div class="col-sm-5">
-			    	<select class="form-control form-group__input" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascentSearch.grades" ng-change="climberSearch.pageNo = 1;"></select>
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <label class="col-sm-offset-3 col-sm-1 control-label">Sent by</label>
-			    <div class="col-sm-5">
-			      <input type="text" class="form-control form-group__input" name="searchBySender" placeholder="Search by sender" ng-model="searchBySender" ng-change="climberSearch.pageNo = 1;">
-			    </div>
-			  </div>
-			  <div class="form-group">
-			    <div class="col-sm-offset-4 col-sm-6">
-			      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.search(searchByName, searchByStyle, searchByGrade, searchBySender);">Search</button>
-			      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.clear();">Clear</button>
-			    </div>
-			  </div>
-			  <!-- <div class="form-group" ng-show="ascentSearch.ascents !== undefined">
-			    <div class="col-sm-offset-1 col-sm-10">
-			      <p>Total results: {{ascentSearch.ascents.length}}</p>
-			    </div>
-			  </div> -->
-			</form>
-
-	<!-- 	</div>
-	</div> -->
+	<form class="form-horizontal">
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Ascent name</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control form-group__input" name="searchByName" placeholder="Search by name" ng-model="searchByName" ng-change="climberSearch.pageNo = 1;">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Style</label>
+	    <div class="col-sm-5">
+	    	<select class="form-control form-group__input" name="searchByStyle" ng-model="searchByStyle" ng-options="y for y in ascentSearch.styles" ng-change="climberSearch.pageNo = 1;"></select>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Grade</label>
+	    <div class="col-sm-5">
+	    	<select class="form-control form-group__input" name="searchByGrade" ng-model="searchByGrade" ng-options="x for x in ascentSearch.grades" ng-change="climberSearch.pageNo = 1;"></select>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Crag</label>
+	    <div class="col-sm-5">
+	    	<input class="form-control form-group__input" name="searchByCrag" ng-model="searchByCrag" placeholder="Search by crag" ng-change="climberSearch.pageNo = 1;">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Country</label>
+	    <div class="col-sm-5">
+	    	<select class="form-control form-group__input" name="searchByCountry" ng-model="searchByCountry" ng-options="y for y in ascentSearch.country_list" ng-change="climberSearch.pageNo = 1;"></select>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Sent by</label>
+	    <div class="col-sm-5">
+	      <input type="text" class="form-control form-group__input" name="searchBySender" placeholder="Search by sender" ng-model="searchBySender" ng-change="climberSearch.pageNo = 1;">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <div class="col-sm-offset-4 col-sm-6">
+	      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.search(searchByName, searchByStyle, searchByGrade, searchByCrag, searchByCountry, searchBySender);">Search</button>
+	      <button type="submit" class="btn btn-custom" ng-click="ascentSearch.clear();">Clear</button>
+	    </div>
+	  </div>
+	</form>
 
 	<br>
 
@@ -100,16 +99,20 @@
 				<div class="table-responsive">
 					<table class="table">
 						<tr>
-							<th  style="width:30%"ng-click="ascentSearch.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'name';"></th>
-							<th  style="width:25%"ng-click="ascentSearch.sortBy('style')">Style&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'style';"></th>
+							<th  style="width:20%"ng-click="ascentSearch.sortBy('name')">Name&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'name';"></th>
+							<th  style="width:10%"ng-click="ascentSearch.sortBy('style')">Style&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'style';"></th>
 							<th  style="width:10%"ng-click="ascentSearch.sortBy('grade')">Grade&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'grade';"></th>
-							<th  style="width:20%"ng-click="ascentSearch.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'date';"></th>	
+							<th  style="width:20%"ng-click="ascentSearch.sortBy('crag')">Crag&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'crag';"></th>
+							<th  style="width:15%"ng-click="ascentSearch.sortBy('country')">Country&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'country';"></th>
+							<th  style="width:10%"ng-click="ascentSearch.sortBy('date')">Date&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'date';"></th>	
 							<th  style="width:15%"ng-click="ascentSearch.sortBy('sentByName')">Sent By&nbsp;<i class="fa fa-sort" aria-hidden="true" ng-if="ascentSearch.propertyName === 'sentByName';"></th>
 						</tr>
 					<tr dir-paginate="climb in ascentSearch.ascents | itemsPerPage: ascentSearch.pageSize" total-items="ascentSearch.totalCount" pagination-id="search">
 						<td>{{climb.name}}</td>
 							<td>{{climb.style}}</td>
 							<td>{{climb.grade}}</td>
+							<td>{{climb.crag}}</td>
+							<td>{{climb.country}}</td>
 							<td>{{climb.date | date:'MM/dd/yyyy' }}</td>
 							<td class="blue" ng-click="ascentSearch.openProfile(climb.sentBy);">{{climb.sentByName}}</td>
 						</tr>

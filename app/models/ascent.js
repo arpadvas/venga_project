@@ -34,11 +34,13 @@ var ascentSchema = new mongoose.Schema({
 	},
 	crag: {
 		type: String,
-		required: true
+		required: true,
+		default: 'Tardos'
 	},
 	country: {
 		type: String,
-		required: true
+		required: true,
+		default: 'Hungary'
 	}
 });
 

@@ -26,6 +26,16 @@ module.exports = function(crag) {
 		});
 	});
 
+	crag.get('/allcrags', function(req, res) {
+		Crag.find({ }, function(err, crags) {
+			if (!crags) {
+				res.json({success: false, message: 'No crag was found!'});
+			} else {
+				res.json({ success: true, crags: crags });
+			}
+		});
+	});
+
 	return crag;
 
 }

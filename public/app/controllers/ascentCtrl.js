@@ -30,6 +30,7 @@ angular.module('ascentController', ['ascentServices', 'cragServices'])
  	app.totalCount = 0;
 
     app.ascentList = [];
+    app.cragList = [];
   	
 // get ascents when page load////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -97,7 +98,7 @@ angular.module('ascentController', ['ascentServices', 'cragServices'])
     };
 
 
-// adding ascents////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// adding ascents and crag//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function getAllAscents() {
 
@@ -105,6 +106,19 @@ angular.module('ascentController', ['ascentServices', 'cragServices'])
     		if (data.data.success) {
     			for (var i = 0; i < data.data.ascents.length; i++) {
     				app.ascentList.push(data.data.ascents[i].name);
+    			}
+    		} else {
+    			console.log(data.data.success);
+    		}
+    	});
+    }
+
+    function getAllCrags() {
+
+    	Crag.getAllCrags().then(function(data) {
+    		if (data.data.success) {
+    			for (var i = 0; i < data.data.crags.length; i++) {
+    				app.cragList.push(data.data.crags[i].name);
     			}
     		} else {
     			console.log(data.data.success);
@@ -172,7 +186,9 @@ angular.module('ascentController', ['ascentServices', 'cragServices'])
 	app.showAscentModal = function() {
 		app.ascentData = {};
 		app.hideName = true;
+		app.hideCrag = true;
 		getAllAscents();
+		getAllCrags();
 		$("#ascentModal").modal({backdrop: "static"});
 
 	};

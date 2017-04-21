@@ -103,6 +103,38 @@ module.exports = function(climberprofile) {
 							res.json({ success: true, ascents: ascents });
 						}
 					});
+				} else if (propertyname === 'crag' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ crag: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'crag' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ crag: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'country' && reverse === 'false') {
+					Ascent.find({ sentBy: user.email }).sort({ country: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
+				} else if (propertyname === 'country' && reverse === 'true') {
+					Ascent.find({ sentBy: user.email }).sort({ country: -1 }).skip(offset).limit(limit).exec(function(err, ascents) {
+						if (!ascents) {
+							res.json({success: false, message: 'No ascent was found!'});
+						} else {
+							res.json({ success: true, ascents: ascents });
+						}
+					});
 				} else if (propertyname === 'date' && reverse === 'false') {
 					Ascent.find({ sentBy: user.email }).sort({ date: 1 }).skip(offset).limit(limit).exec(function(err, ascents) {
 						if (!ascents) {
