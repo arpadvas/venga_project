@@ -119,6 +119,13 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		authenticated: true
 	})
 
+	.when('/crags', {
+		templateUrl: 'app/views/pages/crags/crags.html',
+		controller: 'cragsCtrl',
+        controllerAs: 'crags',
+		authenticated: true
+	})
+
 	.otherwise( {redirectTo: '/'} );
 
 	$locationProvider.html5Mode({
