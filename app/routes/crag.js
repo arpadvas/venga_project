@@ -36,6 +36,17 @@ module.exports = function(crag) {
 		});
 	});
 
+	crag.get('/crags/:keyword', function(req, res) {
+		Crag.find({ name: { $regex: req.params.keyword, $options: "i" } }).exec(function(err, crags) {
+			if (err) throw err;
+			if (!crags) {
+				res.json({success: false, message: 'No crag was found!'});
+			} else {
+				res.json({ success: true, crags: crags });
+			}
+		});
+	});
+
 	return crag;
 
 }
