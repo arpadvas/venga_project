@@ -31,17 +31,22 @@
 
 	<form class="form-horizontal">
 	  <div class="form-group">
-	    <label class="col-sm-offset-2 col-sm-1 control-label">Name</label>
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Crag name</label>
 	    <div class="col-sm-5">
 	      <input type="text" class="form-control form-group__input" name="searchByCragName" placeholder="Search by name" ng-model="searchByCragName" >
 	    </div>
-	    <div class="col-sm-2">
-	      <button type="submit" class="btn btn-custom" ng-click="crags.search(searchByCragName);">Search</button>
-	      <button type="submit" class="btn btn-custom" ng-click="cags.clear();">Clear</button>
+	  </div>
+	  <div class="form-group">
+	    <label class="col-sm-offset-3 col-sm-1 control-label">Country</label>
+	    <div class="col-sm-5">
+	    	<select class="form-control form-group__input" name="searchByCragCountry" ng-model="searchByCragCountry" ng-options="y for y in crags.country_list" ></select>
 	    </div>
 	  </div>
 	  <div class="form-group">
-	    
+	    <div class="col-sm-offset-4 col-sm-6">
+	      <button type="submit" class="btn btn-custom" ng-click="crags.search(searchByCragName, searchByCragCountry);">Search</button>
+	      <button type="submit" class="btn btn-custom" ng-click="crags.clear();">Clear</button>
+	    </div>
 	  </div>
 	</form>
 
@@ -60,6 +65,17 @@
 	    <div class="sk-circle12 sk-circle"></div>
 	</div>
 
+
+	<div class="crag-panel-container" ng-repeat="crag in crags.crags">
+		<div class="panel panel-default panel-crag">
+	  		<div class="panel-heading">
+	    		<h3 class="panel-title">{{crag.name}}</h3>
+	  		</div>
+	  		<div class="panel-body">
+	    		{{crag.country}}
+	  		</div>
+		</div>
+	</div>
 
   </div> 
     <!-- end of main content -->

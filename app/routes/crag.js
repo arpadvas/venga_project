@@ -36,8 +36,8 @@ module.exports = function(crag) {
 		});
 	});
 
-	crag.get('/crags/:keyword', function(req, res) {
-		Crag.find({ name: { $regex: req.params.keyword, $options: "i" } }).exec(function(err, crags) {
+	crag.post('/crags', function(req, res) {
+		Crag.find({ name: { $regex: req.body.nameKeyword, $options: "i" }, country: { $regex: req.body.countryKeyword, $options: "i" } }).exec(function(err, crags) {
 			if (err) throw err;
 			if (!crags) {
 				res.json({success: false, message: 'No crag was found!'});

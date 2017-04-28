@@ -66,6 +66,22 @@ body{
   margin: 0px auto;
 }
 
+@media (min-width: 768px) {
+  .crag-panel-container {
+    width: 49.5%;
+    float: left;
+    padding: 0 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .crag-panel-container {
+    width: 33.3%;
+    float: left;
+    padding: 0 10px;
+  }
+}
+
 /*forms**********************************************************************/
 
 .form-group p {

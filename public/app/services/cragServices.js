@@ -15,8 +15,8 @@ angular.module('cragServices', [])
 		return $http.get('/api/allcrags');
 	};
 
-	cragFactory.getCrags = function(keyword) {
-		return $http.get('/api/crags/' + keyword);
+	cragFactory.getCrags = function(keywordData) {
+		return $http.post('/api/crags', keywordData);
 	};
 
 	return cragFactory;
